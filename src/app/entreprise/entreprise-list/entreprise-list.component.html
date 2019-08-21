@@ -1,0 +1,42 @@
+<div class="formAddPartenaire">
+    <div class="form-group rowAjout">
+        <p class="col-sm-9"></p>
+        <a class="btn btn-default col-3 boutonAjouter" routerLink="/partenaires/add">Ajouter</a>
+    </div>
+    <table #dataTable class="display" style="width:100%">
+        <thead>
+            <tr>
+                <th>Raison Sociale</th>
+                <th>NINEA</th>
+                <th>Email</th>
+                <th>Téléphone</th>
+                <th>Solde global</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let entreprise of entreprises">
+                <td>{{ entreprise.raisonSociale }}</td>
+                <td>{{ entreprise.ninea }}</td>
+                <td>{{ entreprise.emailEntreprise }}</td>
+                <td>{{ entreprise.telephoneEntreprise }}</td>
+                <td>{{ entreprise.soldeGlobal | number }}</td>
+                <td><button [ngClass]="{
+                    'btn boutonBloquer': true,
+                    'btn-success': entreprise.status=='Actif', 
+                    'btn-danger': entreprise.status=='Bloqué'
+                    }" (click)="bloquer(entreprise.id)">{{ entreprise.status }}</button></td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>Raison Sociale</th>
+                <th>NINEA</th>
+                <th>Email</th>
+                <th>Téléphone</th>
+                <th>Solde global</th>
+                <th>Status</th>
+            </tr>
+        </tfoot>
+    </table>
+</div>

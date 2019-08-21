@@ -1,0 +1,6 @@
+bootstrap
+npm install angular-jwt
+npm install jquery --save
+npm install datatables.net --save
+npm install datatables.net-dt --save
+npm install @types/datatables.net --save-dev
