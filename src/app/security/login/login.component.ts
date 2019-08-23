@@ -34,9 +34,9 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/entreprises/liste']);
       },
       (error)=>{
-        this.errorMessage=error;
+        this.errorMessage='Erreur sur le login ou le mot de passe';
       }
-    );;
+    );
     console.log(localStorage);
 
     this.router.navigate(['/entreprises/liste']);

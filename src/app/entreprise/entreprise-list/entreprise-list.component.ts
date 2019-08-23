@@ -29,7 +29,12 @@ export class EntrepriseListComponent implements OnInit{
     this.dataTable.DataTable();
   }
   bloquer(id: number){
-    this.entrepriseServ.bloquer(id);
-    this.entrepriseServ.getEntreprise();
+    this.entrepriseServ.bloquer(id).then(
+      ()=>{//si la promesse est resulue
+        this.entrepriseServ.getEntreprise();
+      }
+    );
+    
+    
   }
 }

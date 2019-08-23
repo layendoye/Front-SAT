@@ -24,17 +24,17 @@ export class EntrepriseFormComponent implements OnInit {
   initForm(){
     this.entrepriseForm=this.formBuilder.group({   
       raisonSociale:['',[Validators.required]],
-      ninea:['',[Validators.required]],
+      ninea:['',[Validators.required,Validators.pattern(/[0-9]{2,}/)]],
       adresse:['',[Validators.required]],
-      emailEntreprise:['',[Validators.required]],
-      telephoneEntreprise:['',[Validators.required]],
-      nom:['',[Validators.required]],
+      emailEntreprise:['',[Validators.required,Validators.email]],
+      telephoneEntreprise:['',[Validators.required,Validators.pattern(/[0-9]{2,}/)]],
+      nom:['',[Validators.required,Validators.pattern(/[a-z-A-Z]{2,}/)]],
       username:['',[Validators.required]],
       password: ['',[Validators.required,Validators.pattern(/[0-9a-z-A-Z]{2,}/)]],//comme ca le password va contenir au moins 2 caracteres
       confirmPassword:['',[Validators.required]],
       email:['',[Validators.required,Validators.email]],
-      telephone:['',[Validators.required]],
-      nci:['',[Validators.required]]
+      telephone:['',[Validators.required,Validators.pattern(/[0-9]{2,}/)]],
+      nci:['',[Validators.required,Validators.pattern(/[0-9]{2,}/)]]
     });
   }
   onSubmit(){

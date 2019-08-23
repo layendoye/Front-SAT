@@ -1,17 +1,18 @@
-<div class="formAddPartenaire">
+<div class="tabListe">
     <div class="form-group rowAjout row">
         <p class="col-sm-9"></p>
         <a class="btn btn-primary col-2 boutonAjouter" routerLink="/partenaires/add">Ajouter</a>
     </div>
     <table #dataTable class="display" style="width:100%">
+        <caption>Nouveau partenaire</caption>
         <thead>
             <tr>
-                <th>Raison Sociale</th>
-                <th>NINEA</th>
-                <th>Email</th>
-                <th>Téléphone</th>
-                <th>Solde global</th>
-                <th>Status</th>
+                <th scope="col">Raison Sociale</th>
+                <th scope="col">NINEA</th>
+                <th scope="col">Email</th>
+                <th scope="col">Téléphone</th>
+                <th scope="col">Solde global</th>
+                <th scope="col">Status</th>
             </tr>
         </thead>
         <tbody>
@@ -27,47 +28,16 @@
                     'btn-danger': entreprise.status=='Bloqué'
                     }" (click)="bloquer(entreprise.id)">{{ entreprise.status }}</button></td>
             </tr>
-            <!--<tr>
-                <td>aaaa</td>
-                <td>aaaa</td>
-                <td>aaaa</td>
-                <td>aaaa</td>
-                <td>aaaa</td>
-                <td>aaaa</td>
-            </tr>
-            <tr>
-                <td>aaaa</td>
-                <td>aaaa</td>
-                <td>aaaa</td>
-                <td>aaaa</td>
-                <td>aaaa</td>
-                <td>aaaa</td>
-            </tr>
-            <tr>
-                <td>aaaa</td>
-                <td>aaaa</td>
-                <td>aaaa</td>
-                <td>aaaa</td>
-                <td>aaaa</td>
-                <td>aaaa</td>
-            </tr>
-            <tr>
-                <td>aaaa</td>
-                <td>aaaa</td>
-                <td>aaaa</td>
-                <td>aaaa</td>
-                <td>aaaa</td>
-                <td>aaaa</td>
-            </tr>-->
+
         </tbody>
         <tfoot>
             <tr>
-                <th>Raison Sociale</th>
-                <th>NINEA</th>
-                <th>Email</th>
-                <th>Téléphone</th>
-                <th>Solde global</th>
-                <th>Status</th>
+                <th scope="col">Raison Sociale</th>
+                <th scope="col">NINEA</th>
+                <th scope="col">Email</th>
+                <th scope="col">Téléphone</th>
+                <th scope="col">Solde global</th>
+                <th scope="col">Status</th>
             </tr>
         </tfoot>
     </table>

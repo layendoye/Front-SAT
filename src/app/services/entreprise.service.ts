@@ -31,18 +31,23 @@ export class EntrepriseService {
   }
   bloquer(id: number){
     const headers = new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem('token'));
-    this.httpClient
-      .get<any[]>('http://127.0.0.1:8000/bloque/entreprises/'+id,{headers: headers})
-      .subscribe(
-        ()=>{
-          console.log('Partenaire bloqué ! ');
-          this.emitEntreprise();
-        },
-        (error)=>{
-          console.log('Erreur : '+error.message);
-          alert('Impossible de bloquer ce partenaire !');
-        }
-      );
+    return new Promise(
+      (resolve, reject)=>{
+      this.httpClient
+        .get<any[]>('http://127.0.0.1:8000/bloque/entreprises/'+id,{headers: headers})
+        .subscribe(
+          ()=>{
+            console.log('Partenaire bloqué ! ');
+            this.emitEntreprise();
+            resolve();
+          },
+          (error)=>{
+            console.log('Erreur : '+error.message);
+            alert('Impossible de bloquer ce partenaire !');
+            reject(error);
+          }
+        );
+      })
   }
   addEntreprise(entreprise: Entreprise,user:Utilisateur){
     const data={
@@ -61,9 +66,11 @@ export class EntrepriseService {
     }
     const headers = new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem('token'));
     this.httpClient
-      .post('http://127.0.0.1:8000/partenaires/add',data,{headers: headers})
+      .post<any>('http://127.0.0.1:8000/partenaires/add',data,{headers: headers})
       .subscribe(
-        ()=>{
+        (rep)=>{
+          console.log(rep);
+          alert(rep.message+"\n"+rep.compte);
         },
         (error)=>{
           console.log('Erreur : '+error.message);
