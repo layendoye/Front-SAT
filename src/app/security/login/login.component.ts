@@ -26,16 +26,19 @@ export class LoginComponent implements OnInit {
     });
   }
   onSubmit(){
-    this.logOut();
+    localStorage.removeItem('token');
     const username=this.signInForm.get('username').value;
     const password=this.signInForm.get('password').value;
-    this.securityService.login(username,password);
+    this.securityService.login(username,password).then(
+      ()=>{//si tous ce passe bien
+        this.router.navigate(['/entreprises/liste']);
+      },
+      (error)=>{
+        this.errorMessage=error;
+      }
+    );;
     console.log(localStorage);
 
-    this.router.navigate(['entreprises/liste']);
+    this.router.navigate(['/entreprises/liste']);
   }
-  logOut(){
-    localStorage.removeItem('id_token');
-  }
-
 }

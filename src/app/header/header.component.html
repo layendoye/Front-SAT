@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default">
+<!--<nav class="navbar navbar-default">
     <div class="container-fluid">
         <ul class="nav navbar-nav">
             <li routerLinkActive="active">
@@ -20,6 +20,28 @@
             </li>
             <li>
                 <a style="cursor: pointer">Déconnexion</a>
+            </li>
+        </ul>
+    </div>
+</nav>-->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" href="">SA Transfert</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+    <div class="collapse navbar-collapse" id="navbarColor01">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link" routerLink="entreprises/liste">Partenaires</a>
+            </li>
+            <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link" routerLink="nouveau/depot">Dêpot</a>
+            </li>
+            <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link" routerLink="inscription">Inscription</a>
+            </li>
+            <li class="nav-item" *ngIf="connecter">
+                <a class="nav-link" (click)="logOut()" style="cursor: pointer">Déconnexion</a>
             </li>
         </ul>
     </div>

@@ -18,14 +18,7 @@ import { LoginComponent } from './security/login/login.component';
 import { EntrepriseListComponent } from './entreprise/entreprise-list/entreprise-list.component';
 import { HttpClientModule } from '@angular/common/http';
 const appRoutes: Routes=[
-  { path:'connexion', component: LoginComponent },
-  { path:'entreprises/liste', component: EntrepriseListComponent},
-  { path:'inscription'/*,canActivate:[AuthGuardService]*/, component: UtilisateurFormComponent},
-  { path:'partenaires/add'/*,canActivate:[AuthGuardService]*/, component: EntrepriseFormComponent },
-  { path:'nouveau/depot'/*,canActivate:[AuthGuardService]*/, component: DepotFormComponent},
-  { path:'changer/compte'/*,canActivate:[AuthGuardService]*/, component: OctroieCompteFormComponent},
-  { path:'', redirectTo:'entreprises/liste', pathMatch: 'full' },//pour eviter les erreurs pathMatch: 'full' pour dire que le path doit etre totalement vide
-  { path:'**',  redirectTo:'entreprises/liste' }
+  
 ]
 @NgModule({
   declarations: [
@@ -44,7 +37,6 @@ const appRoutes: Routes=[
     AppRoutingModule,
     FormsModule,//pour les forms
     ReactiveFormsModule,//pour les forms
-    RouterModule.forRoot(appRoutes),//pour le routing,
     HttpClientModule//pour les requettes http
   ],
   providers: [

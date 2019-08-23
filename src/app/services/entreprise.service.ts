@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Entreprise } from '../models/Entreprise.model';
 import { Utilisateur } from '../models/Utilisateur.model';
-import { HttpClient } from '@angular/common/http';
-import { AuthHttp } from 'angular-jwt';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -16,8 +16,9 @@ export class EntrepriseService {
     this.entrepriseSubject.next(this.entreprises);//la methode next force le subject à emmetre ce qu on lui passe en argument (ici la liste des entreprises)
   }
   getEntreprise(){
+    const headers = new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem('token'));
     this.httpClient
-      .get<any[]>('http://127.0.0.1:8000/entreprises/liste')
+      .get<any[]>('http://127.0.0.1:8000/entreprises/liste',{headers: headers})
       .subscribe(
         (response)=>{
           this.entreprises=response;
@@ -29,13 +30,13 @@ export class EntrepriseService {
       );
   }
   bloquer(id: number){
+    const headers = new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem('token'));
     this.httpClient
-      .get<any[]>('http://127.0.0.1:8000/bloque/entreprises/'+id)
+      .get<any[]>('http://127.0.0.1:8000/bloque/entreprises/'+id,{headers: headers})
       .subscribe(
         ()=>{
           console.log('Partenaire bloqué ! ');
           this.emitEntreprise();
-          
         },
         (error)=>{
           console.log('Erreur : '+error.message);
@@ -58,8 +59,9 @@ export class EntrepriseService {
       telephone:user.telephone,
       nci:user.nci
     }
+    const headers = new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem('token'));
     this.httpClient
-      .post('http://127.0.0.1:8000/partenaires/add',data)
+      .post('http://127.0.0.1:8000/partenaires/add',data,{headers: headers})
       .subscribe(
         ()=>{
         },
