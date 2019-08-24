@@ -1,5 +1,7 @@
 .boutonBloquer {
-    width: 70%;
+    width: 100%;
+    padding-left: 0px;
+    padding-right: 0px;
 }
 
 .boutonAjouter {
@@ -13,4 +15,8 @@
 .tabListe {
     margin-top: 3%;
     margin-bottom: 1%;
+}
+
+.modif {
+    font-size: 180%;
 }

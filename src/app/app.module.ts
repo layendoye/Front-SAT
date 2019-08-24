@@ -17,9 +17,9 @@ import { OctroieCompteFormComponent } from './octroieCompte/octroie-compte-form/
 import { LoginComponent } from './security/login/login.component';
 import { EntrepriseListComponent } from './entreprise/entreprise-list/entreprise-list.component';
 import { HttpClientModule } from '@angular/common/http';
-const appRoutes: Routes=[
-  
-]
+import { SidebarComponent } from './sidebar/sidebar.component';
+import { DataTablesModule } from 'angular-datatables';
+import { AuthGuard } from './services/auth-guard.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,19 +30,21 @@ const appRoutes: Routes=[
     DepotFormComponent,
     OctroieCompteFormComponent,
     LoginComponent,
-    EntrepriseListComponent
+    EntrepriseListComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,//pour les forms
     ReactiveFormsModule,//pour les forms
-    HttpClientModule//pour les requettes http
+    HttpClientModule,//pour les requettes http
   ],
   providers: [
     SecurityService,
     EntrepriseService,
-    TransactionService
+    TransactionService,
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })

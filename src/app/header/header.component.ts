@@ -17,6 +17,7 @@ export class HeaderComponent implements OnInit {
   }
   logOut(){
     localStorage.removeItem('token');
+    window.location.reload();
     this.router.navigate(['/connexion']);
   }
 }

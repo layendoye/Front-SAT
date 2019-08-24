@@ -3,7 +3,7 @@
         <p class="col-sm-9"></p>
         <a class="btn btn-primary col-2 boutonAjouter" routerLink="/partenaires/add">Ajouter</a>
     </div>
-    <table #dataTable class="display" style="width:100%">
+    <table #dataTable class="display cell-border" style="width:100%">
         <caption>Nouveau partenaire</caption>
         <thead>
             <tr>
@@ -13,6 +13,7 @@
                 <th scope="col">Téléphone</th>
                 <th scope="col">Solde global</th>
                 <th scope="col">Status</th>
+                <th scope="col">Modifier</th>
             </tr>
         </thead>
         <tbody>
@@ -27,8 +28,10 @@
                     'btn-success': entreprise.status=='Actif', 
                     'btn-danger': entreprise.status=='Bloqué'
                     }" (click)="bloquer(entreprise.id)">{{ entreprise.status }}</button></td>
+                <td class="text-center modif">
+                    <a (click)="updatePart(entreprise.id)"><i class="fas fa-user-edit fontAwsModif"></i></a>
+                </td>
             </tr>
-
         </tbody>
         <tfoot>
             <tr>
@@ -38,6 +41,7 @@
                 <th scope="col">Téléphone</th>
                 <th scope="col">Solde global</th>
                 <th scope="col">Status</th>
+                <th scope="col">Modifier</th>
             </tr>
         </tfoot>
     </table>

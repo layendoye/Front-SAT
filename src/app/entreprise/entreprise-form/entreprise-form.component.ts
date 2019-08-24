@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { EntrepriseService } from 'src/app/services/entreprise.service';
 import { Utilisateur } from 'src/app/models/Utilisateur.model';
 import { Entreprise } from 'src/app/models/Entreprise.model';
+import Swal from 'node_modules/sweetalert2/dist/sweetalert2.js';
 
 @Component({
   selector: 'app-entreprise-form',
@@ -52,7 +53,15 @@ export class EntrepriseFormComponent implements OnInit {
     const nci=this.entrepriseForm.get('nci').value;
     const entreprise=new Entreprise(raisonSociale, ninea, adresse,telephoneEntreprise, emailEntreprise);
     const user=new Utilisateur(nom,username,password,email,telephone,nci,confirmPassword);
-    this.entrepriseService.addEntreprise(entreprise,user);
+    this.entrepriseService.addEntreprise(entreprise,user).subscribe(
+        (rep)=>{
+          console.log(rep);
+          alert(rep.message+"\n"+rep.compte);
+        },
+        (error)=>{
+          console.log('Erreur : '+error.message);
+        }
+      );;
     
     this.router.navigate(['entreprises/liste']);
   }

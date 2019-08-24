@@ -65,16 +65,8 @@ export class EntrepriseService {
       nci:user.nci
     }
     const headers = new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem('token'));
-    this.httpClient
+    return this.httpClient
       .post<any>('http://127.0.0.1:8000/partenaires/add',data,{headers: headers})
-      .subscribe(
-        (rep)=>{
-          console.log(rep);
-          alert(rep.message+"\n"+rep.compte);
-        },
-        (error)=>{
-          console.log('Erreur : '+error.message);
-        }
-      );
+      
   }
 }

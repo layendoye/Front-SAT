@@ -19,6 +19,7 @@
     "@angular/platform-browser": "~7.2.0",
     "@angular/platform-browser-dynamic": "~7.2.0",
     "@angular/router": "~7.2.0",
+    "angular-datatables": "^8.0.0",
     "angular-jwt": "^0.1.11",
     "bootstrap": "^3.3.7",
     "core-js": "^2.5.4",
@@ -26,6 +27,7 @@
     "datatables.net-dt": "^1.10.19",
     "jquery": "^3.4.1",
     "rxjs": "~6.3.3",
+    "sweetalert2": "^8.16.3",
     "tslib": "^1.9.0",
     "zone.js": "~0.8.26"
   },

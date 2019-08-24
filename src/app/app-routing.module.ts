@@ -12,10 +12,11 @@ const routes: Routes = [
   { path: 'entreprises/liste',canActivate:[AuthGuard], component: EntrepriseListComponent },
   { path: 'inscription',canActivate:[AuthGuard], component: UtilisateurFormComponent },
   { path: 'partenaires/add',canActivate:[AuthGuard], component: EntrepriseFormComponent },
+  { path: 'partenaires/add/:id',canActivate:[AuthGuard], component: EntrepriseFormComponent },
   { path: 'nouveau/depot',canActivate:[AuthGuard], component: DepotFormComponent },
   { path: 'changer/compte',canActivate:[AuthGuard], component: OctroieCompteFormComponent },
-  { path: '', redirectTo: 'entreprises/liste', pathMatch: 'full' },//pour eviter les erreurs pathMatch: 'full' pour dire que le path doit etre totalement vide
-  { path: '**', redirectTo: 'entreprises/liste' }
+  { path: 'gg', redirectTo: 'entreprises/liste', pathMatch: 'full' },//pour eviter les erreurs pathMatch: 'full' pour dire que le path doit etre totalement vide
+  { path: 'yy', redirectTo: 'entreprises/liste' }
 ];
 
 @NgModule({

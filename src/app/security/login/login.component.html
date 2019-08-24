@@ -1,4 +1,4 @@
-<div class="row">
+<!--<div class="row">
     <div class="col-sm-3"></div>
     <div class="col-sm-6 monForm">
         <form [formGroup]="signInForm" class="" (ngSubmit)="onSubmit()">
@@ -14,5 +14,32 @@
             </div>
         </form>
         <p class="text-danger text-center" *ngIf="errorMessage">{{ errorMessage }}</p>
+    </div>
+</div>-->
+<div class="page-holder d-flex align-items-center">
+    <div class="container">
+        <div class="row align-items-center py-5">
+            <div class="col-3"></div>
+            <div class="col-lg-6 px-lg-4 monForm">
+                <form [formGroup]="signInForm" (ngSubmit)="onSubmit()" class="mt-4">
+                    <div class="form-group mb-4">
+                        <input type="text" formControlName="username" placeholder="Login" class="form-control border-0 shadow form-control-lg">
+                    </div>
+                    <div class="form-group mb-4">
+                        <input type="password" formControlName="password" placeholder="Mot de passe" class="form-control border-0 shadow form-control-lg text-violet">
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3"></div>
+                        <button type="submit" class="btn btn-primary shadow px-5 col-lg-6" [disabled]="signInForm.invalid">Connexion</button>
+                    </div>
+
+                </form>
+                <p class="text-danger text-center" *ngIf="errorMessage">{{ errorMessage }}</p>
+            </div>
+        </div>
+        <div class="textBas">
+            <p class="mt-5 mb-0 text-gray-400 text-center textBas">Design by <a href="https://bootstrapious.com/donate" class="external text-gray-400">Bootstrapious</a> & SA Transfert</p>
+            <!-- Please do not remove the backlink to us unless you support further theme's development at https://bootstrapious.com/donate. It is part of the license conditions. Thank you for understanding :)                 -->
+        </div>
     </div>
 </div>
