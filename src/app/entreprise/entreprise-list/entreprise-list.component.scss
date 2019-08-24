@@ -5,7 +5,11 @@
 }
 
 .boutonAjouter {
-    margin-left: 7.5%;
+    margin-left: 5.2%;
+    width: 18.5%;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 120%;
+    padding: 2px 0px 2px 0px;
 }
 
 .rowAjout {
@@ -13,10 +17,19 @@
 }
 
 .tabListe {
-    margin-top: 3%;
+    margin-top: 1%;
     margin-bottom: 1%;
 }
 
 .modif {
     font-size: 180%;
+}
+
+.fontAwsModif {
+    font-size: 135%;
+}
+
+.table th,
+.table td {
+    text-align: center;
 }

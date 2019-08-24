@@ -11,14 +11,15 @@ export class EntrepriseService {
   
   entrepriseSubject=new Subject<any[]>();//le subject emmettra la liste des entreprises lorsqu on lui demandera, <any[]> veut dire qu il va retourner un tableau de type any (string, int...)
   private entreprises: Entreprise[];
+  private headers={headers: new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem('token'))};
+  private urlBack='http://127.0.0.1:8000';
   constructor(private httpClient: HttpClient) { }
   emitEntreprise(){
     this.entrepriseSubject.next(this.entreprises);//la methode next force le subject à emmetre ce qu on lui passe en argument (ici la liste des entreprises)
   }
   getEntreprise(){
-    const headers = new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem('token'));
     this.httpClient
-      .get<any[]>('http://127.0.0.1:8000/entreprises/liste',{headers: headers})
+      .get<any[]>(this.urlBack+'/entreprises/liste',this.headers)
       .subscribe(
         (response)=>{
           this.entreprises=response;
@@ -30,11 +31,10 @@ export class EntrepriseService {
       );
   }
   bloquer(id: number){
-    const headers = new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem('token'));
     return new Promise(
       (resolve, reject)=>{
       this.httpClient
-        .get<any[]>('http://127.0.0.1:8000/bloque/entreprises/'+id,{headers: headers})
+        .get<any[]>(this.urlBack+'/bloque/entreprises/'+id,this.headers)
         .subscribe(
           ()=>{
             console.log('Partenaire bloqué ! ');
@@ -64,9 +64,7 @@ export class EntrepriseService {
       telephone:user.telephone,
       nci:user.nci
     }
-    const headers = new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem('token'));
     return this.httpClient
-      .post<any>('http://127.0.0.1:8000/partenaires/add',data,{headers: headers})
-      
+      .post<any>(this.urlBack+'/partenaires/add',data,this.headers)
   }
 }

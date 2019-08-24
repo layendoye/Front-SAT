@@ -1,8 +1,11 @@
 .textSAT {
     font-family: 'Times New Roman', Times, serif;
-    font-size: 55%;
+    font-style: italic;
+    font-weight: bolder;
+    font-size: 100%;
+    text-decoration: none !important;
 }
 
-.header {
-    height: 20%;
+.bgcHeader {
+    background-color: rgba(207, 204, 204, 0.171);
 }

@@ -18,6 +18,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.initForm();
+    localStorage.removeItem('token');
   }
   initForm(){
     this.signInForm=this.formBuilder.group({
@@ -26,19 +27,20 @@ export class LoginComponent implements OnInit {
     });
   }
   onSubmit(){
-    localStorage.removeItem('token');
+    
     const username=this.signInForm.get('username').value;
     const password=this.signInForm.get('password').value;
     this.securityService.login(username,password).then(
       ()=>{//si tous ce passe bien
-        this.router.navigate(['/entreprises/liste']);
+        console.log(localStorage);
+        window.location.reload();
       },
       (error)=>{
         this.errorMessage='Erreur sur le login ou le mot de passe';
       }
     );
-    console.log(localStorage);
-
-    this.router.navigate(['/entreprises/liste']);
+    
+    
+    //this.router.navigate(['/entreprises/liste']);
   }
 }

@@ -15,7 +15,7 @@
         </form>
         <p class="text-danger text-center" *ngIf="errorMessage">{{ errorMessage }}</p>
     </div>
-</div>-->
+</div>
 <div class="page-holder d-flex align-items-center">
     <div class="container">
         <div class="row align-items-center py-5">
@@ -40,6 +40,42 @@
         <div class="textBas">
             <p class="mt-5 mb-0 text-gray-400 text-center textBas">Design by <a href="https://bootstrapious.com/donate" class="external text-gray-400">Bootstrapious</a> & SA Transfert</p>
             <!-- Please do not remove the backlink to us unless you support further theme's development at https://bootstrapious.com/donate. It is part of the license conditions. Thank you for understanding :)                 -->
-        </div>
+<!-- </div>
+</div>
+</div>-->
+<div class="login-box authForm">
+    <div class="login-logo">
+        <span class="sat">SA Transfert</span>
     </div>
+    <!-- /.login-logo -->
+    <div class="login-box-body">
+
+        <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
+            <div class="form-group has-feedback">
+                <input type="email" class="form-control" formControlName="username" placeholder="Login">
+                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+            </div>
+            <div class="form-group has-feedback">
+                <input type="password" class="form-control" formControlName="password" placeholder="Mot de passe">
+                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+            </div>
+            <div class="row">
+                <div class="col-xs-8">
+                    <div class="checkbox icheck">
+                        <label>
+                        <input type="checkbox"> Remember Me
+                        </label>
+                    </div>
+                </div>
+                <!-- /.col -->
+                <div class="col-xs-4">
+                    <button type="submit" class="btn btn-primary btn-block btn-flat">Connexion</button>
+                </div>
+                <!-- /.col -->
+            </div>
+        </form>
+        <p class="text-danger text-center" *ngIf="errorMessage">{{ errorMessage }}</p>
+        <!-- /.social-auth-links -->
+    </div>
+    <!-- /.login-box-body -->
 </div>

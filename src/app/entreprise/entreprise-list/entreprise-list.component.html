@@ -1,4 +1,4 @@
-<div class="tabListe">
+<!--<div class="tabListe">
     <div class="form-group rowAjout row">
         <p class="col-sm-9"></p>
         <a class="btn btn-primary col-2 boutonAjouter" routerLink="/partenaires/add">Ajouter</a>
@@ -45,4 +45,59 @@
             </tr>
         </tfoot>
     </table>
+</div>-->
+<div class="box">
+    <div class="box-body">
+
+        <div class="form-group rowAjout row">
+            <p class="col-sm-9"></p>
+            <a class="btn btn-default col-3 col-sm-offset-9 boutonAjouter" routerLink="/partenaires/add">Ajouter</a>
+        </div>
+        <!-- /.box-header -->
+
+        <table #dataTable id="example1" class="table table-bordered table-striped">
+            <caption>Nouveau partenaire</caption>
+            <thead>
+                <tr>
+
+                    <th scope="col">Raison Sociale</th>
+                    <th scope="col">N I N E A</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Téléphone</th>
+                    <th scope="col">Solde global</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Modifier</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let entreprise of entreprises">
+                    <td>{{ entreprise.raisonSociale }}</td>
+                    <td>{{ entreprise.ninea }}</td>
+                    <td>{{ entreprise.emailEntreprise }}</td>
+                    <td>{{ entreprise.telephoneEntreprise }}</td>
+                    <td>{{ entreprise.soldeGlobal | number }}</td>
+                    <td><button [ngClass]="{
+                    'btn boutonBloquer': true,
+                    'btn-success': entreprise.status=='Actif', 
+                    'btn-danger': entreprise.status=='Bloqué'
+                    }" (click)="bloquer(entreprise.id)">{{ entreprise.status }}</button></td>
+                    <td class="text-center modif">
+                        <a (click)="updatePart(entreprise.id)"><i class="fas fa-edit fontAwsModif"></i></a>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th scope="col">Raison Sociale</th>
+                    <th scope="col">N I N E A</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Téléphone</th>
+                    <th scope="col">Solde global</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Modifier</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <!-- /.box-body -->
 </div>
