@@ -16,9 +16,6 @@ export class EntrepriseFormComponent implements OnInit {
   entrepriseForm: FormGroup;
   errorMessage: string;
   next:boolean=false;
-  valider:boolean=false;
-  entrepriseAdd;
-  userAdd;
   constructor(private formBuilder: FormBuilder,
               private entrepriseService: EntrepriseService,
               private router: Router) { }
@@ -61,21 +58,19 @@ export class EntrepriseFormComponent implements OnInit {
     const email=this.entrepriseForm.get('email').value;
     const telephone=this.entrepriseForm.get('telephone').value;
     const nci=this.entrepriseForm.get('nci').value;
-    this.entrepriseAdd=new Entreprise(raisonSociale, ninea, adresse,telephoneEntreprise, emailEntreprise);
-    this.userAdd=new Utilisateur(nom,username,password,email,telephone,nci,confirmPassword);
-    this.entrepriseService.addEntreprise(this.entrepriseAdd, this.userAdd).subscribe(
+    const entreprise=new Entreprise(raisonSociale, ninea, adresse,telephoneEntreprise, emailEntreprise);
+    const user=new Utilisateur(nom,username,password,email,telephone,nci,confirmPassword);
+    this.entrepriseService.addEntreprise(entreprise, user).subscribe(
         (rep)=>{
-          if(!rep[0].property_path){
+          if(rep[0] && rep[0].property_path){
+            this.errerForm(rep);
+          }else{
             Swal.fire(
               'Partenaire enregistré',
               rep.message+"\n"+rep.compte,
               'success'
             )
-            
             this.router.navigate(['entreprises/liste']);
-          }else{
-            this.errerForm(rep);
-            this.valider=false;
           }
           console.log(rep);
         },

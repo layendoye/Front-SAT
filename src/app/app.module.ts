@@ -20,6 +20,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { DataTablesModule } from 'angular-datatables';
 import { AuthGuard } from './services/auth-guard.service';
+import { UpdateEntrepriseComponent } from './entreprise/update-entreprise/update-entreprise.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,7 +32,8 @@ import { AuthGuard } from './services/auth-guard.service';
     OctroieCompteFormComponent,
     LoginComponent,
     EntrepriseListComponent,
-    SidebarComponent
+    SidebarComponent,
+    UpdateEntrepriseComponent
   ],
   imports: [
     BrowserModule,
@@ -44,6 +46,7 @@ import { AuthGuard } from './services/auth-guard.service';
     SecurityService,
     EntrepriseService,
     TransactionService,
+    EntrepriseFormComponent,
     AuthGuard
   ],
   bootstrap: [AppComponent]

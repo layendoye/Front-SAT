@@ -7,12 +7,13 @@ import { EntrepriseFormComponent } from './entreprise/entreprise-form/entreprise
 import { DepotFormComponent } from './depot/depot-form/depot-form.component';
 import { OctroieCompteFormComponent } from './octroieCompte/octroie-compte-form/octroie-compte-form.component';
 import { AuthGuard } from 'src/app/services/auth-guard.service';
+import { UpdateEntrepriseComponent } from './entreprise/update-entreprise/update-entreprise.component';
 const routes: Routes = [
   { path: 'connexion', component: LoginComponent },
   { path: 'entreprises/liste',canActivate:[AuthGuard], component: EntrepriseListComponent },
   { path: 'inscription',canActivate:[AuthGuard], component: UtilisateurFormComponent },
   { path: 'partenaires/add',canActivate:[AuthGuard], component: EntrepriseFormComponent },
-  { path: 'partenaires/add/:id',canActivate:[AuthGuard], component: EntrepriseFormComponent },
+  { path: 'partenaires/add/:id',canActivate:[AuthGuard], component: UpdateEntrepriseComponent },
   { path: 'nouveau/depot',canActivate:[AuthGuard], component: DepotFormComponent },
   { path: 'changer/compte',canActivate:[AuthGuard], component: OctroieCompteFormComponent },
   { path: 'gg', redirectTo: 'entreprises/liste', pathMatch: 'full' },//pour eviter les erreurs pathMatch: 'full' pour dire que le path doit etre totalement vide

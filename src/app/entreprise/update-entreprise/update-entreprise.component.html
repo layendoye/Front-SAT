@@ -1,0 +1,46 @@
+<form [formGroup]="entrepriseUpdForm" class="entrepriseForm" (ngSubmit)="onSubmit()" *ngIf="charger">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label for="raisonSociale">Raison Sociale</label>
+                <div class="input-group col-12">
+                    <span class="input-group-addon"><i class="far fa-building"></i></span>
+                    <input type="text" id="raisonSociale" class="form-control" formControlName="raisonSociale" placeholder="Raison Sociale">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="ninea">NINEA</label>
+                <div class="input-group col-12">
+                    <span class="input-group-addon"><i class="fas fa-check"></i></span>
+                    <input type="text" id="ninea" class="form-control" formControlName="ninea" placeholder="ninea">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="adresse">Adresse</label>
+                <div class="input-group col-12">
+                    <span class="input-group-addon"><i class="fas fa-map-marker-alt"></i></span>
+                    <input type="text" id="adresse" class="form-control" formControlName="adresse" placeholder="Adresse">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="emailEntreprise">Email de l 'entreprise</label>
+                <div class="input-group col-12">
+                    <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                    <input type="text" id="emailEntreprise" class="form-control" formControlName="emailEntreprise" placeholder="Email de l 'entreprise">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="telephoneEntreprise">Téléphone de l'entreprise</label>
+                <label for="adresse">Adresse</label>
+                <div class="input-group col-12">
+                    <span class="input-group-addon"><i class="fas fa-phone-square"></i></span>
+                    <input type="text" id="telephoneEntreprise" class="form-control" formControlName="telephoneEntreprise" placeholder="Téléphone de l'entreprise">
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="row send">
+        <button type="submit" class="btn btn-primary col-sm-4 boutonSend col-sm-offset-4" [disabled]="entrepriseUpdForm.invalid">Modifier</button>
+    </div>
+</form>

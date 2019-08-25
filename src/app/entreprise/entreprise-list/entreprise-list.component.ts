@@ -4,6 +4,7 @@ import { Entreprise } from 'src/app/models/Entreprise.model';
 import { Subscription } from 'rxjs';
 import Swal from 'node_modules/sweetalert2/dist/sweetalert2.js';
 import { Router } from '@angular/router';
+
 declare var $;
 @Component({
   selector: 'app-entreprise-list',
@@ -16,6 +17,7 @@ export class EntrepriseListComponent implements OnInit{
   dtOption: any = {}; 
   entreprises: Entreprise[];
   entrepriseSubscription: Subscription;
+  charger:boolean=false;
   constructor(private entrepriseServ:EntrepriseService,private router:Router) { }
 
   ngOnInit() {
@@ -39,8 +41,12 @@ export class EntrepriseListComponent implements OnInit{
 
   bloquer(id: number){
     this.entrepriseServ.bloquer(id).then(
-      ()=>{//si la promesse est resulue
+      (rep)=>{//si la promesse est resulue
         this.entrepriseServ.getEntreprise();
+          Swal.fire(
+            rep.message,'',
+            'success'
+          )
       }
     );
   }

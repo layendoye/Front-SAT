@@ -4,6 +4,8 @@ export class Entreprise{
                 public adresse:string,
                 public telephoneEntreprise:string, 
                 public emailEntreprise:string,
+                public id?:number,
                 public status?:string, 
-                public soldeGlobal?:number){}
+                public soldeGlobal?:number
+                ){}
 }

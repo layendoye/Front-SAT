@@ -3,6 +3,7 @@ import { Subject } from 'rxjs';
 import { Entreprise } from '../models/Entreprise.model';
 import { Utilisateur } from '../models/Utilisateur.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { resolve, reject } from 'q';
 
 @Injectable({
   providedIn: 'root'
@@ -31,15 +32,14 @@ export class EntrepriseService {
       );
   }
   bloquer(id: number){
-    return new Promise(
+    return new Promise<any>(
       (resolve, reject)=>{
       this.httpClient
-        .get<any[]>(this.urlBack+'/bloque/entreprises/'+id,this.headers)
+        .get<any>(this.urlBack+'/bloque/entreprises/'+id,this.headers)
         .subscribe(
-          ()=>{
-            console.log('Partenaire bloqué ! ');
+          (rep)=>{
             this.emitEntreprise();
-            resolve();
+            resolve(rep);
           },
           (error)=>{
             console.log('Erreur : '+error.message);
@@ -66,5 +66,34 @@ export class EntrepriseService {
     }
     return this.httpClient
       .post<any>(this.urlBack+'/partenaires/add',data,this.headers)
+  }
+  updateEntreprise(entreprise: Entreprise){
+    const id=entreprise.id;
+    const data={
+      raisonSociale:entreprise.raisonSociale,
+      ninea:entreprise.ninea,
+      adresse:entreprise.adresse,
+      emailEntreprise:entreprise.emailEntreprise,
+      telephoneEntreprise:entreprise.telephoneEntreprise
+    }
+    return this.httpClient
+      .post<any>(this.urlBack+'/partenaires/update/'+id,data,this.headers)
+  }
+  recupEntreprise(id:number){
+    var entreprise:Entreprise;
+    return new Promise<any>(
+      (resolve,reject)=>{
+      this.httpClient
+        .get<Entreprise>(this.urlBack+'/entreprise/'+id,this.headers).subscribe(
+          rep=>{
+          resolve(rep);
+          },
+          error=>{
+            console.log('Erreur : '+error.message);
+            reject(error);
+          }
+        );
+      })
+      
   }
 }
