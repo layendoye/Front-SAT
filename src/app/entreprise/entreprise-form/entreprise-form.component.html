@@ -1,48 +1,103 @@
 <form [formGroup]="entrepriseForm" class="entrepriseForm" (ngSubmit)="onSubmit()">
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-sm-12" *ngIf="!next">
             <div class="form-group">
-                <input type="text" id="raisonSociale" class="form-control" formControlName="raisonSociale" placeholder="Raison Sociale">
+                <label for="raisonSociale">Raison Sociale</label>
+                <div class="input-group col-12">
+                    <span class="input-group-addon"><i class="far fa-building"></i></span>
+                    <input type="text" id="raisonSociale" class="form-control" formControlName="raisonSociale" placeholder="Raison Sociale">
+                </div>
             </div>
             <div class="form-group">
-                <input type="text" id="ninea" class="form-control" formControlName="ninea" placeholder="ninea">
+                <label for="ninea">NINEA</label>
+                <div class="input-group col-12">
+                    <span class="input-group-addon"><i class="fas fa-check"></i></span>
+                    <input type="text" id="ninea" class="form-control" formControlName="ninea" placeholder="ninea">
+                </div>
             </div>
             <div class="form-group">
-                <input type="text" id="adresse" class="form-control" formControlName="adresse" placeholder="Adresse">
+                <label for="adresse">Adresse</label>
+                <div class="input-group col-12">
+                    <span class="input-group-addon"><i class="fas fa-map-marker-alt"></i></span>
+                    <input type="text" id="adresse" class="form-control" formControlName="adresse" placeholder="Adresse">
+                </div>
             </div>
             <div class="form-group">
-                <input type="text" id="emailEntreprise" class="form-control" formControlName="emailEntreprise" placeholder="Email de l'entreprise">
+                <label for="emailEntreprise">Email de l 'entreprise</label>
+                <div class="input-group col-12">
+                    <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                    <input type="text" id="emailEntreprise" class="form-control" formControlName="emailEntreprise" placeholder="Email de l 'entreprise">
+                </div>
             </div>
             <div class="form-group">
-                <input type="text" id="telephoneEntreprise" class="form-control" formControlName="telephoneEntreprise" placeholder="Téléphone de l'entreprise">
+                <label for="telephoneEntreprise">Téléphone de l'entreprise</label>
+                <label for="adresse">Adresse</label>
+                <div class="input-group col-12">
+                    <span class="input-group-addon"><i class="fas fa-phone-square"></i></span>
+                    <input type="text" id="telephoneEntreprise" class="form-control" formControlName="telephoneEntreprise" placeholder="Téléphone de l'entreprise">
+                </div>
             </div>
         </div>
-        <div class="col-sm-12">
+        <div class="col-sm-12" *ngIf="next">
             <div class="form-group">
-                <input type="text" id="nom" class="form-control" formControlName="nom" placeholder="Nom du responsable">
+                <label for="nom">Nom du responsable</label>
+                <div class="input-group col-12">
+                    <span class="input-group-addon"><i class="fas fa-user-plus"></i></span>
+                    <input type="text" id="nom" class="form-control" formControlName="nom" placeholder="Nom du responsable">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="username">Login</label>
+                <div class="input-group col-12">
+                    <span class="input-group-addon"><i class="fas fa-user"></i></span>
+                    <input type="text" id="username" class="form-control" formControlName="username" placeholder="Login">
+                </div>
             </div>
             <div class="form-group">
-                <input type="text" id="username" class="form-control" formControlName="username" placeholder="Login">
+                <label for="password">Mot de passe</label>
+                <div class="input-group col-12">
+                    <span class="input-group-addon"><i class="fas fa-lock"></i></span>
+                    <input type="password" id="password" class="form-control" formControlName="password" placeholder="Mot de passe">
+                </div>
             </div>
             <div class="form-group">
-                <input type="password" id="password" class="form-control" formControlName="password" placeholder="Mot de passe">
+                <label for="confirmPassword">Confirmer mot de passe</label>
+                <div class="input-group col-12">
+                    <span class="input-group-addon"><i class="fas fa-lock"></i></span>
+                    <input type="password" id="confirmPassword" class="form-control" formControlName="confirmPassword" placeholder="Confirmer le mot de passe">
+                </div>
             </div>
             <div class="form-group">
-                <input type="password" id="confirmPassword" class="form-control" formControlName="confirmPassword" placeholder="Confirmer le mot de passe">
+                <label for="email">Email du responsable</label>
+                <div class="input-group col-12">
+                    <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                    <input type="text" id="email" class="form-control" formControlName="email" placeholder="Email">
+                </div>
             </div>
             <div class="form-group">
-                <input type="text" id="email" class="form-control" formControlName="email" placeholder="Email">
+                <label for="telephone">Numéro de téléphone du responsable</label>
+                <div class="input-group col-12">
+                    <span class="input-group-addon"><i class="fas fa-phone-square"></i></span>
+                    <input type="text" id="telephone" class="form-control" formControlName="telephone" placeholder="Téléphone">
+                </div>
             </div>
             <div class="form-group">
-                <input type="text" id="telephone" class="form-control" formControlName="telephone" placeholder="Téléphone">
+                <label for="nci">Numéro de carte d'identité du responsable</label>
+                <div class="input-group col-12">
+                    <span class="input-group-addon"><i class="fas fa-address-card"></i></span>
+                    <input type="text" id="nci" class="form-control" formControlName="nci" placeholder="NCI">
+                </div>
             </div>
-            <div class="form-group">
-                <input type="text" id="nci" class="form-control" formControlName="nci" placeholder="NCI">
-            </div>
+            <!--<div class="form-group">
+                <label for="photo">Photo</label>
+                <input type="file" id="photo" class="form-control" formControlName="photo">
+            </div>-->
         </div>
     </div>
-    <div class="row">
-        <div class="col-sm-4"></div>
-        <button type="submit" class="btn btn-primary col-sm-4 boutonSend" [disabled]="entrepriseForm.invalid">Enregistrer</button>
+    <div class="row send">
+        <a class="btn btn-default col-sm-2 boutonSend col-sm-offset-10" (click)="nextForm()" *ngIf="!next">Suivant<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> </a>
+        <a class="btn btn-default col-sm-2 boutonSend" (click)="nextForm()" *ngIf="next"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Précédant</a>
+        <button type="submit" class="btn btn-default col-sm-2 boutonSend col-sm-offset-8" *ngIf="next" [disabled]="entrepriseForm.invalid">Enregistrer</button>
     </div>
 </form>

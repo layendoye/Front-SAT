@@ -13,8 +13,9 @@ import Swal from 'node_modules/sweetalert2/dist/sweetalert2.js';
 })
 export class EntrepriseFormComponent implements OnInit {
   
- entrepriseForm: FormGroup;
+  entrepriseForm: FormGroup;
   errorMessage: string;
+  next:boolean=false;
   constructor(private formBuilder: FormBuilder,
               private entrepriseService: EntrepriseService,
               private router: Router) { }
@@ -35,7 +36,8 @@ export class EntrepriseFormComponent implements OnInit {
       confirmPassword:['',[Validators.required]],
       email:['',[Validators.required,Validators.email]],
       telephone:['',[Validators.required,Validators.pattern(/[0-9]{2,}/)]],
-      nci:['',[Validators.required,Validators.pattern(/[0-9]{2,}/)]]
+      nci:['',[Validators.required,Validators.pattern(/[0-9]{2,}/)]],
+      photo:['']
     });
   }
   onSubmit(){
@@ -61,8 +63,16 @@ export class EntrepriseFormComponent implements OnInit {
         (error)=>{
           console.log('Erreur : '+error.message);
         }
-      );;
+      );
     
     this.router.navigate(['entreprises/liste']);
+  }
+  nextForm(){
+    if(!this.next){
+      this.next=true;
+    }else{
+      this.next=false;
+    }
+    
   }
 }

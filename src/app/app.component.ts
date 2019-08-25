@@ -12,7 +12,7 @@ export class AppComponent implements OnInit{
   constructor(private router: Router){}
   ngOnInit(){
     console.log(localStorage);
-    if(this.isAuth==false && localStorage.getItem('token')){     
+    if(!this.isAuth && localStorage.getItem('token')){     
       this.isAuth=true;
       this.router.navigate(['/entreprises/liste']);
     }
