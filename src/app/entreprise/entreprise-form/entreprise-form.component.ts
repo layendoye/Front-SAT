@@ -16,12 +16,20 @@ export class EntrepriseFormComponent implements OnInit {
   entrepriseForm: FormGroup;
   errorMessage: string;
   next:boolean=false;
+  valider:boolean=false;
+  entrepriseAdd;
+  userAdd;
   constructor(private formBuilder: FormBuilder,
               private entrepriseService: EntrepriseService,
               private router: Router) { }
 
   ngOnInit() {
     this.initForm();
+    // Swal.fire({width: 400,
+    //           title:'Partenaire enregistré',
+    //           text:'okkkkkkkkkkkkkkkkk hhhhhhhhhhhhhhhhgggggggg gggggggggggggggg'},
+
+    //       )
   }
   initForm(){
     this.entrepriseForm=this.formBuilder.group({   
@@ -53,19 +61,30 @@ export class EntrepriseFormComponent implements OnInit {
     const email=this.entrepriseForm.get('email').value;
     const telephone=this.entrepriseForm.get('telephone').value;
     const nci=this.entrepriseForm.get('nci').value;
-    const entreprise=new Entreprise(raisonSociale, ninea, adresse,telephoneEntreprise, emailEntreprise);
-    const user=new Utilisateur(nom,username,password,email,telephone,nci,confirmPassword);
-    this.entrepriseService.addEntreprise(entreprise,user).subscribe(
+    this.entrepriseAdd=new Entreprise(raisonSociale, ninea, adresse,telephoneEntreprise, emailEntreprise);
+    this.userAdd=new Utilisateur(nom,username,password,email,telephone,nci,confirmPassword);
+    this.entrepriseService.addEntreprise(this.entrepriseAdd, this.userAdd).subscribe(
         (rep)=>{
+          if(!rep[0].property_path){
+            Swal.fire(
+              'Partenaire enregistré',
+              rep.message+"\n"+rep.compte,
+              'success'
+            )
+            
+            this.router.navigate(['entreprises/liste']);
+          }else{
+            this.errerForm(rep);
+            this.valider=false;
+          }
           console.log(rep);
-          alert(rep.message+"\n"+rep.compte);
         },
         (error)=>{
           console.log('Erreur : '+error.message);
         }
       );
     
-    this.router.navigate(['entreprises/liste']);
+    
   }
   nextForm(){
     if(!this.next){
@@ -74,5 +93,18 @@ export class EntrepriseFormComponent implements OnInit {
       this.next=false;
     }
     
+  }
+  errerForm(rep:any){
+    var err='';
+    for(var i=0;i<rep.length;i++){
+      var vrg='';
+      if(i>0) vrg=', ';
+      err+=vrg+rep[i].message;
+    }
+    Swal.fire(
+      'Erreur',
+      err,
+      'error'
+    )
   }
 }

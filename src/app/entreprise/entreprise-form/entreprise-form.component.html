@@ -96,8 +96,8 @@
         </div>
     </div>
     <div class="row send">
-        <a class="btn btn-default col-sm-2 boutonSend col-sm-offset-10" (click)="nextForm()" *ngIf="!next">Suivant<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> </a>
+        <a class="btn btn-default col-sm-2 boutonSend col-sm-offset-10" (click)="nextForm()" *ngIf="!next">Suivant <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> </a>
         <a class="btn btn-default col-sm-2 boutonSend" (click)="nextForm()" *ngIf="next"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Précédant</a>
-        <button type="submit" class="btn btn-default col-sm-2 boutonSend col-sm-offset-8" *ngIf="next" [disabled]="entrepriseForm.invalid">Enregistrer</button>
+        <button type="submit" class="btn btn-default col-sm-2 boutonSend col-sm-offset-8" *ngIf="next">Enregistrer</button>
     </div>
 </form>

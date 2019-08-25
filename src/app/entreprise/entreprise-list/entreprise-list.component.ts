@@ -23,7 +23,7 @@ export class EntrepriseListComponent implements OnInit{
     this.entrepriseSubscription=this.entrepriseServ.entrepriseSubject.subscribe(
       (entreprises: Entreprise[])=>{
         this.entreprises=entreprises;
-        console.log(entreprises);
+        //console.log(entreprises);
         
       }
     );
