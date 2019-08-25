@@ -1,3 +1,74 @@
-<p>
-  utilisateur-form works!
-</p>
+<form [formGroup]="entrepriseForm" class="" (ngSubmit)="onSubmit()">
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label for="nom">Nom</label>
+                <div class="input-group col-12">
+                    <span class="input-group-addon"><i class="fas fa-user-plus"></i></span>
+                    <input type="text" id="nom" class="form-control" formControlName="nom" placeholder="Nom">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="username">Login</label>
+                <div class="input-group col-12">
+                    <span class="input-group-addon"><i class="fas fa-user"></i></span>
+                    <input type="text" id="username" class="form-control" formControlName="username" placeholder="Login">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="password">Mot de passe</label>
+                <div class="input-group col-12">
+                    <span class="input-group-addon"><i class="fas fa-lock"></i></span>
+                    <input type="password" id="password" class="form-control" formControlName="password" placeholder="Mot de passe">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="confirmPassword">Confirmer mot de passe</label>
+                <div class="input-group col-12">
+                    <span class="input-group-addon"><i class="fas fa-lock"></i></span>
+                    <input type="password" id="confirmPassword" class="form-control" formControlName="confirmPassword" placeholder="Confirmer le mot de passe">
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <div class="input-group col-12">
+                    <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                    <input type="text" id="email" class="form-control" formControlName="email" placeholder="Email">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="telephone">Numéro de téléphone</label>
+                <div class="input-group col-12">
+                    <span class="input-group-addon"><i class="fas fa-phone-square"></i></span>
+                    <input type="text" id="telephone" class="form-control" formControlName="telephone" placeholder="Téléphone">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="nci">Numéro de carte d'identité</label>
+                <div class="input-group col-12">
+                    <span class="input-group-addon"><i class="fas fa-address-card"></i></span>
+                    <input type="text" id="nci" class="form-control" formControlName="nci" placeholder="NCI">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="profil">Profil</label>
+                <div class="input-group col-12">
+                    <span class="input-group-addon"><i class="fas fa-male"></i></span>
+                    <select formControlName="profil" id="profil" class="form-control">
+                      <option value="1">Super-admin</option>
+                      <option value="2">Caissier</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="form-group photo">
+            <label for="photo">Photo</label>
+            <input type="file" id="photo" class="form-control" formControlName="photo">
+        </div>
+    </div>
+    <div class="row send">
+        <button type="submit" class="btn btn-primary col-sm-4 boutonSend col-sm-offset-4">Enregistrer</button>
+    </div>
+</form>

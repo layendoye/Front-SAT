@@ -96,4 +96,23 @@ export class EntrepriseService {
       })
       
   }
+  depot(numeroCompte:string,montant:number){
+    const data={
+      compte:numeroCompte,
+      montant:montant
+    }
+    return new Promise<any>(
+      (resolve,reject)=>{
+      this.httpClient
+        .post<Entreprise>(this.urlBack+'/nouveau/depot',data,this.headers).subscribe(
+          rep=>{
+          resolve(rep);
+          },
+          error=>{
+            console.log('Erreur : '+error.message);
+            reject(error);
+          }
+        );
+      })
+  }
 }

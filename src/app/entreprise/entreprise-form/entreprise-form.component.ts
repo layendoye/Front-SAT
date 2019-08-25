@@ -78,8 +78,6 @@ export class EntrepriseFormComponent implements OnInit {
           console.log('Erreur : '+error.message);
         }
       );
-    
-    
   }
   nextForm(){
     if(!this.next){

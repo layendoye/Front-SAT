@@ -10,6 +10,7 @@ export class AppComponent implements OnInit{
   title = 'SA Transfert';
   isAuth:boolean=false;
   jwtHelper = new JwtHelperService();
+  detruit:boolean=false;
   constructor(private router: Router){}
   ngOnInit(){
     console.log(localStorage);
@@ -22,8 +23,10 @@ export class AppComponent implements OnInit{
   }
   tokenExpire(){
     const token=localStorage.getItem('token')
-    if(this.jwtHelper.isTokenExpired(token)){
+    if(localStorage.getItem('token') && this.jwtHelper.isTokenExpired(token) ){
       localStorage.removeItem('token');
+      this.detruit=true;
+      window.location.reload();
     }
   }
 }

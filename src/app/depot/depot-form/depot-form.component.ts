@@ -36,4 +36,30 @@ export class DepotFormComponent implements OnInit {
       montant:['',[Validators.required,Validators.pattern(/[0-9]{2,}/)]],
     });
   }
+  onSubmit(){
+    const numeroCompte=this.depotForm.get('numeroCompte').value;
+    const montant=this.depotForm.get('montant').value;
+    this.entrepriseService.depot(numeroCompte,montant).then(
+      rep=>{
+        if(rep[0] && rep[0].property_path){
+           this.entrepriseFormComponent.errerForm(rep);
+        }else{
+          Swal.fire({width: 400,
+              title:'Dêpot effectué',
+              text:rep.message,
+              type: 'success'},
+
+          )
+         this.router.navigate(['entreprises/liste']);
+        }
+      },
+      error=>{
+        Swal.fire(
+          'Erreur',
+          error.message,
+          'success'
+        )
+      }
+    );
+  }
 }
