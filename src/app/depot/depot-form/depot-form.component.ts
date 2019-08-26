@@ -2,9 +2,7 @@ import { Component, OnInit,ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { EntrepriseService } from 'src/app/services/entreprise.service';
-import { Entreprise } from 'src/app/models/Entreprise.model';
 import Swal from 'node_modules/sweetalert2/dist/sweetalert2.js';
-import { EntrepriseFormComponent } from 'src/app/entreprise/entreprise-form/entreprise-form.component';
 declare var $;
 @Component({
   selector: 'app-depot-form',
@@ -19,7 +17,7 @@ export class DepotFormComponent implements OnInit {
   errorMessage: string;
   constructor(private formBuilder: FormBuilder,
               private entrepriseService: EntrepriseService,
-              private router: Router,private route: ActivatedRoute,private entrepriseFormComponent:EntrepriseFormComponent) { }
+              private router: Router,private route: ActivatedRoute) { }
 
 
   ngOnInit() {
@@ -42,7 +40,7 @@ export class DepotFormComponent implements OnInit {
     this.entrepriseService.depot(numeroCompte,montant).then(
       rep=>{
         if(rep[0] && rep[0].property_path){
-           this.entrepriseFormComponent.errerForm(rep);
+           this.entrepriseService.errerForm(rep);
         }else{
           Swal.fire({width: 400,
               title:'Dêpot effectué',

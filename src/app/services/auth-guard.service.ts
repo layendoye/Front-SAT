@@ -14,8 +14,9 @@ export class AuthGuard implements CanActivate{
     canActivate(): Observable<boolean> | Promise<boolean> | boolean {//il va return soit un  Observable qui sera de type boolean soit ...un observable est un objet qui emmet des infos dans le temps
         if(localStorage.getItem('token')){
             return true;
-        }else{
-            this.router.navigate(['/connexion']);
         }
+        // else{
+        //     this.router.navigate(['/connexion']);
+        // }
     }
 }

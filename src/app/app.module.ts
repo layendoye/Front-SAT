@@ -21,6 +21,9 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { DataTablesModule } from 'angular-datatables';
 import { AuthGuard } from './services/auth-guard.service';
 import { UpdateEntrepriseComponent } from './entreprise/update-entreprise/update-entreprise.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import{MaterialModule} from './material/material.module';
+import { UtilisateurListComponent } from './utilisateur/utilisateur-list/utilisateur-list.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,20 +36,22 @@ import { UpdateEntrepriseComponent } from './entreprise/update-entreprise/update
     LoginComponent,
     EntrepriseListComponent,
     SidebarComponent,
-    UpdateEntrepriseComponent
+    UpdateEntrepriseComponent,
+    UtilisateurListComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,//pour les forms
     ReactiveFormsModule,//pour les forms
-    HttpClientModule,//pour les requettes http
+    HttpClientModule, 
+    BrowserAnimationsModule,//pour les requettes http
+    MaterialModule
   ],
   providers: [
     SecurityService,
     EntrepriseService,
     TransactionService,
-    EntrepriseFormComponent,
     AuthGuard
   ],
   bootstrap: [AppComponent]

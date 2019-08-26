@@ -63,7 +63,7 @@ export class EntrepriseFormComponent implements OnInit {
     this.entrepriseService.addEntreprise(entreprise, user).subscribe(
         (rep)=>{
           if(rep[0] && rep[0].property_path){
-            this.errerForm(rep);
+            this.entrepriseService.errerForm(rep);
           }else{
             Swal.fire(
               'Partenaire enregistré',
@@ -86,18 +86,5 @@ export class EntrepriseFormComponent implements OnInit {
       this.next=false;
     }
     
-  }
-  errerForm(rep:any){
-    var err='';
-    for(var i=0;i<rep.length;i++){
-      var vrg='';
-      if(i>0) vrg=', ';
-      err+=vrg+rep[i].message;
-    }
-    Swal.fire(
-      'Erreur',
-      err,
-      'error'
-    )
   }
 }

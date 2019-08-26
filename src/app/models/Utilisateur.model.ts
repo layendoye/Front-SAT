@@ -6,5 +6,7 @@ export class Utilisateur{
                 public telephone:string,
                 public nci:string,
                 public confirmPassword?:string,
-                public photo?:string){}
+                public profil?:string,
+                public image?:any
+                ){}
 }

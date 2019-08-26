@@ -18,7 +18,7 @@ export class UpdateEntrepriseComponent implements OnInit {
   charger:boolean=false;
   constructor(private formBuilder: FormBuilder,
               private entrepriseService: EntrepriseService,
-              private router: Router,private route: ActivatedRoute,private entrepriseFormComponent:EntrepriseFormComponent) { }
+              private router: Router,private route: ActivatedRoute) { }
 
   ngOnInit() {
     
@@ -54,7 +54,7 @@ export class UpdateEntrepriseComponent implements OnInit {
     this.entrepriseService.updateEntreprise(entreprise).subscribe(
         (rep)=>{
           if(rep[0] && rep[0].property_path){
-             this.entrepriseFormComponent.errerForm(rep);
+             this.entrepriseService.errerForm(rep);
           }else{
             Swal.fire(
               'Modification',
