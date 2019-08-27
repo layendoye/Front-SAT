@@ -1,3 +1,105 @@
-<p>
-  octroie-compte-form works!
-</p>
+<div class="row grosseDiv">
+    <div class="col-sm-6 ">
+        <form [formGroup]="depotForm" (ngSubmit)="onSubmit()" class="depot depotForm">
+            <div class="form-group">
+                <label for="numeroCompte">Collaborateur</label>
+                <div class="input-group col-sm-12">
+                    <span class="input-group-addon"><i class="fas fa-sort-numeric-up"></i></span>
+                    <select formControlName="" id="" class="form-control">
+                      <option value=""></option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="montant">Compte</label>
+                <div class="input-group col-sm-12">
+                    <span class="input-group-addon"><i class="fas fa-file-invoice-dollar"></i></span>
+                    <select formControlName="" id="" class="form-control">
+                      <option value=""></option>
+                    </select> </div>
+            </div>
+            <div class="row send">
+                <button type="submit" class="btn btn-primary col-sm-4 boutonSend col-sm-offset-4">Créditer</button>
+            </div>
+        </form>
+        <div class="box box-success">
+            <!-- /.box-header -->
+            <div class="box-body">
+                <table #dataTable class="display cell-border" style="width:100%">
+                    <caption>Historiques des comptes affectés à cet utilisateur</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">Date</th>
+                            <th scope="col">Compte</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>25/08/2019</td>
+                            <td>1408 4125 6325</td>
+                        </tr>
+                        <tr>
+                            <td>20/08/2019</td>
+                            <td>9854 7256 3578</td>
+                        </tr>
+                        <tr>
+                            <td>10/08/2019</td>
+                            <td>17415 3652 7851</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+    <div class="col-sm-6 partForm box-primary">
+        <p class="text-center textInfo">Information générale de l'utilisateur</p>
+        <form [formGroup]="entrepriseUpdForm" class="entrepriseForm">
+            <div class="row">
+                <div class="form-group">
+                    <label for="raisonSociale">Nom</label>
+                    <div class="input-group col-12">
+                        <span class="input-group-addon"><i class="far fa-building"></i></span>
+                        <input type="text" id="raisonSociale" class="form-control" formControlName="raisonSociale" placeholder="Nom" readonly>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="ninea">Email</label>
+                    <div class="input-group col-12">
+                        <span class="input-group-addon"><i class="fas fa-check"></i></span>
+                        <input type="text" id="ninea" class="form-control" formControlName="ninea" placeholder="Email" readonly>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="adresse">Téléphone</label>
+                    <div class="input-group col-12">
+                        <span class="input-group-addon"><i class="fas fa-map-marker-alt"></i></span>
+                        <input type="text" id="adresse" class="form-control" formControlName="adresse" placeholder="Téléphone" readonly>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="emailEntreprise">Adresse</label>
+                    <div class="input-group col-12">
+                        <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                        <input type="text" id="emailEntreprise" class="form-control" formControlName="emailEntreprise" placeholder="Adresse" readonly>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="telephoneEntreprise">Poste</label>
+                    <div class="input-group col-12">
+                        <span class="input-group-addon"><i class="fas fa-phone-square"></i></span>
+                        <input type="text" id="telephoneEntreprise" class="form-control" formControlName="telephoneEntreprise" placeholder="Poste" readonly>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="soldeActu">Compte actuel</label>
+                    <div class="input-group col-12">
+                        <span class="input-group-addon"><i class="fas fa-file-invoice-dollar"></i></span>
+                        <input type="text" id="soldeActu" class="form-control" formControlName="soldeActu" placeholder="Compte actuel" readonly>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

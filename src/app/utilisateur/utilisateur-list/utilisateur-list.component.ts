@@ -4,6 +4,7 @@ import Swal from 'node_modules/sweetalert2/dist/sweetalert2.js';
 import { Router } from '@angular/router';
 import { Utilisateur } from 'src/app/models/Utilisateur.model';
 import { EntrepriseService } from 'src/app/services/entreprise.service';
+import { SecurityService } from 'src/app/services/security.service';
 declare var $;
 @Component({
   selector: 'app-utilisateur-list',
@@ -19,15 +20,13 @@ export class UtilisateurListComponent implements OnInit {
   constructor(private entrepriseService:EntrepriseService,private router:Router) { }
 
   ngOnInit() {
-    this.entrepriseService.showUsers().then(
-      user=>{
-        this.users=user
-        console.log(user);
-      },
-      error=>{
-        console.log(error);
+    this.userSubscription=this.entrepriseService.userSubject.subscribe(
+      (users: Utilisateur[])=>{
+        this.users=users;
       }
-    )
+    );
+    this.entrepriseService.emitUser();
+    this.entrepriseService.getUsers();
     this .dtOption = { 
       "aLengthMenu": [[5,10, 25, 50, -1], [5,10, 25, 50, "All"]]
      }; 
@@ -36,10 +35,18 @@ export class UtilisateurListComponent implements OnInit {
     this.dataTable.DataTable(this.dtOption);
   }
   updateUser(id:number){
-
+    this.router.navigate(['inscription',id]);
   }
-  bloquer(id:number){
-
+  bloquer(id: number){
+    this.entrepriseService.bloquerUser(id).then(
+      (rep)=>{//si la promesse est resulue
+        this.entrepriseService.getUsers();
+          Swal.fire(
+            rep.message,'',
+            'success'
+          )
+      }
+    );
   }
   poste(roles:any){
     var poste;

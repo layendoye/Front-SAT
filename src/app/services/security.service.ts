@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders  } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { Utilisateur } from '../models/Utilisateur.model';
+import { Profil } from '../models/Profil.model';
 import Swal from 'node_modules/sweetalert2/dist/sweetalert2.js';
 import { promise } from 'protractor';
 import { resolve } from 'url';
 import { reject } from 'q';
+import { Utilisateur } from '../models/Utilisateur.model';
 @Injectable({
   providedIn: 'root'
 })
@@ -13,8 +14,7 @@ export class SecurityService {
   jwtHelper = new JwtHelperService;
   private headers={headers: new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem('token'))};
   private urlBack='http://127.0.0.1:8000';
-  constructor(private httpClient: HttpClient) { 
-    
+  constructor(private httpClient: HttpClient) {
   }
   login(username:string,password:string){
     
@@ -42,8 +42,8 @@ export class SecurityService {
         );
       })
   }
-  recupProfil(){
-     return new Promise<any>(
+  getProfil(){
+     return new Promise<Profil[]>(
       (resolve, reject)=>{
       this.httpClient
         .get<any>(this.urlBack+'/profil',this.headers)
@@ -70,6 +70,21 @@ export class SecurityService {
       err,
       'error'
     )
+  }
+  addUser(user:Utilisateur){
+    return new Promise<any>(
+      (resolve,reject)=>{
+      this.httpClient
+        .post(this.urlBack+'/inscription',user,this.headers).subscribe(
+          rep=>{
+          resolve(rep);
+          },
+          error=>{
+            console.log('Erreur : '+error.message);
+            reject(error);
+          }
+        );
+      })
   }
   
 }

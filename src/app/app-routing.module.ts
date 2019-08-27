@@ -13,6 +13,7 @@ const routes: Routes = [
   { path: 'connexion', component: LoginComponent },
   { path: 'entreprises/liste',canActivate:[AuthGuard], component: EntrepriseListComponent },
   { path: 'inscription',canActivate:[AuthGuard], component: UtilisateurFormComponent },
+  { path: 'inscription/:id',canActivate:[AuthGuard], component: UtilisateurFormComponent },
   { path: 'partenaires/add',canActivate:[AuthGuard], component: EntrepriseFormComponent },
   { path: 'partenaires/add/:id',canActivate:[AuthGuard], component: UpdateEntrepriseComponent },
   { path: 'nouveau/depot',canActivate:[AuthGuard], component: DepotFormComponent },

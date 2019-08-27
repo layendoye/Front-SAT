@@ -21,6 +21,7 @@ export class EntrepriseListComponent implements OnInit{
   constructor(private entrepriseServ:EntrepriseService,private router:Router) { }
 
   ngOnInit() {
+
     
     this.entrepriseSubscription=this.entrepriseServ.entrepriseSubject.subscribe(
       (entreprises: Entreprise[])=>{
@@ -28,6 +29,7 @@ export class EntrepriseListComponent implements OnInit{
         //console.log(entreprises);
       }
     );
+        
     this.entrepriseServ.emitEntreprise();
     this.entrepriseServ.getEntreprise();
     this .dtOption = { 

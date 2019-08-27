@@ -7,6 +7,8 @@ export class Utilisateur{
                 public nci:string,
                 public confirmPassword?:string,
                 public profil?:string,
-                public image?:any
+                public image?:any,
+                public id?:number,
+                public roles?:any
                 ){}
 }

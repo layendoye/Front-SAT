@@ -9,14 +9,20 @@ import Swal from 'node_modules/sweetalert2/dist/sweetalert2.js';
   providedIn: 'root'
 })
 export class EntrepriseService {
-  
   entrepriseSubject=new Subject<any[]>();//le subject emmettra la liste des entreprises lorsqu on lui demandera, <any[]> veut dire qu il va retourner un tableau de type any (string, int...)
   private entreprises: Entreprise[];
+  
+  userSubject=new Subject<any[]>();//le subject emmettra la liste des users lorsqu on lui demandera, <any[]> veut dire qu il va retourner un tableau de type any (string, int...)
+  private users: Utilisateur[];
+
   private headers={headers: new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem('token'))};
   private urlBack='http://127.0.0.1:8000';
   constructor(private httpClient: HttpClient) { }
   emitEntreprise(){
     this.entrepriseSubject.next(this.entreprises);//la methode next force le subject à emmetre ce qu on lui passe en argument (ici la liste des entreprises)
+  }
+  emitUser(){
+    this.userSubject.next(this.users);//la methode next force le subject à emmetre ce qu on lui passe en argument (ici la liste des entreprises)
   }
   getEntreprise(){
     this.httpClient
@@ -31,6 +37,22 @@ export class EntrepriseService {
         }
       );
   }
+  getUsers(){
+    return new Promise<any[]>(
+      (resolve,reject)=>{
+        this.httpClient.get<any[]>(this.urlBack+'/lister/users',this.headers).subscribe(
+          rep=>{
+            this.users=rep;
+            this.emitUser();
+            resolve(rep);
+          },
+          error=>{
+            reject(error)
+          }
+        )
+      }
+    )
+  }
   bloquer(id: number){
     return new Promise<any>(
       (resolve, reject)=>{
@@ -44,6 +66,23 @@ export class EntrepriseService {
           (error)=>{
             console.log('Erreur : '+error.message);
             alert('Impossible de bloquer ce partenaire !');
+            reject(error);
+          }
+        );
+      })
+  }
+  bloquerUser(id: number){
+    return new Promise<any>(
+      (resolve, reject)=>{
+      this.httpClient
+        .get<any>(this.urlBack+'/bloque/user/'+id,this.headers)
+        .subscribe(
+          (rep)=>{
+            this.emitUser();
+            resolve(rep);
+          },
+          (error)=>{
+            console.log('Erreur : '+error.message);
             reject(error);
           }
         );
@@ -79,12 +118,41 @@ export class EntrepriseService {
     return this.httpClient
       .post<any>(this.urlBack+'/partenaires/update/'+id,data,this.headers)
   }
+  updateUser(user: Utilisateur,id:number){
+    const data={
+      username:user.username,
+      nom:user.nom,
+      email:user.email,
+      telephone:user.telephone,
+      nci:user.nci,
+      image:'',
+      profil:user.profil
+    }
+    console.log(data);
+    return this.httpClient
+      .post<any>(this.urlBack+'/user/update/'+id,data,this.headers)
+  }
   recupEntreprise(id:number){
-    var entreprise:Entreprise;
     return new Promise<any>(
       (resolve,reject)=>{
       this.httpClient
         .get<Entreprise>(this.urlBack+'/entreprise/'+id,this.headers).subscribe(
+          rep=>{
+          resolve(rep);
+          },
+          error=>{
+            console.log('Erreur : '+error.message);
+            reject(error);
+          }
+        );
+      })
+      
+  }
+  recupUser(id:number){
+    return new Promise<Utilisateur>(
+      (resolve,reject)=>{
+      this.httpClient
+        .get<Utilisateur>(this.urlBack+'/user/'+id,this.headers).subscribe(
           rep=>{
           resolve(rep);
           },
@@ -115,7 +183,7 @@ export class EntrepriseService {
         );
       })
   }
-   errerForm(rep:any){
+  errerForm(rep:any){
     var err='';
     for(var i=0;i<rep.length;i++){
       var vrg='';
@@ -128,18 +196,5 @@ export class EntrepriseService {
       'error'
     )
   }
-  showUsers(){
-    return new Promise<any[]>(
-      (resolve,reject)=>{
-        this.httpClient.get<any[]>(this.urlBack+'/lister/users',this.headers).subscribe(
-          rep=>{
-            resolve(rep);
-          },
-          error=>{
-            reject(error)
-          }
-        )
-      }
-    )
-  }
+  
 }
