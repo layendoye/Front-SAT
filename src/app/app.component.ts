@@ -18,6 +18,7 @@ export class AppComponent implements OnInit{
     if(!this.isAuth && localStorage.getItem('token')){     
       this.isAuth=true;
       this.router.navigate(['/entreprises/liste']);
+
     }
     this.tokenExpire();
   }

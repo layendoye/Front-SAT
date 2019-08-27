@@ -7,3 +7,5 @@ npm install @types/datatables.net --save-dev
 npm install --save sweetalert2
 npm install angular-datatables --save //pas la peine
 npm install @auth0/angular-jwt
+ng add @angular/material
+puis on a choisi indigo et puis Y et Y

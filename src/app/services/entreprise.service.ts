@@ -4,7 +4,7 @@ import { Entreprise } from '../models/Entreprise.model';
 import { Utilisateur } from '../models/Utilisateur.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { resolve, reject } from 'q';
-
+import Swal from 'node_modules/sweetalert2/dist/sweetalert2.js';
 @Injectable({
   providedIn: 'root'
 })
@@ -104,7 +104,7 @@ export class EntrepriseService {
     return new Promise<any>(
       (resolve,reject)=>{
       this.httpClient
-        .post<Entreprise>(this.urlBack+'/nouveau/depot',data,this.headers).subscribe(
+        .post<any>(this.urlBack+'/nouveau/depot',data,this.headers).subscribe(
           rep=>{
           resolve(rep);
           },
@@ -114,5 +114,32 @@ export class EntrepriseService {
           }
         );
       })
+  }
+   errerForm(rep:any){
+    var err='';
+    for(var i=0;i<rep.length;i++){
+      var vrg='';
+      if(i>0) vrg=', ';
+      err+=vrg+rep[i].message;
+    }
+    Swal.fire(
+      'Erreur',
+      err,
+      'error'
+    )
+  }
+  showUsers(){
+    return new Promise<any[]>(
+      (resolve,reject)=>{
+        this.httpClient.get<any[]>(this.urlBack+'/lister/users',this.headers).subscribe(
+          rep=>{
+            resolve(rep);
+          },
+          error=>{
+            reject(error)
+          }
+        )
+      }
+    )
   }
 }

@@ -15,7 +15,7 @@ export class EntrepriseListComponent implements OnInit{
   @ViewChild('dataTable') table;
   dataTable: any;
   dtOption: any = {}; 
-  entreprises: Entreprise[];
+  entreprises: Entreprise[]=[];
   entrepriseSubscription: Subscription;
   charger:boolean=false;
   constructor(private entrepriseServ:EntrepriseService,private router:Router) { }
@@ -26,7 +26,6 @@ export class EntrepriseListComponent implements OnInit{
       (entreprises: Entreprise[])=>{
         this.entreprises=entreprises;
         //console.log(entreprises);
-        
       }
     );
     this.entrepriseServ.emitEntreprise();

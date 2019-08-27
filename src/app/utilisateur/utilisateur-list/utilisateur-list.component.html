@@ -1,0 +1,48 @@
+<div class="box tabListe">
+    <div class="box-body">
+        <!-- /.box-header -->
+        <table #dataTable id="example1" class="table table-bordered table-striped">
+            <caption>Collaborateurs</caption>
+            <thead>
+                <tr>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Téléphone</th>
+                    <th scope="col">NCI</th>
+                    <th scope="col">Poste</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Modifier</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let user of users">
+                    <td>{{ user.nom }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.telephone }}</td>
+                    <td>{{ user.nci }}</td>
+                    <td>{{ poste(user.roles) }}</td>
+                    <td><button [ngClass]="{
+                    'btn boutonBloquer': true,
+                    'btn-success': user.status=='Actif', 
+                    'btn-danger': user.status=='Bloqué'
+                    }" (click)="bloquer(user.id)">{{ user.status }}</button></td>
+                    <td class="text-center modif">
+                        <a (click)="updateUser(user.id)"><i class="fas fa-edit fontAwsModif"></i></a>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Téléphone</th>
+                    <th scope="col">NCI</th>
+                    <th scope="col">Poste</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Modifier</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <!-- /.box-body -->
+</div>

@@ -8,6 +8,7 @@ import { DepotFormComponent } from './depot/depot-form/depot-form.component';
 import { OctroieCompteFormComponent } from './octroieCompte/octroie-compte-form/octroie-compte-form.component';
 import { AuthGuard } from 'src/app/services/auth-guard.service';
 import { UpdateEntrepriseComponent } from './entreprise/update-entreprise/update-entreprise.component';
+import { UtilisateurListComponent } from './utilisateur/utilisateur-list/utilisateur-list.component';
 const routes: Routes = [
   { path: 'connexion', component: LoginComponent },
   { path: 'entreprises/liste',canActivate:[AuthGuard], component: EntrepriseListComponent },
@@ -16,8 +17,9 @@ const routes: Routes = [
   { path: 'partenaires/add/:id',canActivate:[AuthGuard], component: UpdateEntrepriseComponent },
   { path: 'nouveau/depot',canActivate:[AuthGuard], component: DepotFormComponent },
   { path: 'changer/compte',canActivate:[AuthGuard], component: OctroieCompteFormComponent },
-  { path: 'gg', redirectTo: 'entreprises/liste', pathMatch: 'full' },//pour eviter les erreurs pathMatch: 'full' pour dire que le path doit etre totalement vide
-  { path: 'yy', redirectTo: 'entreprises/liste' }
+  { path: 'lister/users',canActivate:[AuthGuard], component: UtilisateurListComponent },
+  { path: '', redirectTo: 'entreprises/liste', pathMatch: 'full' },//pour eviter les erreurs pathMatch: 'full' pour dire que le path doit etre totalement vide
+  { path: '**', redirectTo: 'entreprises/liste' }
 ];
 
 @NgModule({

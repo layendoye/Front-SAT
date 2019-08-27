@@ -39,8 +39,6 @@ export class LoginComponent implements OnInit {
         this.errorMessage='Erreur sur le login ou le mot de passe';
       }
     );
-    
-    
     //this.router.navigate(['/entreprises/liste']);
   }
 }
