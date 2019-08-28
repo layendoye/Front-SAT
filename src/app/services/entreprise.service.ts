@@ -259,4 +259,10 @@ export class EntrepriseService {
         );
       })
   }
+  getCompteActuel(id:number){
+    return this.getElement('/compte/user/'+id);
+  }
+  getComptesUser(id:number){
+    return this.getElement('/comptes/affecte/user/'+id);
+  }
 }

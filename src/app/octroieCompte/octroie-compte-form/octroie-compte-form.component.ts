@@ -24,6 +24,8 @@ export class OctroieCompteFormComponent implements OnInit {
   userChoisi= new Utilisateur('','','','','','','','','',0);
   afficherFormUser:boolean=false;
   afficherTableau:boolean=false;
+  compteUserChoisi:string='';
+  anciensComptes:any[];
   constructor(private formBuilder: FormBuilder,
               private entrepriseService: EntrepriseService,
               private router: Router,private route: ActivatedRoute) { }
@@ -32,8 +34,7 @@ export class OctroieCompteFormComponent implements OnInit {
     this .dtOption = { 
       "aLengthMenu": [[3,10, 25, 50, -1], [3,10, 25, 50, "All"]]
      }; 
-    this.dataTable = $(this.table.nativeElement);
-    this.dataTable.DataTable(this.dtOption);
+    
     this.entrepriseService.getUsers().then(//pour le select des users
       users=>{
         this.users=users;
@@ -41,7 +42,7 @@ export class OctroieCompteFormComponent implements OnInit {
         console.log('Erreur : '+error)
       }
     );
-    this.entrepriseService.getCompte().then(//pour le select des users
+    this.entrepriseService.getCompte().then(//pour le select des comptes
       comptes=>{
         this.comptes=comptes;
       },error=>{
@@ -50,14 +51,13 @@ export class OctroieCompteFormComponent implements OnInit {
     );
     this.initForm1();
   }
-  initForm1(){
+  initForm1(){//celui de l affectation des compte
     this.affectationForm=this.formBuilder.group({   
       utilisateur:['',[Validators.required,Validators.pattern(/[a-z-A-Z]{2,}/)]],
       compte:['',[Validators.required]]
     });
-    
   }
-  initForm2(){
+  initForm2(){//celui des info user
     if(this.userChoisi.roles){
       var poste=this.poste(this.userChoisi.roles);
     }    
@@ -67,10 +67,10 @@ export class OctroieCompteFormComponent implements OnInit {
       telephone:[this.userChoisi.telephone,[Validators.required,Validators.pattern(/[0-9]{2,}/)]],
       nci:[this.userChoisi.nci,[Validators.required,Validators.pattern(/[0-9]{2,}/)]],
       poste:[poste,[Validators.required]],
-      soldeActu:['',[Validators.required]]
+      compteActu:[this.compteUserChoisi,[Validators.required]]
     });
   }
-  onSubmit(){
+  onSubmit(){//submit affectation compte
     console.log(this.affectationForm.value)
     this.entrepriseService.affecterCompt(this.affectationForm.value).then(
         (rep) => {
@@ -86,10 +86,43 @@ export class OctroieCompteFormComponent implements OnInit {
           }
         },
         (error) => {
+          Swal.fire(
+              'Cet utilisateur est déja affecté à ce compte',
+              '',
+              'error'
+            )
           console.log('Erreur : ' + error.message);
         }
       );
+      
   }
+  
+  getUserChoisi(id:number){//quand on choisi un user
+    for(var i=0;i<this.users.length;i++){
+      if(this.users[i].id==id){
+        this.userChoisi=this.users[i];//on recupere le userChoisi
+      }
+    }
+    this.entrepriseService.getCompteActuel(id).then(//on recupere le compte actuel
+      rep=>{
+        this.compteUserChoisi=rep.compte.numeroCompte;
+        this.afficherFormUser=true;
+        this.initForm2();
+        
+      },error=>{
+        console.log('Erreur : '+ error)
+      }
+    );
+    this.afficherTableau=true;
+    this.entrepriseService.getComptesUser(id).then(data=>{
+      this.anciensComptes=data;
+      this.dataTable = $(this.table.nativeElement);
+      this.dataTable.DataTable(this.dtOption);
+      },
+      error=>console.log('Erreur : '+error)
+    );
+  }
+
   poste(roles:any){
     var poste;
     if(roles[0]=='ROLE_Super-admin' || roles[0]=='ROLE_admin-Principal' || roles[0]=='ROLE_admin'){
@@ -102,16 +135,5 @@ export class OctroieCompteFormComponent implements OnInit {
       poste='Guichetier';
     }
     return poste;
-  }
-  getUserChoisi(id:number){
-    for(var i=0;i<this.users.length;i++){
-      if(this.users[i].id==id){
-        this.userChoisi=this.users[i];
-      }
-    }
-    this.afficherTableau=true;
-    this.afficherFormUser=true;
-    this.initForm2();
-    console.log(this.userChoisi);
   }
 }
