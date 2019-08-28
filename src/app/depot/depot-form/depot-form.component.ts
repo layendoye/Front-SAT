@@ -28,6 +28,7 @@ export class DepotFormComponent implements OnInit {
     this.dataTable = $(this.table.nativeElement);
     this.dataTable.DataTable(this.dtOption);
   }
+  
   initForm(){
      this.depotForm=this.formBuilder.group({   
       numeroCompte:['',[Validators.required]],

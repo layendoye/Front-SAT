@@ -22,11 +22,6 @@ export class EntrepriseFormComponent implements OnInit {
 
   ngOnInit() {
     this.initForm();
-    // Swal.fire({width: 400,
-    //           title:'Partenaire enregistré',
-    //           text:'okkkkkkkkkkkkkkkkk hhhhhhhhhhhhhhhhgggggggg gggggggggggggggg'},
-
-    //       )
   }
   initForm(){
     this.entrepriseForm=this.formBuilder.group({   

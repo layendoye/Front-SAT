@@ -1,25 +1,26 @@
 <div class="row grosseDiv">
     <div class="col-sm-6 ">
-        <form [formGroup]="depotForm" (ngSubmit)="onSubmit()" class="depot depotForm">
+        <form [formGroup]="affectationForm" (ngSubmit)="onSubmit()" class="depot depotForm">
             <div class="form-group">
-                <label for="numeroCompte">Collaborateur</label>
+                <label for="utilisateur">Collaborateur</label>
                 <div class="input-group col-sm-12">
                     <span class="input-group-addon"><i class="fas fa-sort-numeric-up"></i></span>
-                    <select formControlName="" id="" class="form-control">
-                      <option value=""></option>
+                    <select formControlName="utilisateur" id="utilisateur" class="form-control" (change)="getUserChoisi($event.target.value)">
+                      <option *ngFor="let user of users" value="{{user.id}}">{{user.nom}}</option>
                     </select>
                 </div>
             </div>
             <div class="form-group">
-                <label for="montant">Compte</label>
+                <label for="compte">Compte</label>
                 <div class="input-group col-sm-12">
                     <span class="input-group-addon"><i class="fas fa-file-invoice-dollar"></i></span>
-                    <select formControlName="" id="" class="form-control">
-                      <option value=""></option>
-                    </select> </div>
+                    <select formControlName="compte" id="compte" class="form-control">
+                       <option *ngFor="let compte of comptes" value="{{compte.id}}">{{compte.numeroCompte}}</option>
+                    </select>
+                </div>
             </div>
             <div class="row send">
-                <button type="submit" class="btn btn-primary col-sm-4 boutonSend col-sm-offset-4">Créditer</button>
+                <button type="submit" class="btn btn-primary col-sm-4 boutonSend col-sm-offset-4">Affecter</button>
             </div>
         </form>
         <div class="box box-success">
@@ -53,43 +54,43 @@
         </div>
         <!-- /.box -->
     </div>
-    <div class="col-sm-6 partForm box-primary">
+    <div class="col-sm-6 partForm box-primary" *ngIf="afficherFormUser">
         <p class="text-center textInfo">Information générale de l'utilisateur</p>
-        <form [formGroup]="entrepriseUpdForm" class="entrepriseForm">
+        <form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="">
             <div class="row">
                 <div class="form-group">
-                    <label for="raisonSociale">Nom</label>
+                    <label for="nom">Nom</label>
                     <div class="input-group col-12">
                         <span class="input-group-addon"><i class="far fa-building"></i></span>
-                        <input type="text" id="raisonSociale" class="form-control" formControlName="raisonSociale" placeholder="Nom" readonly>
+                        <input type="text" id="nom" class="form-control" formControlName="nom" placeholder="Nom" readonly>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="ninea">Email</label>
+                    <label for="email">Email</label>
                     <div class="input-group col-12">
                         <span class="input-group-addon"><i class="fas fa-check"></i></span>
-                        <input type="text" id="ninea" class="form-control" formControlName="ninea" placeholder="Email" readonly>
+                        <input type="text" id="email" class="form-control" formControlName="email" placeholder="Email" readonly>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="adresse">Téléphone</label>
+                    <label for="telephone">Téléphone</label>
                     <div class="input-group col-12">
                         <span class="input-group-addon"><i class="fas fa-map-marker-alt"></i></span>
-                        <input type="text" id="adresse" class="form-control" formControlName="adresse" placeholder="Téléphone" readonly>
+                        <input type="text" id="telephone" class="form-control" formControlName="telephone" placeholder="Téléphone" readonly>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="emailEntreprise">Adresse</label>
+                    <label for="nci">Numéro carte d'identité</label>
                     <div class="input-group col-12">
                         <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-                        <input type="text" id="emailEntreprise" class="form-control" formControlName="emailEntreprise" placeholder="Adresse" readonly>
+                        <input type="text" id="nci" class="form-control" formControlName="nci" placeholder="Numéro carte d'identité" readonly>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="telephoneEntreprise">Poste</label>
+                    <label for="poste">Poste</label>
                     <div class="input-group col-12">
                         <span class="input-group-addon"><i class="fas fa-phone-square"></i></span>
-                        <input type="text" id="telephoneEntreprise" class="form-control" formControlName="telephoneEntreprise" placeholder="Poste" readonly>
+                        <input type="text" id="poste" class="form-control" formControlName="poste" placeholder="Poste" readonly>
                     </div>
                 </div>
                 <div class="form-group">

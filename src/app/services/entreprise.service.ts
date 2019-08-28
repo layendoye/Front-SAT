@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Entreprise } from '../models/Entreprise.model';
+import { Compte } from '../models/Compte.model';
 import { Utilisateur } from '../models/Utilisateur.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { resolve, reject } from 'q';
@@ -182,6 +183,7 @@ export class EntrepriseService {
           }
         );
       })
+    //return this.postElement(data,'/nouveau/depot');
   }
   errerForm(rep:any){
     var err='';
@@ -196,5 +198,65 @@ export class EntrepriseService {
       'error'
     )
   }
-  
+  getCompte(){
+    return new Promise<Compte[]>(
+      (resolve,reject)=>{
+      this.httpClient
+        .get<Compte[]>(this.urlBack+'/MesComptes',this.headers).subscribe(
+          rep=>{
+            resolve(rep);
+          },
+          error=>{
+            console.log('Erreur : '+error.message);
+            reject(error);
+          }
+        );
+      })
+    //this.getElement('/MesComptes');
+  }
+  postElement(data:any,url:string){//return une promise
+    return new Promise<any[]>(
+      (resolve,reject)=>{
+      this.httpClient
+        .post<any[]>(this.urlBack+url,data,this.headers).subscribe(
+          rep=>{
+          resolve(rep);
+          },
+          error=>{
+            console.log('Erreur : '+error.message);
+            reject(error);
+          }
+        );
+      })
+  }
+  getElement(url:string){
+    return new Promise<any>(
+      (resolve,reject)=>{
+      this.httpClient
+        .get<any>(this.urlBack+url,this.headers).subscribe(
+          rep=>{
+            resolve(rep);
+          },
+          error=>{
+            console.log('Erreur : '+error.message);
+            reject(error);
+          }
+        );
+      })
+  }
+  affecterCompt(data:any){
+    return new Promise<any>(
+      (resolve,reject)=>{
+      this.httpClient
+        .post<any>(this.urlBack+'/changer/compte',data,this.headers).subscribe(
+          rep=>{
+          resolve(rep);
+          },
+          error=>{
+            console.log('Erreur : '+error.message);
+            reject(error);
+          }
+        );
+      })
+  }
 }
