@@ -9,6 +9,8 @@ import { OctroieCompteFormComponent } from './octroieCompte/octroie-compte-form/
 import { AuthGuard } from 'src/app/services/auth-guard.service';
 import { UpdateEntrepriseComponent } from './entreprise/update-entreprise/update-entreprise.component';
 import { UtilisateurListComponent } from './utilisateur/utilisateur-list/utilisateur-list.component';
+import { EnvoisComponent } from './transactions/envois/envois.component';
+import { RetraisComponent } from './transactions/retrais/retrais.component';
 const routes: Routes = [
   { path: 'connexion', component: LoginComponent },
   { path: 'entreprises/liste',canActivate:[AuthGuard], component: EntrepriseListComponent },
@@ -19,6 +21,8 @@ const routes: Routes = [
   { path: 'nouveau/depot',canActivate:[AuthGuard], component: DepotFormComponent },
   { path: 'changer/compte',canActivate:[AuthGuard], component: OctroieCompteFormComponent },
   { path: 'lister/users',canActivate:[AuthGuard], component: UtilisateurListComponent },
+  { path: 'envois',canActivate:[AuthGuard], component: EnvoisComponent },
+  { path: 'retraits',canActivate:[AuthGuard], component: RetraisComponent },
   { path: '', redirectTo: 'entreprises/liste', pathMatch: 'full' },//pour eviter les erreurs pathMatch: 'full' pour dire que le path doit etre totalement vide
   { path: '**', redirectTo: 'entreprises/liste' }
 ];

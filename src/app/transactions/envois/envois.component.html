@@ -1,0 +1,51 @@
+<form [formGroup]="entrepriseUpdForm" class="entrepriseForm" (ngSubmit)="onSubmit()">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label for="nomClientEmetteur">Nom de l'émetteur</label>
+                <div class="input-group col-12">
+                    <span class="input-group-addon"><i class="far fa-building"></i></span>
+                    <input type="text" id="nomClientEmetteur" class="form-control" formControlName="nomClientEmetteur" placeholder="Nom et prénom du client">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="telephoneEmetteur">Téléphone de l'émetteur</label>
+                <div class="input-group col-12">
+                    <span class="input-group-addon"><i class="fas fa-check"></i></span>
+                    <input type="text" id="telephoneEmetteur" class="form-control" formControlName="telephoneEmetteur" placeholder="Téléphone de l'emetteur">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="nciEmetteur">Numéro carte d'identité</label>
+                <div class="input-group col-12">
+                    <span class="input-group-addon"><i class="fas fa-map-marker-alt"></i></span>
+                    <input type="text" id="nciEmetteur" class="form-control" formControlName="nciEmetteur" placeholder="Numéro carte d'identité de l'emetteur">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="nomClientRecepteur">Nom du recepteur</label>
+                <div class="input-group col-12">
+                    <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                    <input type="text" id="nomClientRecepteur" class="form-control" formControlName="nomClientRecepteur" placeholder="Nom du recepteur">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="telephoneRecepteur">Téléphone du recepteur</label>
+                <div class="input-group col-12">
+                    <span class="input-group-addon"><i class="fas fa-phone-square"></i></span>
+                    <input type="text" id="telephoneRecepteur" class="form-control" formControlName="telephoneRecepteur" placeholder="Téléphone du recepteur">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="montant">Montant</label>
+                <div class="input-group col-12">
+                    <span class="input-group-addon"><i class="fas fa-phone-square"></i></span>
+                    <input type="text" id="montant" class="form-control" formControlName="Montant" placeholder="Montant">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row send">
+        <button type="submit" class="btn btn-primary col-sm-4 boutonSend col-sm-offset-4" [disabled]="entrepriseUpdForm.invalid">Enreguister</button>
+    </div>
+</form>

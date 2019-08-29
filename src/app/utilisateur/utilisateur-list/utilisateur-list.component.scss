@@ -1,27 +1,79 @@
-.boutonBloquer {
-    width: 80%;
-    padding-left: 0px;
-    padding-right: 0px;
+// .boutonBloquer {
+//     width: 80%;
+//     padding-left: 0px;
+//     padding-right: 0px;
+// }
+// .rowAjout {
+//     margin-bottom: 3%;
+// }
+// .tabListe {
+//     margin-top: 1%;
+//     margin-bottom: 1%;
+// }
+// .modif {
+//     font-size: 135%;
+// }
+// .fontAwsModif {
+//     font-size: 135%;
+// }
+// .table th,
+// .table td {
+//     text-align: center;
+// }
+table {
+    width: 100%;
 }
 
-.rowAjout {
-    margin-bottom: 3%;
+.mat-form-field {
+    font-size: 14px;
+    width: 100%;
 }
 
-.tabListe {
-    margin-top: 1%;
-    margin-bottom: 1%;
+td,
+th {
+    width: 25%;
 }
 
-.modif {
-    font-size: 135%;
+.loup {
+    background-color: none !important;
+}
+
+.mat-column-nom {
+    width: 20% !important;
+}
+
+.mat-column-email {
+    width: 20% !important;
+}
+
+.mat-column-telephone {
+    width: 20% !important;
+}
+
+.mat-column-nci {
+    width: 17% !important;
+}
+
+.mat-column-roles {
+    width: 15% !important;
+}
+
+.mat-column-status {
+    width: 4% !important;
+}
+
+.mat-column-Modifier {
+    width: 4% !important;
 }
 
 .fontAwsModif {
-    font-size: 135%;
+    color: blue;
 }
 
-.table th,
-.table td {
-    text-align: center;
+.actif {
+    color: green;
+}
+
+.bloquer {
+    color: red;
 }

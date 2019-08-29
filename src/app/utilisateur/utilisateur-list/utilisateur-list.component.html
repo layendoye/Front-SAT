@@ -1,48 +1,65 @@
-<div class="box tabListe">
-    <div class="box-body">
-        <!-- /.box-header -->
-        <table #dataTable id="example1" class="table table-bordered table-striped">
-            <caption>Collaborateurs</caption>
-            <thead>
-                <tr>
-                    <th scope="col">Nom</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Téléphone</th>
-                    <th scope="col">NCI</th>
-                    <th scope="col">Poste</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Modifier</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let user of users">
-                    <td>{{ user.nom }}</td>
-                    <td>{{ user.email }}</td>
-                    <td>{{ user.telephone }}</td>
-                    <td>{{ user.nci }}</td>
-                    <td>{{ poste(user.roles) }}</td>
-                    <td><button [ngClass]="{
-                    'btn boutonBloquer': true,
-                    'btn-success': user.status=='Actif', 
-                    'btn-danger': user.status=='Bloqué'
-                    }" (click)="bloquer(user.id)">{{ user.status }}</button></td>
-                    <td class="text-center modif">
-                        <a (click)="updateUser(user.id)"><i class="fas fa-edit fontAwsModif"></i></a>
-                    </td>
-                </tr>
-            </tbody>
-            <tfoot>
-                <tr>
-                    <th scope="col">Nom</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Téléphone</th>
-                    <th scope="col">NCI</th>
-                    <th scope="col">Poste</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Modifier</th>
-                </tr>
-            </tfoot>
-        </table>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-3 col-sm-offset-8">
+            <mat-form-field class="col-10">
+                <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Recherche">
+            </mat-form-field>
+        </div>
     </div>
-    <!-- /.box-body -->
+</div>
+
+<div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" matSort>
+
+        <!-- raisonSociale Column -->
+        <ng-container matColumnDef="nom">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Nom</th>
+            <td mat-cell *matCellDef="let row"> {{row.nom}} </td>
+        </ng-container>
+
+
+
+        <!-- emailEntreprise Column -->
+        <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
+            <td mat-cell *matCellDef="let row"> {{row.email}} </td>
+        </ng-container>
+
+        <!-- telephoneEntreprise Column -->
+        <ng-container matColumnDef="telephone">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Téléphone </th>
+            <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.telephone}} </td>
+        </ng-container>
+
+        <!-- ninea Column -->
+        <ng-container matColumnDef="nci">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> NCI </th>
+            <td mat-cell *matCellDef="let row"> {{row.nci}} </td>
+        </ng-container>
+
+        <!-- adresse Column -->
+        <ng-container matColumnDef="roles">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Poste </th>
+            <td mat-cell *matCellDef="let row"> {{poste(row.roles)}} </td>
+        </ng-container>
+
+        <!-- Status Column -->
+        <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+            <td mat-cell *matCellDef="let row" [ngClass]="{'bloquer':row.status=='Bloqué','actif':row.status=='Actif'}" (click)="bloquer(row.id)"> <i class="fas fa-lock" *ngIf="row.status=='Bloqué'"></i> <i class="fas fa-lock-open" *ngIf="row.status=='Actif'"></i></td>
+        </ng-container>
+
+        <!-- Modifier Column -->
+        <ng-container matColumnDef="Modifier">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+            <td mat-cell *matCellDef="let row" [style.color]="" (click)="updateUser(row.id)"> <i class="fas fa-edit fontAwsModif"></i></td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+        </tr>
+
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[10, 15, 25, 100]"></mat-paginator>
 </div>

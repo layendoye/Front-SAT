@@ -11,7 +11,6 @@ import { TransactionService } from './services/transaction.service';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { EntrepriseFormComponent } from './entreprise/entreprise-form/entreprise-form.component';
 import { UtilisateurFormComponent } from './utilisateur/utilisateur-form/utilisateur-form.component';
-import { TransactionFormComponent } from './transaction/transaction-form/transaction-form.component';
 import { DepotFormComponent } from './depot/depot-form/depot-form.component';
 import { OctroieCompteFormComponent } from './octroieCompte/octroie-compte-form/octroie-compte-form.component';
 import { LoginComponent } from './security/login/login.component';
@@ -24,20 +23,23 @@ import { UpdateEntrepriseComponent } from './entreprise/update-entreprise/update
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import{MaterialModule} from './material/material.module';
 import { UtilisateurListComponent } from './utilisateur/utilisateur-list/utilisateur-list.component';
+import { EnvoisComponent } from './transactions/envois/envois.component';
+import { RetraisComponent } from './transactions/retrais/retrais.component';
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     EntrepriseFormComponent,
     UtilisateurFormComponent,
-    TransactionFormComponent,
     DepotFormComponent,
     OctroieCompteFormComponent,
     LoginComponent,
     EntrepriseListComponent,
     SidebarComponent,
     UpdateEntrepriseComponent,
-    UtilisateurListComponent
+    UtilisateurListComponent,
+    EnvoisComponent,
+    RetraisComponent
   ],
   imports: [
     BrowserModule,

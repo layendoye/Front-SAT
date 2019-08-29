@@ -5,34 +5,34 @@ import { Router } from '@angular/router';
 import { Utilisateur } from 'src/app/models/Utilisateur.model';
 import { EntrepriseService } from 'src/app/services/entreprise.service';
 import { SecurityService } from 'src/app/services/security.service';
-declare var $;
+import {MatPaginator} from '@angular/material/paginator';
+import {MatSort} from '@angular/material/sort';
+import {MatTableDataSource} from '@angular/material/table';
 @Component({
   selector: 'app-utilisateur-list',
   templateUrl: './utilisateur-list.component.html',
   styleUrls: ['./utilisateur-list.component.scss']
 })
 export class UtilisateurListComponent implements OnInit {
-  @ViewChild('dataTable') table;
-  dataTable: any;
-  dtOption: any = {}; 
+ 
   users: Utilisateur[]=[];
   userSubscription: Subscription;
   constructor(private entrepriseService:EntrepriseService,private router:Router) { }
-
+  displayedColumns: string[] = ['nom', 'email', 'telephone', 'nci', 'roles', 'status', 'Modifier'];
+  dataSource: MatTableDataSource<Utilisateur>;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
   ngOnInit() {
     this.userSubscription=this.entrepriseService.userSubject.subscribe(
       (users: Utilisateur[])=>{
         this.users=users;
+        this.dataSource = new MatTableDataSource(this.users);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
       }
     );
     this.entrepriseService.emitUser();
     this.entrepriseService.getUsers();
-    this .dtOption = { 
-      "aLengthMenu": [[5,10, 25, 50, -1], [5,10, 25, 50, "All"]]
-     }; 
-    
-    this.dataTable = $(this.table.nativeElement);
-    this.dataTable.DataTable(this.dtOption);
   }
   updateUser(id:number){
     this.router.navigate(['inscription',id]);
@@ -60,5 +60,12 @@ export class UtilisateurListComponent implements OnInit {
       poste='Guichetier';
     }
     return poste;
+  }
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
 }

@@ -33,6 +33,7 @@ export class SecurityService {
             const tokenDeco=this.jwtHelper.decodeToken(rep.token);
             localStorage.setItem('username', tokenDeco.username);
             localStorage.setItem('roles', tokenDeco.roles);
+            console.log(this.headers)            
             resolve();
           },
           (error)=>{

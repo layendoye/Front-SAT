@@ -1,27 +1,57 @@
-.boutonBloquer {
+table {
     width: 100%;
-    padding-left: 0px;
-    padding-right: 0px;
 }
 
-.rowAjout {
-    margin-bottom: 3%;
+.mat-form-field {
+    font-size: 14px;
+    width: 100%;
 }
 
-.tabListe {
-    margin-top: 1%;
-    margin-bottom: 1%;
+td,
+th {
+    width: 25%;
 }
 
-.modif {
-    font-size: 150%;
+.mat-column-raisonSociale {
+    width: 20% !important;
+}
+
+.mat-column-ninea {
+    width: 15% !important;
+}
+
+.mat-column-emailEntreprise {
+    width: 20% !important;
+}
+
+.mat-column-telephoneEntreprise {
+    width: 12% !important;
+}
+
+.mat-column-adresse {
+    width: 15% !important;
+}
+
+.mat-column-status {
+    width: 4% !important;
+}
+
+.mat-column-soldeGlobal {
+    width: 10% !important; //80
+}
+
+.mat-column-Modifier {
+    width: 4% !important;
 }
 
 .fontAwsModif {
-    font-size: 135%;
+    color: blue;
 }
 
-.table th,
-.table td {
-    text-align: center;
+.actif {
+    color: green;
+}
+
+.bloquer {
+    color: red;
 }

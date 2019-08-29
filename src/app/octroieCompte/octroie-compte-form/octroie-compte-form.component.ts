@@ -5,17 +5,24 @@ import { EntrepriseService } from 'src/app/services/entreprise.service';
 import Swal from 'node_modules/sweetalert2/dist/sweetalert2.js';
 import { Utilisateur } from 'src/app/models/Utilisateur.model';
 import { Compte } from 'src/app/models/Compte.model';
-declare var $;
-
+import {MatPaginator} from '@angular/material/paginator';
+import {MatSort} from '@angular/material/sort';
+import {MatTableDataSource} from '@angular/material/table';
+export interface Histo {
+  dateAffectation:string, 
+  numeroCompte:string
+}
 @Component({
   selector: 'app-octroie-compte-form',
   templateUrl: './octroie-compte-form.component.html',
   styleUrls: ['./octroie-compte-form.component.scss']
 })
 export class OctroieCompteFormComponent implements OnInit {
- @ViewChild('dataTable') table;
-  dataTable: any;
-  dtOption: any = {}; 
+  displayedColumns: string[] = ['dateAffectation', 'numeroCompte'];
+  dataSource: MatTableDataSource<Histo>;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+
   affectationForm: FormGroup;
   userForm: FormGroup;
   errorMessage: string;
@@ -31,9 +38,6 @@ export class OctroieCompteFormComponent implements OnInit {
               private router: Router,private route: ActivatedRoute) { }
   ngOnInit() {
     
-    this .dtOption = { 
-      "aLengthMenu": [[3,10, 25, 50, -1], [3,10, 25, 50, "All"]]
-     }; 
     
     this.entrepriseService.getUsers().then(//pour le select des users
       users=>{
@@ -53,7 +57,7 @@ export class OctroieCompteFormComponent implements OnInit {
   }
   initForm1(){//celui de l affectation des compte
     this.affectationForm=this.formBuilder.group({   
-      utilisateur:['',[Validators.required,Validators.pattern(/[a-z-A-Z]{2,}/)]],
+      utilisateur:['',[Validators.required]],
       compte:['',[Validators.required]]
     });
   }
@@ -116,8 +120,9 @@ export class OctroieCompteFormComponent implements OnInit {
     this.afficherTableau=true;
     this.entrepriseService.getComptesUser(id).then(data=>{
       this.anciensComptes=data;
-      this.dataTable = $(this.table.nativeElement);
-      this.dataTable.DataTable(this.dtOption);
+      this.dataSource = new MatTableDataSource(data);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
       },
       error=>console.log('Erreur : '+error)
     );
@@ -135,5 +140,12 @@ export class OctroieCompteFormComponent implements OnInit {
       poste='Guichetier';
     }
     return poste;
+  }
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
 }
