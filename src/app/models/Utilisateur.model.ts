@@ -9,6 +9,7 @@ export class Utilisateur{
                 public profil?:string,
                 public image?:any,
                 public id?:number,
-                public roles?:any
+                public roles?:any,
+                public imageFile?:any
                 ){}
 }

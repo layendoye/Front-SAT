@@ -28,7 +28,7 @@ export class EntrepriseListComponent implements OnInit{
   entrepriseSubscription: Subscription;
   charger:boolean=false;
   constructor(private entrepriseServ:EntrepriseService,private router:Router) { }
-  displayedColumns: string[] = ['raisonSociale', 'ninea', 'emailEntreprise', 'telephoneEntreprise', 'adresse', 'soldeGlobal', 'status', 'Modifier'];
+  displayedColumns: string[] = ['raisonSociale', 'ninea', 'emailEntreprise', 'telephoneEntreprise', 'adresse', 'soldeGlobal','details', 'status', 'Modifier'];
   dataSource: MatTableDataSource<Entreprise>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -65,6 +65,9 @@ export class EntrepriseListComponent implements OnInit{
     );
   }
   updatePart(id: number){
-    this.router.navigate(['partenaires','add',id]);
+    this.router.navigate(['partenaires',id]);
+  }
+  show(id:number){
+    this.router.navigate(['partenaires','show',id]);
   }
 }

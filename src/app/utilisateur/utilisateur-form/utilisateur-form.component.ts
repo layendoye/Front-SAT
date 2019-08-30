@@ -12,6 +12,8 @@ import { EntrepriseService } from 'src/app/services/entreprise.service';
   styleUrls: ['./utilisateur-form.component.scss']
 })
 export class UtilisateurFormComponent implements OnInit {
+  imageUrl:string="assets/img/exemple.png";//pour l image par defaut au chargement du formulaire
+  fileToUpload:File=null;
   userForm: FormGroup;
   errorMessage: string;
   profils: Profil[] = [];
@@ -85,21 +87,23 @@ export class UtilisateurFormComponent implements OnInit {
     const telephone = this.userForm.get('telephone').value;
     const nci = this.userForm.get('nci').value;
     const profil = this.userForm.get('profil').value;
-    const image = this.userForm.get('image').value;
+    const image = this.fileToUpload.name;
+    const imageFile = this.fileToUpload;
     console.log(this.userForm);
-    const user = new Utilisateur(nom, username, password, email, telephone, nci, confirmPassword, profil, image);
+    const user = new Utilisateur(nom, username, password, email, telephone, nci, confirmPassword, profil, image,0,'',imageFile);
     if(!this.update){
       this.securityService.addUser(user).then(
         (rep) => {
           if (rep[0] && rep[0].property_path) {
             this.securityService.errerForm(rep);
           } else {
+            console.log(rep)
             Swal.fire(
               'Utilisateur enregistré',
               rep.message,
               'success'
             )
-            this.router.navigate(['entreprises/liste']);
+            //this.router.navigate(['entreprises/liste']);
           }
         },
         (error) => {
@@ -158,5 +162,15 @@ export class UtilisateurFormComponent implements OnInit {
       'Veuillez remplir tous les champs',
       'error'
     )
+  }
+  handleFileInput(file:FileList){
+    this.fileToUpload=file.item(0);
+    console.log( this.fileToUpload);
+    var reader=new FileReader();
+    reader.onload=(event:any)=>{
+      this.imageUrl=event.target.result;
+    }
+    reader.readAsDataURL(this.fileToUpload);
+
   }
 }

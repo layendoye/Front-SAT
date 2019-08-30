@@ -25,6 +25,7 @@ import{MaterialModule} from './material/material.module';
 import { UtilisateurListComponent } from './utilisateur/utilisateur-list/utilisateur-list.component';
 import { EnvoisComponent } from './transactions/envois/envois.component';
 import { RetraisComponent } from './transactions/retrais/retrais.component';
+import { SingleEntrepriseComponent } from './entreprise/single-entreprise/single-entreprise.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,7 +40,8 @@ import { RetraisComponent } from './transactions/retrais/retrais.component';
     UpdateEntrepriseComponent,
     UtilisateurListComponent,
     EnvoisComponent,
-    RetraisComponent
+    RetraisComponent,
+    SingleEntrepriseComponent
   ],
   imports: [
     BrowserModule,

@@ -37,7 +37,7 @@ export class EntrepriseFormComponent implements OnInit {
       email:['',[Validators.required,Validators.email]],
       telephone:['',[Validators.required,Validators.pattern(/[0-9]{2,}/)]],
       nci:['',[Validators.required,Validators.pattern(/[0-9]{2,}/)]],
-      photo:['']
+      image:['']
     });
   }
   onSubmit(){

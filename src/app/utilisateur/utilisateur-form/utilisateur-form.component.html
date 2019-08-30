@@ -62,9 +62,10 @@
                 </div>
             </div>
         </div>
+        <img [src]="imageUrl" style="width:250px;height:250px;" alt="">
         <div class="form-group photo">
             <label for="image">Photo</label>
-            <input type="file" id="image" class="form-control" formControlName="image">
+            <input type="file" id="image" class="form-control" formControlName="image" accept="image/*" (change)="handleFileInput($event.target.files)">
         </div>
     </div>
     <div class="row send">

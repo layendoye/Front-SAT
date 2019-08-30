@@ -1,3 +1,4 @@
+import { SingleEntrepriseComponent } from './entreprise/single-entreprise/single-entreprise.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './security/login/login.component';
@@ -17,7 +18,8 @@ const routes: Routes = [
   { path: 'inscription',canActivate:[AuthGuard], component: UtilisateurFormComponent },
   { path: 'inscription/:id',canActivate:[AuthGuard], component: UtilisateurFormComponent },
   { path: 'partenaires/add',canActivate:[AuthGuard], component: EntrepriseFormComponent },
-  { path: 'partenaires/add/:id',canActivate:[AuthGuard], component: UpdateEntrepriseComponent },
+  { path: 'partenaires/:id',canActivate:[AuthGuard], component: UpdateEntrepriseComponent },
+  { path: 'partenaires/show/:id',canActivate:[AuthGuard], component: SingleEntrepriseComponent },
   { path: 'nouveau/depot',canActivate:[AuthGuard], component: DepotFormComponent },
   { path: 'changer/compte',canActivate:[AuthGuard], component: OctroieCompteFormComponent },
   { path: 'lister/users',canActivate:[AuthGuard], component: UtilisateurListComponent },

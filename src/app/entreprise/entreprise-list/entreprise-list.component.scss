@@ -21,7 +21,7 @@ th {
 }
 
 .mat-column-emailEntreprise {
-    width: 20% !important;
+    width: 19% !important;
 }
 
 .mat-column-telephoneEntreprise {
@@ -32,16 +32,20 @@ th {
     width: 15% !important;
 }
 
-.mat-column-status {
-    width: 4% !important;
-}
-
 .mat-column-soldeGlobal {
     width: 10% !important; //80
 }
 
+.mat-column-status {
+    width: 4% !important;
+}
+
 .mat-column-Modifier {
     width: 4% !important;
+}
+
+details .mat-column-details {
+    width: 1% !important;
 }
 
 .fontAwsModif {

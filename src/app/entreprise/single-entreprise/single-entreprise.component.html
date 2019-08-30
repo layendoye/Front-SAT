@@ -1,32 +1,32 @@
 <form [formGroup]="entrepriseForm" class="entrepriseForm" (ngSubmit)="onSubmit()">
-    <div class="row">
-        <div class="col-sm-12" *ngIf="!next">
+    <div class="row tab">
+        <div class="col-sm-6">
             <div class="form-group">
                 <label for="raisonSociale">Raison Sociale</label>
                 <div class="input-group col-12">
                     <span class="input-group-addon"><i class="far fa-building"></i></span>
-                    <input type="text" id="raisonSociale" class="form-control" formControlName="raisonSociale" placeholder="Raison Sociale">
+                    <input type="text" id="raisonSociale" class="form-control" formControlName="raisonSociale" placeholder="Raison Sociale" readonly>
                 </div>
             </div>
             <div class="form-group">
                 <label for="ninea">NINEA</label>
                 <div class="input-group col-12">
                     <span class="input-group-addon"><i class="fas fa-check"></i></span>
-                    <input type="text" id="ninea" class="form-control" formControlName="ninea" placeholder="ninea">
+                    <input type="text" id="ninea" class="form-control" formControlName="ninea" placeholder="ninea" readonly>
                 </div>
             </div>
             <div class="form-group">
                 <label for="adresse">Adresse</label>
                 <div class="input-group col-12">
                     <span class="input-group-addon"><i class="fas fa-map-marker-alt"></i></span>
-                    <input type="text" id="adresse" class="form-control" formControlName="adresse" placeholder="Adresse">
+                    <input type="text" id="adresse" class="form-control" formControlName="adresse" placeholder="Adresse" readonly>
                 </div>
             </div>
             <div class="form-group">
                 <label for="emailEntreprise">Email de l 'entreprise</label>
                 <div class="input-group col-12">
                     <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-                    <input type="text" id="emailEntreprise" class="form-control" formControlName="emailEntreprise" placeholder="Email de l 'entreprise">
+                    <input type="text" id="emailEntreprise" class="form-control" formControlName="emailEntreprise" placeholder="Email de l 'entreprise" readonly>
                 </div>
             </div>
             <div class="form-group">
@@ -34,16 +34,16 @@
                 <label for="adresse">Adresse</label>
                 <div class="input-group col-12">
                     <span class="input-group-addon"><i class="fas fa-phone-square"></i></span>
-                    <input type="text" id="telephoneEntreprise" class="form-control" formControlName="telephoneEntreprise" placeholder="Téléphone de l'entreprise">
+                    <input type="text" id="telephoneEntreprise" class="form-control" formControlName="telephoneEntreprise" placeholder="Téléphone de l'entreprise" readonly>
                 </div>
             </div>
         </div>
-        <div class="col-sm-12" *ngIf="next">
+        <div class="col-sm-6">
             <div class="form-group">
                 <label for="nom">Nom du responsable</label>
                 <div class="input-group col-12">
                     <span class="input-group-addon"><i class="fas fa-user-plus"></i></span>
-                    <input type="text" id="nom" class="form-control" formControlName="nom" placeholder="Nom du responsable">
+                    <input type="text" id="nom" class="form-control" formControlName="nom" placeholder="Nom du responsable" readonly>
                 </div>
             </div>
 
@@ -51,53 +51,64 @@
                 <label for="username">Login</label>
                 <div class="input-group col-12">
                     <span class="input-group-addon"><i class="fas fa-user"></i></span>
-                    <input type="text" id="username" class="form-control" formControlName="username" placeholder="Login">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="password">Mot de passe</label>
-                <div class="input-group col-12">
-                    <span class="input-group-addon"><i class="fas fa-lock"></i></span>
-                    <input type="password" id="password" class="form-control" formControlName="password" placeholder="Mot de passe">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="confirmPassword">Confirmer mot de passe</label>
-                <div class="input-group col-12">
-                    <span class="input-group-addon"><i class="fas fa-lock"></i></span>
-                    <input type="password" id="confirmPassword" class="form-control" formControlName="confirmPassword" placeholder="Confirmer le mot de passe">
+                    <input type="text" id="username" class="form-control" formControlName="username" placeholder="Login" readonly>
                 </div>
             </div>
             <div class="form-group">
                 <label for="email">Email du responsable</label>
                 <div class="input-group col-12">
                     <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-                    <input type="text" id="email" class="form-control" formControlName="email" placeholder="Email">
+                    <input type="text" id="email" class="form-control" formControlName="email" placeholder="Email" readonly>
                 </div>
             </div>
             <div class="form-group">
                 <label for="telephone">Numéro de téléphone du responsable</label>
                 <div class="input-group col-12">
                     <span class="input-group-addon"><i class="fas fa-phone-square"></i></span>
-                    <input type="text" id="telephone" class="form-control" formControlName="telephone" placeholder="Téléphone">
+                    <input type="text" id="telephone" class="form-control" formControlName="telephone" placeholder="Téléphone" readonly>
                 </div>
             </div>
             <div class="form-group">
                 <label for="nci">Numéro de carte d'identité du responsable</label>
                 <div class="input-group col-12">
                     <span class="input-group-addon"><i class="fas fa-address-card"></i></span>
-                    <input type="text" id="nci" class="form-control" formControlName="nci" placeholder="NCI">
+                    <input type="text" id="nci" class="form-control" formControlName="nci" placeholder="NCI" readonly>
                 </div>
             </div>
-            <!--<div class="form-group">
-                <label for="photo">Photo</label>
-                <input type="file" id="photo" class="form-control" formControlName="image">
-            </div>-->
         </div>
     </div>
-    <div class="row send">
-        <a class="btn btn-default col-sm-2 boutonSend col-sm-offset-10" (click)="nextForm()" *ngIf="!next">Suivant <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> </a>
-        <a class="btn btn-default col-sm-2 boutonSend" (click)="nextForm()" *ngIf="next"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Précédant</a>
-        <button type="submit" class="btn btn-default col-sm-2 boutonSend col-sm-offset-8" *ngIf="next">Enregistrer</button>
-    </div>
 </form>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-3 col-sm-offset-8">
+            <mat-form-field class="col-10">
+                <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Recherche">
+            </mat-form-field>
+        </div>
+    </div>
+</div>
+
+<div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" matSort>
+
+        <!-- numeroCompte Column -->
+        <ng-container matColumnDef="numeroCompte">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Numero Compte </th>
+            <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.numeroCompte}} </td>
+        </ng-container>
+
+        <!-- solde Column -->
+        <ng-container matColumnDef="solde">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Solde </th>
+            <td mat-cell *matCellDef="let row"> {{row.solde}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+        </tr>
+
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[1,2,5, 10, 15, 100]"></mat-paginator>
+</div>
