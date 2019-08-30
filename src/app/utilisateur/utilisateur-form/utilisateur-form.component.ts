@@ -103,7 +103,7 @@ export class UtilisateurFormComponent implements OnInit {
               rep.message,
               'success'
             )
-            //this.router.navigate(['entreprises/liste']);
+            this.router.navigate(['entreprises/liste']);
           }
         },
         (error) => {

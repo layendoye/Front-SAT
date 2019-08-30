@@ -73,10 +73,20 @@ export class SecurityService {
     )
   }
   addUser(user:Utilisateur){
+    const formData:FormData=new FormData();
+    formData.append('image',user.imageFile,user.image)
+    formData.append('nom',user.nom)
+    formData.append('username',user.username)
+    formData.append('password',user.password)
+    formData.append('email',user.email)
+    formData.append('telephone',user.telephone)
+    formData.append('nci',user.nci)
+    formData.append('confirmPassword',user.confirmPassword)
+    formData.append('profil',user.profil)
     return new Promise<any>(
       (resolve,reject)=>{
       this.httpClient
-        .post(this.urlBack+'/inscription',user,this.headers).subscribe(
+        .post(this.urlBack+'/inscription',formData,this.headers).subscribe(
           rep=>{
           resolve(rep);
           },
