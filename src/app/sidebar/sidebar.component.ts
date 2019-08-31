@@ -1,3 +1,4 @@
+import { SecurityService } from './../services/security.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,10 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent implements OnInit {
-
+  image:string;
   constructor() { }
 
   ngOnInit() {
+    
   }
 
 }

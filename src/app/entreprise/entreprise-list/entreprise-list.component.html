@@ -53,6 +53,12 @@
             <td mat-cell *matCellDef="let row" [style.color]="" (click)="show(row.id)"><i class="fas fa-search"></i></td>
         </ng-container>
 
+        <!-- Ajout compte Column -->
+        <ng-container matColumnDef="ajoutCompte">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+            <td mat-cell *matCellDef="let row" [style.color]="" (click)="addCompte(row.id)"> <i class="fas fa-plus-square"></i></td>
+        </ng-container>
+
         <!-- Status Column -->
         <ng-container matColumnDef="status">
             <th mat-header-cell *matHeaderCellDef mat-sort-header></th>

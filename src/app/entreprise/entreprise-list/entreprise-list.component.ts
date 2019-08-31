@@ -28,13 +28,15 @@ export class EntrepriseListComponent implements OnInit{
   entrepriseSubscription: Subscription;
   charger:boolean=false;
   constructor(private entrepriseServ:EntrepriseService,private router:Router) { }
-  displayedColumns: string[] = ['raisonSociale', 'ninea', 'emailEntreprise', 'telephoneEntreprise', 'adresse', 'soldeGlobal','details', 'status', 'Modifier'];
+  displayedColumns: string[] = ['raisonSociale', 'ninea', 'emailEntreprise', 'telephoneEntreprise', 'adresse', 'soldeGlobal','details','ajoutCompte', 'status', 'Modifier'];
   dataSource: MatTableDataSource<Entreprise>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   ngOnInit() {
-
-    this.entrepriseSubscription=this.entrepriseServ.entrepriseSubject.subscribe(
+    this.getEntreprises();
+  }
+  getEntreprises(){
+     this.entrepriseSubscription=this.entrepriseServ.entrepriseSubject.subscribe(
       (entreprises: Entreprise[])=>{
         this.entreprises=entreprises;
         this.dataSource = new MatTableDataSource(this.entreprises);
@@ -54,20 +56,70 @@ export class EntrepriseListComponent implements OnInit{
     }
   }
   bloquer(id: number){
-    this.entrepriseServ.bloquer(id).then(
-      (rep)=>{//si la promesse est resulue
-        this.entrepriseServ.getEntreprise();
-          Swal.fire(
-            rep.message,'',
-            'success'
-          )
+    var textBloquer="Etes vous sure de vouloir le bloquer?"
+    Swal.fire({
+      title: textBloquer,
+      width: 600,
+      text: "Les utilisateurs du partenaire ne pourrons plus se connecter",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Oui',
+      cancelButtonText: 'Annuler',
+    }).then((result) => {
+      if (result.value) {
+        this.entrepriseServ.bloquer(id).then(
+          (rep)=>{//si la promesse est resulue
+            this.entrepriseServ.getEntreprise();
+              Swal.fire(
+                rep.message,'',
+                'success'
+              )
+          }
+        );
       }
-    );
+    })
+
+
+    
   }
   updatePart(id: number){
     this.router.navigate(['partenaires',id]);
   }
   show(id:number){
     this.router.navigate(['partenaires','show',id]);
+  }
+  addCompte(id:number){
+    
+    Swal.fire({
+      title: "Etes vous sure de vouloir lui ajouter un nouveau compte?",
+      width: 700,
+      text: "",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Oui',
+      cancelButtonText: 'Annuler',
+    }).then((result) => {
+      if (result.value) {
+        this.entrepriseServ.addCompte(id).then(
+        response=>{
+          Swal.fire({
+              title: response.message+' le numéro de compte est : '+ response.compte,
+              width: 700,
+              type:'success'
+            });
+        },
+        error=>{
+          console.log(error);
+        }
+      );
+      }
+    })
+
+
+    
   }
 }

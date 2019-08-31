@@ -89,23 +89,23 @@ export class EntrepriseService {
         );
       })
   }
-  addEntreprise(entreprise: Entreprise,user:Utilisateur){
-    const data={
-      raisonSociale:entreprise.raisonSociale,
-      ninea:entreprise.ninea,
-      adresse:entreprise.adresse,
-      emailEntreprise:entreprise.emailEntreprise,
-      telephoneEntreprise:entreprise.telephoneEntreprise,
-      nom:user.nom,
-      username:user.username,
-      password:user.password,
-      confirmPassword:user.confirmPassword,
-      email:user.email,
-      telephone:user.telephone,
-      nci:user.nci
-    }
+  addEntreprise(data:any,imageFile:File){
+    const formData:FormData=new FormData();
+    formData.append('raisonSociale',data.raisonSociale)
+    formData.append('ninea',data.ninea)
+    formData.append('adresse',data.adresse)
+    formData.append('emailEntreprise',data.emailEntreprise)
+    formData.append('telephoneEntreprise',data.telephoneEntreprise)
+    formData.append('nom',data.nom)
+    formData.append('username',data.username)
+    formData.append('password',data.password)
+    formData.append('confirmPassword',data.confirmPassword)
+    formData.append('email',data.email)
+    formData.append('telephone',data.telephone)
+    formData.append('nci',data.nci)
+    formData.append('image',imageFile,data.image)
     return this.httpClient
-      .post<any>(this.urlBack+'/partenaires/add',data,this.headers)
+      .post<any>(this.urlBack+'/partenaires/add',formData,this.headers)
   }
   updateEntreprise(entreprise: Entreprise){
     const id=entreprise.id;
@@ -119,19 +119,9 @@ export class EntrepriseService {
     return this.httpClient
       .post<any>(this.urlBack+'/partenaires/update/'+id,data,this.headers)
   }
-  updateUser(user: Utilisateur,id:number){
-    const data={
-      username:user.username,
-      nom:user.nom,
-      email:user.email,
-      telephone:user.telephone,
-      nci:user.nci,
-      image:'',
-      profil:user.profil
-    }
-    console.log(data);
+  updateUser(formData:FormData,id:number){
     return this.httpClient
-      .post<any>(this.urlBack+'/user/update/'+id,data,this.headers)
+      .post<any>(this.urlBack+'/user/update/'+id,formData,this.headers)
   }
   recupEntreprise(id:number){
     return new Promise<any>(
@@ -147,7 +137,6 @@ export class EntrepriseService {
           }
         );
       })
-      
   }
   recupUser(id:number){
     return new Promise<Utilisateur>(
@@ -214,6 +203,9 @@ export class EntrepriseService {
       })
     //this.getElement('/MesComptes');
   }
+  getComptesEntreprise(id:number){
+    return this.getElements('/compte/entreprise/'+id);
+  }
   postElement(data:any,url:string){//return une promise
     return new Promise<any[]>(
       (resolve,reject)=>{
@@ -244,6 +236,21 @@ export class EntrepriseService {
         );
       })
   }
+  getElements(url:string){
+    return new Promise<any[]>(
+      (resolve,reject)=>{
+      this.httpClient
+        .get<any[]>(this.urlBack+url,this.headers).subscribe(
+          rep=>{
+            resolve(rep);
+          },
+          error=>{
+            console.log('Erreur : '+error.message);
+            reject(error);
+          }
+        );
+      })
+  }
   affecterCompt(data:any){
     return new Promise<any>(
       (resolve,reject)=>{
@@ -264,5 +271,8 @@ export class EntrepriseService {
   }
   getComptesUser(id:number){
     return this.getElement('/comptes/affecte/user/'+id);
+  }
+  addCompte(id:number){
+    return this.getElement('/nouveau/compte/'+id);
   }
 }

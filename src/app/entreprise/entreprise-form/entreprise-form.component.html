@@ -89,10 +89,10 @@
                     <input type="text" id="nci" class="form-control" formControlName="nci" placeholder="NCI">
                 </div>
             </div>
-            <!--<div class="form-group">
+            <div class="form-group">
                 <label for="photo">Photo</label>
-                <input type="file" id="photo" class="form-control" formControlName="image">
-            </div>-->
+                <input type="file" id="photo" class="form-control" formControlName="image" accept="image/*" (change)="handleFileInput($event.target.files)">
+            </div>
         </div>
     </div>
     <div class="row send">

@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
       username: ['',[Validators.required]],
       password: ['',[Validators.required,Validators.pattern(/[0-9a-z-A-Z]{2,}/)]]//comme ca le password va contenir au moins 2 caracteres
     });
-  }
+  } 
   onSubmit(){
     
     const username=this.signInForm.get('username').value;

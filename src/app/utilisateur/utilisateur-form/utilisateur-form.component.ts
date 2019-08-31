@@ -22,6 +22,60 @@ export class UtilisateurFormComponent implements OnInit {
   id: number
   update: boolean = false;
   charger: boolean = false;
+  // ValidationMsg = {
+  //   'nom': [
+  //     { type: 'required', message: 'Le nom est obligatoire' },
+  //     { type: 'minlength', message: 'Vous devez remplir au moins 2 caracteres' },
+  //     { type: 'maxlength', message: 'Username cannot be more than 25 characters long' },
+  //     { type: 'pattern', message: 'Rentrer un login valide' },
+  //     { type: 'validUsername', message: 'Your username has already been taken' }
+  //   ]
+  // }
+  ValidationMsg = {
+    'nom': [
+      { type: 'required', message: 'Le nom est obligatoire' },
+      { type: 'minlength', message: 'Vous devez remplir au moins 2 caracteres' },
+      { type: 'pattern', message: 'Rentrer un nom valide' }
+    ],
+    'username': [
+      { type: 'required', message: 'Le login est obligatoire' },
+      { type: 'minlength', message: 'Vous devez remplir au moins 2 caracteres' },
+      { type: 'pattern', message: 'Rentrer un login valide' }
+    ],
+    'password': [
+      { type: 'required', message: 'Le mot de passe est obligatoire' },
+      { type: 'minlength', message: 'Vous devez remplir au moins 2 caracteres' },
+      { type: 'pattern', message: 'Rentrer un login valide' }
+    ],
+    'confirmPassword': [
+      { type: 'required', message: 'La confirmation est obligatoire' },
+      { type: 'minlength', message: 'Vous devez remplir au moins 2 caracteres' },
+      { type: 'pattern', message: 'Rentrer un mot de passe valide' }
+    ],
+    'email': [
+      { type: 'required', message: 'L\'email est obligatoire' },
+      { type: 'minlength', message: 'Vous devez remplir au moins 2 caracteres' },
+      { type: 'pattern', message: 'Rentrer un email valide' }
+    ],
+    'telephone': [
+      { type: 'required', message: 'Le téléphone est obligatoire' },
+      { type: 'minlength', message: 'Vous devez remplir au moins 2 caracteres' },
+      { type: 'pattern', message: 'Rentrer un téléphone valide' }
+    ],
+    'nci': [
+      { type: 'required', message: 'Le nci est obligatoire' },
+      { type: 'minlength', message: 'Vous devez remplir au moins 2 caracteres' },
+      { type: 'pattern', message: 'Rentrer un nci valide' }
+    ],
+    'profil': [
+      { type: 'required', message: 'Le profil est obligatoire' },
+      { type: 'minlength', message: 'Vous devez remplir au moins 2 caracteres' },
+      { type: 'pattern', message: 'Rentrer un profil valide' }
+    ],
+    'image': [
+      { type: 'required', message: 'L\'image obligatoire' }
+    ]
+  }
   constructor(private formBuilder: FormBuilder, private router: Router,
     private securityService: SecurityService, private route: ActivatedRoute,
     private entrepriseService: EntrepriseService) { }
@@ -67,15 +121,15 @@ export class UtilisateurFormComponent implements OnInit {
     }
       
     this.userForm=this.formBuilder.group({   
-      nom:[user.nom,[Validators.required,Validators.pattern(/[a-z-A-Z]{2,}/)]],
-      username:[user.username,[Validators.required]],
-      password: [user.password,[Validators.required,Validators.pattern(/[0-9a-z-A-Z]{2,}/)]],//comme ca le password va contenir au moins 2 caracteres
-      confirmPassword:[user.confirmPassword,[Validators.required]],
-      email:[user.email,[Validators.required,Validators.email]],
-      telephone:[user.telephone,[Validators.required,Validators.pattern(/[0-9]{2,}/)]],
-      nci:[user.nci,[Validators.required,Validators.pattern(/[0-9]{2,}/)]],
+      nom:[user.nom,[Validators.required,Validators.minLength(2),Validators.pattern(/[a-z-A-Z]/)]],
+      username:[user.username,[Validators.required,Validators.minLength(2)]],
+      password: [user.password,[Validators.required,Validators.minLength(2),Validators.pattern(/[0-9a-z-A-Z]/)]],//comme ca le password va contenir au moins 2 caracteres
+      confirmPassword:[user.confirmPassword,[Validators.required,Validators.minLength(2),Validators.pattern(/[0-9a-z-A-Z]/)]],
+      email:[user.email,[Validators.required,Validators.email,Validators.minLength(2)]],
+      telephone:[user.telephone,[Validators.required,Validators.minLength(2),Validators.pattern(/[0-9]/)]],
+      nci:[user.nci,[Validators.required,Validators.minLength(2),Validators.pattern(/[0-9]{2,}/)]],
       profil:[idProfil,[Validators.required]],
-      image:['']
+      image:[user.image,[Validators.required]]
     });
   }
   onSubmit() {
@@ -89,10 +143,20 @@ export class UtilisateurFormComponent implements OnInit {
     const profil = this.userForm.get('profil').value;
     const image = this.fileToUpload.name;
     const imageFile = this.fileToUpload;
-    console.log(this.userForm);
-    const user = new Utilisateur(nom, username, password, email, telephone, nci, confirmPassword, profil, image,0,'',imageFile);
+ 
+    const formData:FormData=new FormData();
+    formData.append('image',imageFile,image)
+    formData.append('nom',nom)
+    formData.append('username',username)
+    formData.append('password',password)
+    formData.append('email',email)
+    formData.append('telephone',telephone)
+    formData.append('nci',nci)
+    formData.append('confirmPassword',confirmPassword)
+    formData.append('profil',profil)
+    
     if(!this.update){
-      this.securityService.addUser(user).then(
+      this.securityService.addUser(formData).then(
         (rep) => {
           if (rep[0] && rep[0].property_path) {
             this.securityService.errerForm(rep);
@@ -113,7 +177,7 @@ export class UtilisateurFormComponent implements OnInit {
       );
     }
     else{
-      this.entrepriseService.updateUser(user,this.id).subscribe(
+      this.entrepriseService.updateUser(formData,this.id).subscribe(
         (rep)=>{
           if(rep[0] && rep[0].property_path){
              this.entrepriseService.errerForm(rep);
@@ -133,6 +197,7 @@ export class UtilisateurFormComponent implements OnInit {
         }
       );
     }
+    
   }
   getidProfil(role:any){
     var id=0;
@@ -171,6 +236,13 @@ export class UtilisateurFormComponent implements OnInit {
       this.imageUrl=event.target.result;
     }
     reader.readAsDataURL(this.fileToUpload);
-
+    Swal.fire({
+      title: 'Image!',
+      imageUrl: this.imageUrl,
+      imageWidth: 400,
+      imageHeight: 200,
+      imageAlt: 'Votre image',
+      animation: false
+    })
   }
 }

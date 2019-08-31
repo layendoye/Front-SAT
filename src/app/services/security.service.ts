@@ -33,7 +33,6 @@ export class SecurityService {
             const tokenDeco=this.jwtHelper.decodeToken(rep.token);
             localStorage.setItem('username', tokenDeco.username);
             localStorage.setItem('roles', tokenDeco.roles);
-            console.log(this.headers)            
             resolve();
           },
           (error)=>{
@@ -72,17 +71,8 @@ export class SecurityService {
       'error'
     )
   }
-  addUser(user:Utilisateur){
-    const formData:FormData=new FormData();
-    formData.append('image',user.imageFile,user.image)
-    formData.append('nom',user.nom)
-    formData.append('username',user.username)
-    formData.append('password',user.password)
-    formData.append('email',user.email)
-    formData.append('telephone',user.telephone)
-    formData.append('nci',user.nci)
-    formData.append('confirmPassword',user.confirmPassword)
-    formData.append('profil',user.profil)
+  addUser(formData:FormData){
+    
     return new Promise<any>(
       (resolve,reject)=>{
       this.httpClient
@@ -97,5 +87,20 @@ export class SecurityService {
         );
       })
   }
-  
+  getUserConnecte(){
+    return new Promise<Utilisateur>(
+      (resolve, reject)=>{
+      this.httpClient
+        .get<Utilisateur>(this.urlBack+'/userConnecte',this.headers)
+        .subscribe(
+          (rep)=>{
+            resolve(rep);
+          },
+          (error)=>{
+            console.log('Erreur : '+error.message);
+            reject(error);
+          }
+        );
+      })
+  }
 }

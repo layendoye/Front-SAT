@@ -29,7 +29,7 @@ th {
 }
 
 .mat-column-adresse {
-    width: 15% !important;
+    width: 11% !important;
 }
 
 .mat-column-soldeGlobal {
@@ -37,15 +37,18 @@ th {
 }
 
 .mat-column-status {
-    width: 4% !important;
+    width: 3.25% !important;
 }
 
 .mat-column-Modifier {
-    width: 4% !important;
+    width: 3.25% !important;
 }
 
-details .mat-column-details {
-    width: 1% !important;
+.mat-column-details {
+    width: 3.25% !important;
+}
+.mat-column-ajoutCompte {
+    width: 3.25% !important;
 }
 
 .fontAwsModif {

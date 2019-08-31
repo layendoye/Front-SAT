@@ -1,3 +1,4 @@
+import { SecurityService } from './../services/security.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -7,13 +8,19 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-
-  constructor(private router:Router) { }
+  image:string;
+  constructor(private router:Router,private securityService:SecurityService) { }
   connecter:boolean=false;
   ngOnInit() {
     if(localStorage.getItem('token')){
       this.connecter=true;
     }
+    this.securityService.getUserConnecte().then(
+      rep=>{
+        this.image="/../../../../Back-SATransfert/public/images/"+rep.image
+        console.log(this.image)
+      }
+    )
   }
   logOut(){
     localStorage.removeItem('token');
