@@ -206,11 +206,26 @@ export class EntrepriseService {
   getComptesEntreprise(id:number){
     return this.getElements('/compte/entreprise/'+id);
   }
-  postElement(data:any,url:string){//return une promise
+  postElements(data:any,url:string){//return une promise
     return new Promise<any[]>(
       (resolve,reject)=>{
       this.httpClient
         .post<any[]>(this.urlBack+url,data,this.headers).subscribe(
+          rep=>{
+          resolve(rep);
+          },
+          error=>{
+            console.log('Erreur : '+error.message);
+            reject(error);
+          }
+        );
+      })
+  }
+  postElement(data:any,url:string){//return une promise
+    return new Promise<any>(
+      (resolve,reject)=>{
+      this.httpClient
+        .post<any>(this.urlBack+url,data,this.headers).subscribe(
           rep=>{
           resolve(rep);
           },
@@ -279,12 +294,15 @@ export class EntrepriseService {
     const data={
       numeroCompte:numeroCompte
     }
-    return this.postElement(data,"/compte/Mesdepots")
+    return this.postElements(data,"/compte/Mesdepots")
   }
   getUneEntreprise(id:number){
     return this.getElement('/entreprise/'+id);
   }
   getRepsonsable(id:number){
     return this.getElement('/entreprise/responsable/'+id);
+  }
+  getUnCompte(data:any){//data est un objet avec le numero de compte
+    return this.postElement(data,"/compte/numeroCompte")
   }
 }

@@ -1,3 +1,4 @@
+import { Entreprise } from './../../models/Entreprise.model';
 import { Component, OnInit,ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -25,15 +26,18 @@ export class DepotFormComponent implements OnInit {
   errorMessage: string;
   mesDepots:MesDepots[];
   isCompte:boolean=false;
+  entreprise:Entreprise;
+  charger:boolean=false;
+  entrepriseForm: FormGroup;
    ValidationMsg = {
     'numeroCompte': [
       { type: 'required', message: 'Le numéro compte est obligatoire' },
-      { type: 'minlength', message: 'Vous devez remplir au moins 2 caracteres' },
+      { type: 'minlength', message: 'Vous devez remplir un numéro compte valide (Ex: xxxx xxxx xxxx)' },
       { type: 'pattern', message: 'Rentrer un numéro compte valide' }
     ],
     'montant': [
       { type: 'required', message: 'Le montant est obligatoire' },
-      { type: 'minlength', message: 'Vous devez remplir au moins 2 caracteres' },
+      { type: 'minlength', message: 'Dêpot minimal 75.000' },
       { type: 'pattern', message: 'Rentrer un montant valide' }
     ]
   }
@@ -48,8 +52,8 @@ export class DepotFormComponent implements OnInit {
         
   initForm(){
      this.depotForm=this.formBuilder.group({   
-      numeroCompte:['',[Validators.required]],
-      montant:['',[Validators.required,Validators.pattern(/[0-9]/),Validators]],
+      numeroCompte:['',[Validators.required,Validators.minLength(14)]],
+      montant:['',[Validators.required,Validators.pattern(/[0-9]/),Validators.minLength(5)]],//surperieur à 75000
     });
   }
   onSubmit(){
@@ -79,6 +83,8 @@ export class DepotFormComponent implements OnInit {
     );
   }
   getDepotCaissierCompte(numeroCompte:string){
+    this.isCompte=false;//on initialise s il change de numero de compte
+    this.charger=false;// on initialise s il change de numero de compte
     this.entrepriseService.getDepotCaissierCompte(numeroCompte).then(
       res=>{
         this.mesDepots=res;
@@ -87,11 +93,23 @@ export class DepotFormComponent implements OnInit {
         this.dataSource = new MatTableDataSource(this.mesDepots);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+        this.EntrepriseCompte(numeroCompte);
       },
       error=>{
         console.log(error);
+        if(numeroCompte.length>=14 && !this.isCompte){//14 à cause des espaces
+          Swal.fire({
+              width: 400,
+              title:'Erreur',
+              text:'Ce compte n\'existe pas !',
+              type: 'error'
+            },
+
+          )
+        }
       }
     )
+    
   }
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -99,5 +117,43 @@ export class DepotFormComponent implements OnInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+  getEntreprise(id:number){
+    this.entrepriseService.getUneEntreprise(id).then(
+      response=>{
+        this.charger=true;
+        this.entreprise=response;
+        console.log(response)
+        this.initForm2();
+      },
+      error=>{
+        console.log(error)
+      }
+    )
+  }
+  initForm2(){
+    
+    this.entrepriseForm=this.formBuilder.group({   
+      raisonSociale:[this.entreprise.raisonSociale],
+      ninea:[this.entreprise.ninea],
+      adresse:[this.entreprise.adresse],
+      emailEntreprise:[this.entreprise.emailEntreprise],
+      telephoneEntreprise:[this.entreprise.telephoneEntreprise],
+      soldeActu:[this.entreprise.soldeGlobal]
+    });
+  }
+  EntrepriseCompte(numeroCompte:string){
+    const data={
+      numeroCompte:numeroCompte
+    }
+    this.entrepriseService.getUnCompte(data).then(
+      response=>{//un objet de type compte
+        this.getEntreprise(response.entreprise.id);
+        console.log(response)
+      },
+      error=>{
+        console.log(error)
+      }
+    )
   }
 }

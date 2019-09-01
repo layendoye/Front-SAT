@@ -5,7 +5,7 @@
                 <label for="numeroCompte">Numéro de compte</label>
                 <div class="input-group col-sm-12">
                     <span class="input-group-addon fontAw"><i class="fas fa-sort-numeric-up"></i></span>
-                    <input type="text" (change)="getDepotCaissierCompte($event.target.value)" matInput id="numeroCompte" class="form-control backg" formControlName="numeroCompte" placeholder="Numéro de compte">
+                    <input type="text" (change)="getDepotCaissierCompte($event.target.value)" matInput id="numeroCompte" class="form-control backg" formControlName="numeroCompte" placeholder="Ex: xxxx xxxx xxxx">
                 </div>
                 <mat-error *ngFor="let validation of ValidationMsg.numeroCompte">
                     <mat-error class="error-message" *ngIf="depotForm.get('numeroCompte').hasError(validation.type) && (depotForm.get('numeroCompte').touched)">{{validation.message}}</mat-error>
@@ -22,7 +22,7 @@
                 </mat-error>
             </div>
             <div class="row send">
-                <button type="submit" class="btn btn-primary col-sm-4 boutonSend col-sm-offset-4">Créditer</button>
+                <button type="submit" class="btn btn-primary col-sm-4 boutonSend col-sm-offset-4" [disabled]="depotForm.invalid && isCompte">Créditer</button>
             </div>
         </form>
         <div class="box box-success" *ngIf="isCompte">
@@ -39,7 +39,7 @@
                     </div>
                 </div>
 
-                <div class="mat-elevation-z8" *ngIf="isCompte">
+                <div class="mat-elevation-z8">
                     <table mat-table [dataSource]="dataSource" matSort>
 
                         <!-- raisonSociale Column -->
@@ -68,9 +68,9 @@
         </div>
         <!-- /.box -->
     </div>
-    <div class="col-sm-6 partForm box-primary">
+    <div class="col-sm-6 partForm box-primary" *ngIf="charger">
         <p class="text-center textInfo">Information générale du partenaire</p>
-        <!--<form [formGroup]="entrepriseUpdForm" class="depotForm">
+        <form [formGroup]="entrepriseForm" class="depotForm">
             <div class="row">
                 <div class="form-group">
                     <label for="raisonSociale">Raison Sociale</label>
@@ -102,7 +102,6 @@
                 </div>
                 <div class="form-group">
                     <label for="telephoneEntreprise">Téléphone de l'entreprise</label>
-                    <label for="adresse">Adresse</label>
                     <div class="input-group col-12">
                         <span class="input-group-addon"><i class="fas fa-phone-square"></i></span>
                         <input type="text" id="telephoneEntreprise" class="form-control" formControlName="telephoneEntreprise" placeholder="Téléphone de l'entreprise" readonly>
@@ -116,6 +115,6 @@
                     </div>
                 </div>
             </div>
-        </form>-->
+        </form>
     </div>
 </div>
