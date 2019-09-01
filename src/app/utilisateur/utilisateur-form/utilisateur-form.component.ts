@@ -212,13 +212,6 @@ export class UtilisateurFormComponent implements OnInit {
     }else if(role[0]=='ROLE_utilisateur'){
       id=5
     }
-    // console.log(this.profils)
-    // console.log(role[0])
-    // for(var i=0;i<this.profils.length;i++){
-    //   if(this.profils[i]==role[0]){
-    //     id=i;
-    //   }
-    // }
     return id;
   }
   remplirChamp(){

@@ -206,21 +206,6 @@ export class EntrepriseService {
   getComptesEntreprise(id:number){
     return this.getElements('/compte/entreprise/'+id);
   }
-  postElements(data:any,url:string){//return une promise
-    return new Promise<any[]>(
-      (resolve,reject)=>{
-      this.httpClient
-        .post<any[]>(this.urlBack+url,data,this.headers).subscribe(
-          rep=>{
-          resolve(rep);
-          },
-          error=>{
-            console.log('Erreur : '+error.message);
-            reject(error);
-          }
-        );
-      })
-  }
   postElement(data:any,url:string){//return une promise
     return new Promise<any>(
       (resolve,reject)=>{
@@ -294,7 +279,7 @@ export class EntrepriseService {
     const data={
       numeroCompte:numeroCompte
     }
-    return this.postElements(data,"/compte/Mesdepots")
+    return this.postElement(data,"/compte/Mesdepots")
   }
   getUneEntreprise(id:number){
     return this.getElement('/entreprise/'+id);

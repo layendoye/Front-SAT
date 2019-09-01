@@ -16,7 +16,7 @@ export class UpdateEntrepriseComponent implements OnInit {
   entrepriseUpd:Entreprise;
   id:number;
   charger:boolean=false;
-   ValidationMsg = {
+  ValidationMsg = {
     'raisonSociale': [
       { type: 'required', message: 'La raison sociale est obligatoire' },
       { type: 'minlength', message: 'Vous devez remplir au moins 2 caracteres' },
