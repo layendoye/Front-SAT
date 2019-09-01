@@ -106,7 +106,7 @@ export class UtilisateurFormComponent implements OnInit {
           this.profils = [profil[0], profil[1]];
         }
         else {
-          this.profils = [profil[2], profil[3], profil[4]];
+          this.profils = [profil[3], profil[4]];
         }
         //console.log(profil);
       }
@@ -227,15 +227,16 @@ export class UtilisateurFormComponent implements OnInit {
     var reader=new FileReader();
     reader.onload=(event:any)=>{
       this.imageUrl=event.target.result;
+      Swal.fire({
+        title: 'Image!',
+        imageUrl: this.imageUrl,
+        imageWidth: 400,
+        imageHeight: 200,
+        imageAlt: 'Votre image',
+        animation: false
+      })
     }
     reader.readAsDataURL(this.fileToUpload);
-    Swal.fire({
-      title: 'Image!',
-      imageUrl: this.imageUrl,
-      imageWidth: 400,
-      imageHeight: 200,
-      imageAlt: 'Votre image',
-      animation: false
-    })
+    
   }
 }

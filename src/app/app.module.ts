@@ -26,6 +26,13 @@ import { UtilisateurListComponent } from './utilisateur/utilisateur-list/utilisa
 import { EnvoisComponent } from './transactions/envois/envois.component';
 import { RetraisComponent } from './transactions/retrais/retrais.component';
 import { SingleEntrepriseComponent } from './entreprise/single-entreprise/single-entreprise.component';
+import { HistoEnvoisComponent } from './transactions/histo-envois/histo-envois.component';
+import { HistoRetraitsComponent } from './transactions/histo-retraits/histo-retraits.component';
+import { IsSuperAdminService } from './services/is-super-admin.service';
+import { IsCaissierService } from './services/is-caissier.service';
+import { IsAdminPrinService } from './services/is-admin-prin.service';
+import { IsGuichetierService } from './services/is-guichetier.service';
+import { SuperEtPrincipService } from './services/super-et-princip.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,7 +48,9 @@ import { SingleEntrepriseComponent } from './entreprise/single-entreprise/single
     UtilisateurListComponent,
     EnvoisComponent,
     RetraisComponent,
-    SingleEntrepriseComponent
+    SingleEntrepriseComponent,
+    HistoEnvoisComponent,
+    HistoRetraitsComponent,
   ],
   imports: [
     BrowserModule,
@@ -56,7 +65,12 @@ import { SingleEntrepriseComponent } from './entreprise/single-entreprise/single
     SecurityService,
     EntrepriseService,
     TransactionService,
-    AuthGuard
+    AuthGuard,
+    IsSuperAdminService,
+    IsCaissierService,
+    IsAdminPrinService,
+    IsGuichetierService,
+    SuperEtPrincipService
   ],
   bootstrap: [AppComponent]
 })

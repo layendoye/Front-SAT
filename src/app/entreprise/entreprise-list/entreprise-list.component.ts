@@ -55,12 +55,24 @@ export class EntrepriseListComponent implements OnInit{
       this.dataSource.paginator.firstPage();
     }
   }
-  bloquer(id: number){
-    var textBloquer="Etes vous sure de vouloir le bloquer?"
+  bloquer(id: number,statut:string){
+    var titreBloquer;
+    var textBloquer;
+    if(statut=='Actif'){
+      titreBloquer="Etes vous sure de vouloir le bloquer?";
+      textBloquer="Les utilisateurs du partenaire ne pourrons plus se connecter";
+    }
+      
+    else{
+      titreBloquer="Etes vous sure de vouloir le débloquer?";
+      textBloquer="Les utilisateurs du partenaire pourrons se reconnecter";
+    }
+      
+
     Swal.fire({
-      title: textBloquer,
+      title: titreBloquer,
       width: 600,
-      text: "Les utilisateurs du partenaire ne pourrons plus se connecter",
+      text: textBloquer,
       type: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#d33',

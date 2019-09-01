@@ -16,7 +16,7 @@ export class EntrepriseFormComponent implements OnInit {
   entrepriseForm: FormGroup;
   errorMessage: string;
   next:boolean=false;
-  imageUrl:string;
+  imageUrl:string="assets/img/exemple.png";
    ValidationMsg = {
     'raisonSociale': [
       { type: 'required', message: 'La raison sociale est obligatoire' },
@@ -112,20 +112,6 @@ export class EntrepriseFormComponent implements OnInit {
     });
   }
   onSubmit(){
-    // const raisonSociale=this.entrepriseForm.get('raisonSociale').value;
-    // const ninea=this.entrepriseForm.get('ninea').value;
-    // const adresse=this.entrepriseForm.get('adresse').value;
-    // const emailEntreprise=this.entrepriseForm.get('emailEntreprise').value;
-    // const telephoneEntreprise=this.entrepriseForm.get('telephoneEntreprise').value;
-    // const nom=this.entrepriseForm.get('nom').value;
-    // const username=this.entrepriseForm.get('username').value;
-    // const password=this.entrepriseForm.get('password').value;
-    // const confirmPassword=this.entrepriseForm.get('confirmPassword').value;
-    // const email=this.entrepriseForm.get('email').value;
-    // const telephone=this.entrepriseForm.get('telephone').value;
-    // const nci=this.entrepriseForm.get('nci').value;
-    // const entreprise=new Entreprise(raisonSociale, ninea, adresse,telephoneEntreprise, emailEntreprise);
-    // const user=new Utilisateur(nom,username,password,email,telephone,nci,confirmPassword);
     this.entrepriseService.addEntreprise(this.entrepriseForm.value,this.fileToUpload).subscribe(
         (rep)=>{
           if(rep[0] && rep[0].property_path){
@@ -153,20 +139,22 @@ export class EntrepriseFormComponent implements OnInit {
     }
   }
   handleFileInput(file:FileList){
-    this.fileToUpload=file.item(0);
+     this.fileToUpload=file.item(0);
     console.log( this.fileToUpload);
     var reader=new FileReader();
     reader.onload=(event:any)=>{
       this.imageUrl=event.target.result;
+      Swal.fire({
+        title: 'Image!',
+        imageUrl: this.imageUrl,
+        imageWidth: 400,
+        imageHeight: 200,
+        imageAlt: 'Votre image',
+        animation: false
+      })
     }
     reader.readAsDataURL(this.fileToUpload);
-    Swal.fire({
-      title: 'Image!',
-      imageUrl: this.imageUrl,
-      imageWidth: 400,
-      imageHeight: 200,
-      imageAlt: 'Votre image',
-      animation: false
-    })
+    console.log(this.imageUrl)
+    
   }
 }

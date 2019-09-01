@@ -13,7 +13,7 @@ export class TransactionService {
   envois(data:any){
     return this.postElement(data,"/transation/envoie");
   }
-  retrais(data:any){
+  retrais(data:any){//dans ce data il y a les values du formulaire certains etaient juste pour etre afficher
     data={
       code:data.code,
       nciRecepteur:data.nciRecepteur
@@ -26,7 +26,20 @@ export class TransactionService {
     }
     return this.postElement(data,"/info/transaction");
   }
-
+  historiqueEnvois(data:any){
+    // const data={
+    //   dateDebut:'',
+    //   dateFin:''
+    // }
+    return this.postElement(data,"/transation/partenaire/envois/"+localStorage.getItem("idEntreprise"));
+  }
+  historiqueRetraits(data:any){
+    // const data={
+    //   dateDebut:'',
+    //   dateFin:''
+    // }
+    return this.postElement(data,"/transation/partenaire/retraits/"+localStorage.getItem("idEntreprise"));
+  }
   postElement(data:any,url:string){//return une promise
     return new Promise<any>(
       (resolve,reject)=>{

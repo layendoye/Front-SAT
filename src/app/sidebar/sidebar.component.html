@@ -16,7 +16,7 @@
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">MENU PRINCIPAL</li>
-            <li class="active treeview">
+            <li class="active treeview" *ngIf="MonPoste=='Super-admin' || MonPoste=='Caissier'">
                 <a href="#">
                     <i class="far fa-building"></i> <span> Partenaires</span>
                     <span class="pull-right-container">
@@ -24,12 +24,12 @@
               </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li routerLinkActive="active"><a routerLink="/entreprises/liste"><i class="fas fa-list-ol"></i> Lister</a></li>
-                    <li routerLinkActive="active"><a routerLink="/partenaires/add"><i class="far fa-plus-square"></i> Ajouter</a></li>
-                    <li routerLinkActive="active"><a routerLink="/nouveau/depot"><i class="fas fa-money-check-alt"></i> Dêpot</a></li>
+                    <li routerLinkActive="active" *ngIf="MonPoste=='Super-admin'"><a routerLink="/entreprises/liste"><i class="fas fa-list-ol"></i> Lister</a></li>
+                    <li routerLinkActive="active" *ngIf="MonPoste=='Super-admin'"><a routerLink="/partenaires/add"><i class="far fa-plus-square"></i> Ajouter</a></li>
+                    <li routerLinkActive="active" *ngIf="MonPoste=='Caissier'"><a routerLink="/nouveau/depot"><i class="fas fa-money-check-alt"></i> Dêpot</a></li>
                 </ul>
             </li>
-            <li class="active treeview">
+            <li class="active treeview" *ngIf="MonPoste!='Guichetier' && MonPoste!='Caissier'">
                 <a href="#">
                     <i class="fas fa-users"></i> <span> Collaborateurs</span>
                     <span class="pull-right-container">
@@ -41,7 +41,7 @@
                     <li routerLinkActive="active"><a routerLink="/inscription"><i class="far fa-plus-square"></i> Ajouter</a></li>
                 </ul>
             </li>
-            <li class="treeview">
+            <li class="active treeview" *ngIf="MonPoste!='Super-admin' && MonPoste!='Caissier'">
                 <a href="#">
                     <i class="far fa-money-bill-alt"></i> <span> Transactions</span>
                     <span class="pull-right-container">
@@ -51,23 +51,23 @@
                 <ul class="treeview-menu">
                     <li routerLinkActive="active"><a routerLink="/envois"><i class="fas fa-donate"></i> Envois</a></li>
                     <li routerLinkActive="active"><a routerLink="/retraits"><i class="fas fa-hand-holding-usd"></i> Retraits</a></li>
-                    <li routerLinkActive="active"><a routerLink="/entreprises/liste"><i class="fas fa-history"></i> Historique</a></li>
+                    <li routerLinkActive="active" *ngIf="MonPoste!='Guichetier' && MonPoste!='Caissier'"><a routerLink="historiques/transactions"><i class="fas fa-history"></i> Historique</a></li>
                 </ul>
             </li>
-            <li class="treeview">
+            <li class="active treeview" *ngIf="MonPoste=='admin-Principal' || MonPoste=='admin'">
                 <a href="#">
                     <i class="fas fa-list-ol"></i> <span> Comptes</span>
                     <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
                 </a>
-                <ul class="treeview-menu">
+                <ul class="active treeview-menu">
                     <li routerLinkActive="active"><a routerLink="/changer/compte"><i class="fas fa-donate"></i> Affectation</a></li>
                     <li routerLinkActive="active"><a routerLink="/entreprises/liste"><i class="fas fa-hand-holding-usd"></i> Historique</a></li>
-                    <li routerLinkActive="active"><a routerLink="/entreprises/liste"><i class="fas fa-history"></i> Transactions</a></li>
+                    <li routerLinkActive="active"><a routerLink="/entreprises/liste"><i class="fas fa-history"></i> Transactions par comptes</a></li>
                 </ul>
             </li>
-            <li class="treeview">
+            <li class="active treeview">
                 <a href="#">
                     <i class="fa fa-pie-chart"></i>
                     <span>Graphiques</span>
@@ -76,13 +76,14 @@
               </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a routerLink="/entreprises/liste"><i class="fa fa-circle-o"></i> SA Transfert</a></li>
-                    <li><a routerLink="/entreprises/liste"><i class="fa fa-circle-o"></i> Partenaires</a></li>
-                    <li><a routerLink="/entreprises/liste"><i class="fa fa-circle-o"></i> Utilisateur</a></li>
+                    <li><a routerLink="/entreprises/liste" *ngIf="MonPoste=='Super-admin'"><i class="fa fa-circle-o"></i> SA Transfert</a></li>
+                    <li><a routerLink="/entreprises/liste" *ngIf="MonPoste=='Super-admin'"><i class="fa fa-circle-o"></i> Partenaires</a></li>
+                    <li><a routerLink="/entreprises/liste" *ngIf="MonPoste=='admin-Principal' || MonPoste=='admin'"><i class="fa fa-circle-o"></i> Utilisateurs</a></li>
+                    <li><a routerLink="/entreprises/liste" *ngIf="MonPoste!='Super-admin' && MonPoste!='Caissier'"><i class="fa fa-circle-o"></i> Mes transactions</a></li>
                 </ul>
             </li>
-            <li><a href="https://adminlte.io/docs"><i class="fa fa-book"></i> <span>Documentation</span></a></li>
-            <!-- <li class="treeview">
+            <!--<li><a href=""><i class="fa fa-book"></i> <span>Documentation</span></a></li>
+             <li class="treeview">
                 <a href="#">
                     <i class="fa fa-files-o"></i>
                     <span>Layout Options</span>

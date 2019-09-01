@@ -14,7 +14,7 @@ export class AppComponent implements OnInit{
   constructor(private router: Router){}
   ngOnInit(){
     console.log(localStorage);
-    
+    console.log(localStorage.getItem("roles").search("ROLE_utilisateur"))
     if(!this.isAuth && localStorage.getItem('token')){     
       this.isAuth=true;
       this.router.navigate(['/entreprises/liste']);
@@ -25,9 +25,28 @@ export class AppComponent implements OnInit{
   tokenExpire(){
     const token=localStorage.getItem('token')
     if(localStorage.getItem('token') && this.jwtHelper.isTokenExpired(token) ){
-      localStorage.removeItem('token');
+      localStorage.clear();
       this.detruit=true;
       window.location.reload();
     }
+  }
+  poste(roles:string){
+    var role;
+    if(roles.search("ROLE_Super-admin")>=0){
+      role='Super-admin';
+    }
+    else if(roles.search('ROLE_admin-Principal')>=0){
+      role='admin-Principal';
+    }
+    else if(roles.search('ROLE_admin')>=0){
+      role='admin';
+    }
+    else if(roles.search('ROLE_Caissier')>=0){
+      role='Caissier';
+    }
+     else if(roles.search('ROLE_utilisateur')>=0){
+      role='Guichetier';
+    }
+    return role;
   }
 }

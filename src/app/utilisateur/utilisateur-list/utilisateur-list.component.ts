@@ -35,7 +35,7 @@ export class UtilisateurListComponent implements OnInit {
     this.entrepriseService.getUsers();
   }
   updateUser(id:number){
-    this.router.navigate(['inscription',id]);
+    this.router.navigate(['update',id]);
   }
   bloquer(id: number){
     this.entrepriseService.bloquerUser(id).then(

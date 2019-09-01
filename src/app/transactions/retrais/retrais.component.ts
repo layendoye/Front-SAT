@@ -70,11 +70,13 @@ export class RetraisComponent implements OnInit {
       },
       error=>{
         console.log('Erreur : '+error.message);
-        Swal.fire(
-            'Erreur',
-            'Montant déja retiré !',
-            'error'
-          )
+        if(error.message.search('403')>=0){
+          Swal.fire(
+              'Erreur',
+              'Montant déja retiré !',
+              'error'
+            )
+        }
       }
     )
   }
