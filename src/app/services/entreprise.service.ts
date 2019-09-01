@@ -275,4 +275,16 @@ export class EntrepriseService {
   addCompte(id:number){
     return this.getElement('/nouveau/compte/'+id);
   }
+  getDepotCaissierCompte(numeroCompte:string){
+    const data={
+      numeroCompte:numeroCompte
+    }
+    return this.postElement(data,"/compte/Mesdepots")
+  }
+  getUneEntreprise(id:number){
+    return this.getElement('/entreprise/'+id);
+  }
+  getRepsonsable(id:number){
+    return this.getElement('/entreprise/responsable/'+id);
+  }
 }

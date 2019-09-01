@@ -4,47 +4,65 @@
             <div class="form-group">
                 <label for="numeroCompte">Numéro de compte</label>
                 <div class="input-group col-sm-12">
-                    <span class="input-group-addon"><i class="fas fa-sort-numeric-up"></i></span>
-                    <input type="text" id="numeroCompte" class="form-control" formControlName="numeroCompte" placeholder="Numéro de compte">
+                    <span class="input-group-addon fontAw"><i class="fas fa-sort-numeric-up"></i></span>
+                    <input type="text" (change)="getDepotCaissierCompte($event.target.value)" matInput id="numeroCompte" class="form-control backg" formControlName="numeroCompte" placeholder="Numéro de compte">
                 </div>
+                <mat-error *ngFor="let validation of ValidationMsg.numeroCompte">
+                    <mat-error class="error-message" *ngIf="depotForm.get('numeroCompte').hasError(validation.type) && (depotForm.get('numeroCompte').touched)">{{validation.message}}</mat-error>
+                </mat-error>
             </div>
             <div class="form-group">
                 <label for="montant">Montant</label>
                 <div class="input-group col-sm-12">
-                    <span class="input-group-addon"><i class="fas fa-file-invoice-dollar"></i></span>
-                    <input type="number" id="montant" class="form-control" formControlName="montant" placeholder="Montant">
+                    <span class="input-group-addon fontAw"><i class="fas fa-file-invoice-dollar"></i></span>
+                    <input type="number" matInput id="montant" min="75000" class="form-control backg" formControlName="montant" placeholder="Montant">
                 </div>
+                <mat-error *ngFor="let validation of ValidationMsg.montant">
+                    <mat-error class="error-message" *ngIf="depotForm.get('montant').hasError(validation.type) && (depotForm.get('montant').touched)">{{validation.message}}</mat-error>
+                </mat-error>
             </div>
             <div class="row send">
                 <button type="submit" class="btn btn-primary col-sm-4 boutonSend col-sm-offset-4">Créditer</button>
             </div>
         </form>
-        <div class="box box-success">
+        <div class="box box-success" *ngIf="isCompte">
             <!-- /.box-header -->
             <div class="box-body">
-                <table #dataTable class="display cell-border" style="width:100%">
-                    <caption>Historiques de mes dêpots sur ce compte</caption>
-                    <thead>
-                        <tr>
-                            <th scope="col">Date</th>
-                            <th scope="col">Montant</th>
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-2 col-sm-offset-3">
+                            <mat-form-field class="col-10">
+                                <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Recherche">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mat-elevation-z8" *ngIf="isCompte">
+                    <table mat-table [dataSource]="dataSource" matSort>
+
+                        <!-- raisonSociale Column -->
+                        <ng-container matColumnDef="date">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
+                            <td mat-cell *matCellDef="let row"> {{row.date | date:'dd-MM-yyyy'}} </td>
+                        </ng-container>
+
+                        <!-- ninea Column -->
+                        <ng-container matColumnDef="montant">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Montant </th>
+                            <td mat-cell *matCellDef="let row"> {{row.montant | number}} </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;">
                         </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>25/08/2019</td>
-                            <td>1,500,000</td>
-                        </tr>
-                        <tr>
-                            <td>20/08/2019</td>
-                            <td>500,000</td>
-                        </tr>
-                        <tr>
-                            <td>10/08/2019</td>
-                            <td>100,000</td>
-                        </tr>
-                    </tbody>
-                </table>
+
+                    </table>
+
+                    <mat-paginator [pageSizeOptions]="[10, 15, 25, 100]"></mat-paginator>
+                </div>
+
             </div>
             <!-- /.box-body -->
         </div>
@@ -52,7 +70,7 @@
     </div>
     <div class="col-sm-6 partForm box-primary">
         <p class="text-center textInfo">Information générale du partenaire</p>
-        <form [formGroup]="entrepriseUpdForm" class="entrepriseForm">
+        <!--<form [formGroup]="entrepriseUpdForm" class="depotForm">
             <div class="row">
                 <div class="form-group">
                     <label for="raisonSociale">Raison Sociale</label>
@@ -98,6 +116,6 @@
                     </div>
                 </div>
             </div>
-        </form>
+        </form>-->
     </div>
 </div>

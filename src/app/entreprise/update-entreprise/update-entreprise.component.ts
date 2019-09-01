@@ -16,6 +16,33 @@ export class UpdateEntrepriseComponent implements OnInit {
   entrepriseUpd:Entreprise;
   id:number;
   charger:boolean=false;
+   ValidationMsg = {
+    'raisonSociale': [
+      { type: 'required', message: 'La raison sociale est obligatoire' },
+      { type: 'minlength', message: 'Vous devez remplir au moins 2 caracteres' },
+      { type: 'pattern', message: 'Rentrer une  raison sociale valide' }
+    ],
+    'ninea': [
+      { type: 'required', message: 'Le ninea est obligatoire' },
+      { type: 'minlength', message: 'Vous devez remplir au moins 2 caracteres' },
+      { type: 'pattern', message: 'Rentrer un ninea valide' }
+    ],
+    'adresse': [
+      { type: 'required', message: 'L\' adresse est obligatoire' },
+      { type: 'minlength', message: 'Vous devez remplir au moins 2 caracteres' },
+      { type: 'pattern', message: 'Rentrer une adresse valide' }
+    ],
+    'emailEntreprise': [
+      { type: 'required', message: 'L\' email est obligatoire' },
+      { type: 'minlength', message: 'Vous devez remplir au moins 2 caracteres' },
+      { type: 'pattern', message: 'Rentrer un email valide' }
+    ],
+    'telephoneEntreprise': [
+      { type: 'required', message: 'Le téléphone est obligatoire' },
+      { type: 'minlength', message: 'Vous devez remplir au moins 2 caracteres' },
+      { type: 'pattern', message: 'Rentrer un téléphone valide' }
+    ]
+  }
   constructor(private formBuilder: FormBuilder,
               private entrepriseService: EntrepriseService,
               private router: Router,private route: ActivatedRoute) { }
@@ -36,11 +63,11 @@ export class UpdateEntrepriseComponent implements OnInit {
   }
   initForm(){
      this.entrepriseUpdForm=this.formBuilder.group({   
-      raisonSociale:[this.entrepriseUpd.raisonSociale,[Validators.required]],
-      ninea:[this.entrepriseUpd.ninea,[Validators.required,Validators.pattern(/[0-9]{2,}/)]],
-      adresse:[this.entrepriseUpd.adresse,[Validators.required]],
-      emailEntreprise:[this.entrepriseUpd.emailEntreprise,[Validators.required,Validators.email]],
-      telephoneEntreprise:[this.entrepriseUpd.telephoneEntreprise,[Validators.required,Validators.pattern(/[0-9]{2,}/)]]
+      raisonSociale:[this.entrepriseUpd.raisonSociale,[Validators.required,Validators.minLength(2)]],
+      ninea:[this.entrepriseUpd.ninea,[Validators.required,Validators.pattern(/[0-9]/),Validators.minLength(2)]],
+      adresse:[this.entrepriseUpd.adresse,[Validators.required,Validators.minLength(2)]],
+      emailEntreprise:[this.entrepriseUpd.emailEntreprise,[Validators.required,Validators.email,Validators.minLength(2)]],
+      telephoneEntreprise:[this.entrepriseUpd.telephoneEntreprise,[Validators.required,Validators.pattern(/[0-9]/),Validators.minLength(2)]]
     });
      
   }

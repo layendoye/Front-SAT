@@ -4,37 +4,52 @@
             <div class="form-group">
                 <label for="raisonSociale">Raison Sociale</label>
                 <div class="input-group col-12">
-                    <span class="input-group-addon"><i class="far fa-building"></i></span>
-                    <input type="text" id="raisonSociale" class="form-control" formControlName="raisonSociale" placeholder="Raison Sociale">
+                    <span class="input-group-addon fontAw"><i class="far fa-building"></i></span>
+                    <input matInput type="text" id="raisonSociale" class="form-control backg" formControlName="raisonSociale" placeholder="Raison Sociale">
                 </div>
+                <mat-error *ngFor="let validation of ValidationMsg.raisonSociale">
+                    <mat-error class="error-message" *ngIf="entrepriseForm.get('raisonSociale').hasError(validation.type) && (entrepriseForm.get('raisonSociale').touched)">{{validation.message}}</mat-error>
+                </mat-error>
             </div>
             <div class="form-group">
                 <label for="ninea">NINEA</label>
                 <div class="input-group col-12">
-                    <span class="input-group-addon"><i class="fas fa-check"></i></span>
-                    <input type="text" id="ninea" class="form-control" formControlName="ninea" placeholder="ninea">
+                    <span class="input-group-addon fontAw"><i class="fas fa-check"></i></span>
+                    <input matInput type="text" id="ninea" class="form-control backg" formControlName="ninea" placeholder="ninea">
                 </div>
+                 <mat-error *ngFor="let validation of ValidationMsg.ninea">
+                    <mat-error class="error-message" *ngIf="entrepriseForm.get('ninea').hasError(validation.type) && (entrepriseForm.get('ninea').touched)">{{validation.message}}</mat-error>
+                </mat-error>
             </div>
             <div class="form-group">
                 <label for="adresse">Adresse</label>
                 <div class="input-group col-12">
-                    <span class="input-group-addon"><i class="fas fa-map-marker-alt"></i></span>
-                    <input type="text" id="adresse" class="form-control" formControlName="adresse" placeholder="Adresse">
+                    <span class="input-group-addon fontAw"><i class="fas fa-map-marker-alt"></i></span>
+                    <input matInput type="text" id="adresse" class="form-control backg" formControlName="adresse" placeholder="Adresse">
                 </div>
+                 <mat-error *ngFor="let validation of ValidationMsg.adresse">
+                    <mat-error class="error-message" *ngIf="entrepriseForm.get('adresse').hasError(validation.type) && (entrepriseForm.get('adresse').touched)">{{validation.message}}</mat-error>
+                </mat-error>
             </div>
             <div class="form-group">
                 <label for="emailEntreprise">Email de l 'entreprise</label>
                 <div class="input-group col-12">
-                    <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-                    <input type="text" id="emailEntreprise" class="form-control" formControlName="emailEntreprise" placeholder="Email de l 'entreprise">
+                    <span class="input-group-addon fontAw"><i class="fa fa-envelope"></i></span>
+                    <input matInput type="text" id="emailEntreprise" class="form-control backg" formControlName="emailEntreprise" placeholder="Email de l 'entreprise">
                 </div>
+                <mat-error *ngFor="let validation of ValidationMsg.emailEntreprise">
+                    <mat-error class="error-message" *ngIf="entrepriseForm.get('emailEntreprise').hasError(validation.type) && (entrepriseForm.get('emailEntreprise').touched)">{{validation.message}}</mat-error>
+                </mat-error>
             </div>
             <div class="form-group">
                 <label for="telephoneEntreprise">Téléphone de l'entreprise</label>
                 <div class="input-group col-12">
-                    <span class="input-group-addon"><i class="fas fa-phone-square"></i></span>
-                    <input type="text" id="telephoneEntreprise" class="form-control" formControlName="telephoneEntreprise" placeholder="Téléphone de l'entreprise">
+                    <span class="input-group-addon fontAw"><i class="fas fa-phone-square"></i></span>
+                    <input matInput type="text" id="telephoneEntreprise" class="form-control backg" formControlName="telephoneEntreprise" placeholder="Téléphone de l'entreprise">
                 </div>
+                <mat-error *ngFor="let validation of ValidationMsg.telephoneEntreprise">
+                    <mat-error class="error-message" *ngIf="entrepriseForm.get('telephoneEntreprise').hasError(validation.type) && (entrepriseForm.get('telephoneEntreprise').touched)">{{validation.message}}</mat-error>
+                </mat-error>
             </div>
         </div>
 

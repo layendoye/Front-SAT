@@ -33,6 +33,7 @@ export class OctroieCompteFormComponent implements OnInit {
   afficherTableau:boolean=false;
   compteUserChoisi:string='';
   anciensComptes:any[];
+
   constructor(private formBuilder: FormBuilder,
               private entrepriseService: EntrepriseService,
               private router: Router,private route: ActivatedRoute) { }

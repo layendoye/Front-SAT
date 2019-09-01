@@ -18,6 +18,31 @@ export class EntrepriseFormComponent implements OnInit {
   next:boolean=false;
   imageUrl:string;
    ValidationMsg = {
+    'raisonSociale': [
+      { type: 'required', message: 'La raison sociale est obligatoire' },
+      { type: 'minlength', message: 'Vous devez remplir au moins 2 caracteres' },
+      { type: 'pattern', message: 'Rentrer une  raison sociale valide' }
+    ],
+    'ninea': [
+      { type: 'required', message: 'Le ninea est obligatoire' },
+      { type: 'minlength', message: 'Vous devez remplir au moins 2 caracteres' },
+      { type: 'pattern', message: 'Rentrer un ninea valide' }
+    ],
+    'adresse': [
+      { type: 'required', message: 'L\' adresse est obligatoire' },
+      { type: 'minlength', message: 'Vous devez remplir au moins 2 caracteres' },
+      { type: 'pattern', message: 'Rentrer une adresse valide' }
+    ],
+    'emailEntreprise': [
+      { type: 'required', message: 'L\' email est obligatoire' },
+      { type: 'minlength', message: 'Vous devez remplir au moins 2 caracteres' },
+      { type: 'pattern', message: 'Rentrer un email valide' }
+    ],
+    'telephoneEntreprise': [
+      { type: 'required', message: 'Le téléphone est obligatoire' },
+      { type: 'minlength', message: 'Vous devez remplir au moins 2 caracteres' },
+      { type: 'pattern', message: 'Rentrer un téléphone valide' }
+    ],
     'nom': [
       { type: 'required', message: 'Le nom est obligatoire' },
       { type: 'minlength', message: 'Vous devez remplir au moins 2 caracteres' },
@@ -39,7 +64,7 @@ export class EntrepriseFormComponent implements OnInit {
       { type: 'pattern', message: 'Rentrer un mot de passe valide' }
     ],
     'email': [
-      { type: 'required', message: 'L\'email est obligatoire' },
+      { type: 'required', message: 'L\' email est obligatoire' },
       { type: 'minlength', message: 'Vous devez remplir au moins 2 caracteres' },
       { type: 'pattern', message: 'Rentrer un email valide' }
     ],
@@ -59,7 +84,7 @@ export class EntrepriseFormComponent implements OnInit {
       { type: 'pattern', message: 'Rentrer un profil valide' }
     ],
     'image': [
-      { type: 'required', message: 'L\'image obligatoire' }
+      { type: 'required', message: 'L\' image obligatoire' }
     ]
   }
   constructor(private formBuilder: FormBuilder,
@@ -71,18 +96,18 @@ export class EntrepriseFormComponent implements OnInit {
   }
   initForm(){
     this.entrepriseForm=this.formBuilder.group({   
-      raisonSociale:['',[Validators.required]],
-      ninea:['',[Validators.required,Validators.pattern(/[0-9]{2,}/)]],
-      adresse:['',[Validators.required]],
-      emailEntreprise:['',[Validators.required,Validators.email]],
-      telephoneEntreprise:['',[Validators.required,Validators.pattern(/[0-9]{2,}/)]],
-      nom:['',[Validators.required,Validators.pattern(/[a-z-A-Z]{2,}/)]],
-      username:['',[Validators.required]],
-      password: ['',[Validators.required,Validators.pattern(/[0-9a-z-A-Z]{2,}/)]],//comme ca le password va contenir au moins 2 caracteres
-      confirmPassword:['',[Validators.required]],
-      email:['',[Validators.required,Validators.email]],
-      telephone:['',[Validators.required,Validators.pattern(/[0-9]{2,}/)]],
-      nci:['',[Validators.required,Validators.pattern(/[0-9]{2,}/)]],
+      raisonSociale:['',[Validators.required,Validators.minLength(2)]],
+      ninea:['',[Validators.required,Validators.minLength(2),Validators.pattern(/[0-9]/)]],
+      adresse:['',[Validators.required,Validators.minLength(2)]],
+      emailEntreprise:['',[Validators.required,Validators.email,Validators.minLength(2)]],
+      telephoneEntreprise:['',[Validators.required,Validators.minLength(2),Validators.pattern(/[0-9]/)]],
+      nom:['',[Validators.required,Validators.minLength(2),,Validators.pattern(/[a-z-A-Z]/)]],
+      username:['',[Validators.required,Validators.minLength(2)]],
+      password: ['',[Validators.required,Validators.minLength(2),,Validators.pattern(/[0-9a-z-A-Z]/)]],//comme ca le password va contenir au moins 2 caracteres
+      confirmPassword:['',[Validators.required,Validators.minLength(2),]],
+      email:['',[Validators.required,Validators.email,Validators.minLength(2)]],
+      telephone:['',[Validators.required,Validators.minLength(2),Validators.pattern(/[0-9]/)]],
+      nci:['',[Validators.required,Validators.minLength(2),Validators.pattern(/[0-9]/)]],
       image:['']
     });
   }

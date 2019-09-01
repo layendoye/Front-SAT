@@ -1,6 +1,7 @@
-<form [formGroup]="entrepriseForm" class="entrepriseForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="entrepriseForm" class="entrepriseForm" *ngIf="charger">
     <div class="row tab">
         <div class="col-sm-6">
+
             <div class="form-group">
                 <label for="raisonSociale">Raison Sociale</label>
                 <div class="input-group col-12">
@@ -8,6 +9,7 @@
                     <input type="text" id="raisonSociale" class="form-control" formControlName="raisonSociale" placeholder="Raison Sociale" readonly>
                 </div>
             </div>
+
             <div class="form-group">
                 <label for="ninea">NINEA</label>
                 <div class="input-group col-12">
@@ -31,7 +33,6 @@
             </div>
             <div class="form-group">
                 <label for="telephoneEntreprise">Téléphone de l'entreprise</label>
-                <label for="adresse">Adresse</label>
                 <div class="input-group col-12">
                     <span class="input-group-addon"><i class="fas fa-phone-square"></i></span>
                     <input type="text" id="telephoneEntreprise" class="form-control" formControlName="telephoneEntreprise" placeholder="Téléphone de l'entreprise" readonly>

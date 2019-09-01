@@ -10,10 +10,6 @@
     border-top: 3px solid blue;
 }
 
-.depotForm {
-    border-top: 3px solid #00c0ef;
-}
-
 .depot {
     margin-bottom: 5%;
 }
@@ -26,4 +22,28 @@
     font-style: italic;
     font-weight: bolder;
     font-family: 'Times New Roman', Times, serif;
+}
+
+.backg {
+    background-color: white;
+    border: 1px solid #0000003b;
+    padding: 1px;
+}
+
+.fontAw {
+    background-color: white;
+}
+
+table {
+    width: 100%;
+}
+
+.mat-form-field {
+    font-size: 14px;
+    width: 100%;
+}
+
+td,
+th {
+    width: 25%;
 }

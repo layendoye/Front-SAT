@@ -21,6 +21,9 @@ export class SingleEntrepriseComponent implements OnInit {
   errorMessage: string;
   id:number
   comptes:Compte[];
+  entreprise:Entreprise;
+  responsable:Utilisateur;
+  charger:boolean=false;
   constructor(private formBuilder: FormBuilder,
               private entrepriseService: EntrepriseService,
               private router: Router,private route: ActivatedRoute) { }
@@ -31,9 +34,8 @@ export class SingleEntrepriseComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   ngOnInit() {
-    this.initForm();
     this.getComptes();
-    
+    this.getEntreprise();
   }
   getComptes(){
     this.id=this.route.snapshot.params['id'];
@@ -48,21 +50,45 @@ export class SingleEntrepriseComponent implements OnInit {
       error=>console.log(error)
     )
   }
+  getEntreprise(){
+    this.id=this.route.snapshot.params['id'];
+    this.entrepriseService.getUneEntreprise(+this.id).then(
+      response=>{
+        this.entreprise=response;
+        console.log(response)
+         this.getResponsable(+this.id)//on initialise le formulaire ici
+      },
+      error=>{
+        console.log(error)
+      }
+    )
+  }
+  getResponsable(id:number){
+    this.entrepriseService.getRepsonsable(id).then(
+      response=>{
+        this.responsable=response;
+        console.log(response)
+        this.initForm();
+      },
+      error=>{
+        console.log(error)
+      }
+    )
+  }
+
   initForm(){
+    this.charger=true;
     this.entrepriseForm=this.formBuilder.group({   
-      raisonSociale:[''],
-      ninea:[''],
-      adresse:[''],
-      emailEntreprise:[''],
-      telephoneEntreprise:[''],
-      nom:[''],
-      username:[''],
-      password: [''],//comme ca le password va contenir au moins 2 caracteres
-      confirmPassword:[''],
-      email:['',[Validators.required,Validators.email]],
-      telephone:['',[Validators.required,Validators.pattern(/[0-9]{2,}/)]],
-      nci:[''],
-      image:['']
+      raisonSociale:[this.entreprise.raisonSociale],
+      ninea:[this.entreprise.ninea],
+      adresse:[this.entreprise.adresse],
+      emailEntreprise:[this.entreprise.emailEntreprise],
+      telephoneEntreprise:[this.entreprise.telephoneEntreprise],
+      nom:[this.responsable.nom],
+      username:[this.responsable.username],
+      email:[this.responsable.email],
+      telephone:[this.responsable.telephone],
+      nci:[this.responsable.nci]
     });
   }
 }
