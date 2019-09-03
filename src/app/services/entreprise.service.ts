@@ -38,7 +38,7 @@ export class EntrepriseService {
         }
       );
   }
-  getUsers(){
+  getUsers(){//ne pas factoriser à cause de emitUser()
     return new Promise<any[]>(
       (resolve,reject)=>{
         this.httpClient.get<any[]>(this.urlBack+'/lister/users',this.headers).subscribe(
@@ -53,6 +53,9 @@ export class EntrepriseService {
         )
       }
     )
+  }
+  getUserAffectation(){
+    return this.getElements('/lister/users/all');
   }
   bloquer(id: number){
     return new Promise<any>(
@@ -289,5 +292,9 @@ export class EntrepriseService {
   }
   getUnCompte(data:any){//data est un objet avec le numero de compte
     return this.postElement(data,"/compte/numeroCompte")
+  }
+  getMonCompteActu(){
+    const monId=localStorage.getItem("idUser");
+    return this.getElement("/compte/user/"+monId);
   }
 }

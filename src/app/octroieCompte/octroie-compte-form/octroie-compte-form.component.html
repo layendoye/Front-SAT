@@ -4,7 +4,7 @@
             <div class="form-group">
                 <label for="utilisateur">Collaborateur</label>
                 <div class="input-group col-sm-12">
-                    <span class="input-group-addon"><i class="fas fa-sort-numeric-up"></i></span>
+                    <span class="input-group-addon"><em class="fas fa-sort-numeric-up"></em></span>
                     <select formControlName="utilisateur" id="utilisateur" class="form-control" (change)="getUserChoisi($event.target.value)">
                       <option *ngFor="let user of users" value="{{user.id}}">{{user.nom}}</option>
                     </select>
@@ -13,7 +13,7 @@
             <div class="form-group">
                 <label for="compte">Compte</label>
                 <div class="input-group col-sm-12">
-                    <span class="input-group-addon"><i class="fas fa-file-invoice-dollar"></i></span>
+                    <span class="input-group-addon"><em class="fas fa-file-invoice-dollar"></em></span>
                     <select formControlName="compte" id="compte" class="form-control">
                        <option *ngFor="let compte of comptes" value="{{compte.id}}">{{compte.numeroCompte}}</option>
                     </select>

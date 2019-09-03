@@ -33,6 +33,8 @@ import { IsCaissierService } from './services/is-caissier.service';
 import { IsAdminPrinService } from './services/is-admin-prin.service';
 import { IsGuichetierService } from './services/is-guichetier.service';
 import { SuperEtPrincipService } from './services/super-et-princip.service';
+import { RightSidebarComponent } from './right-sidebar/right-sidebar.component';
+import { HistoriquesComponent } from './transactions/historiques/historiques.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -51,6 +53,8 @@ import { SuperEtPrincipService } from './services/super-et-princip.service';
     SingleEntrepriseComponent,
     HistoEnvoisComponent,
     HistoRetraitsComponent,
+    RightSidebarComponent,
+    HistoriquesComponent,
   ],
   imports: [
     BrowserModule,

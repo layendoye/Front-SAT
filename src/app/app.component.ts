@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { EntrepriseService } from 'src/app/services/entreprise.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -11,42 +12,39 @@ export class AppComponent implements OnInit{
   isAuth:boolean=false;
   jwtHelper = new JwtHelperService();
   detruit:boolean=false;
-  constructor(private router: Router){}
+  numeroCompte:string;
+  solde:number;
+  constructor(private router: Router, private entrepriseService:EntrepriseService){}
   ngOnInit(){
+      
+    this.auth();
+    this.tokenExpire();
+    
+  }
+
+  auth(){
     console.log(localStorage);
-    console.log(localStorage.getItem("roles").search("ROLE_utilisateur"))
     if(!this.isAuth && localStorage.getItem('token')){     
       this.isAuth=true;
       this.router.navigate(['/entreprises/liste']);
-
+      this.getUserCompte();
     }
-    this.tokenExpire();
   }
   tokenExpire(){
     const token=localStorage.getItem('token')
-    if(localStorage.getItem('token') && this.jwtHelper.isTokenExpired(token) ){
+    if(localStorage.getItem('token') && this.jwtHelper.isTokenExpired(token)){
       localStorage.clear();
       this.detruit=true;
       window.location.reload();
     }
   }
-  poste(roles:string){
-    var role;
-    if(roles.search("ROLE_Super-admin")>=0){
-      role='Super-admin';
-    }
-    else if(roles.search('ROLE_admin-Principal')>=0){
-      role='admin-Principal';
-    }
-    else if(roles.search('ROLE_admin')>=0){
-      role='admin';
-    }
-    else if(roles.search('ROLE_Caissier')>=0){
-      role='Caissier';
-    }
-     else if(roles.search('ROLE_utilisateur')>=0){
-      role='Guichetier';
-    }
-    return role;
+  getUserCompte(){//deplacer la fonction u header ici recuperer id du user
+    this.entrepriseService.getMonCompteActu().then(
+      resp=>{
+        console.log(resp);
+        this.numeroCompte=resp.compte.numeroCompte;
+        this.solde=resp.compte.solde;
+      }
+    )
   }
 }

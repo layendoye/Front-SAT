@@ -81,6 +81,7 @@ export class UtilisateurFormComponent implements OnInit {
     private entrepriseService: EntrepriseService) { }
 
   ngOnInit() {
+    
     this.id = this.route.snapshot.params['id'];
     if (this.id) {
       this.update=true;
@@ -90,6 +91,7 @@ export class UtilisateurFormComponent implements OnInit {
           this.userUpd = rep;
           this.charger=true;
           this.initForm(this.userUpd);//on initialise le formulaire si la promesse est resolue
+          
         },
         error => {
           console.log(error);
@@ -98,6 +100,7 @@ export class UtilisateurFormComponent implements OnInit {
     } else {
       this.charger=true;
       this.initForm(this.userUpd);
+      
     }
 
     this.securityService.getProfil().then(

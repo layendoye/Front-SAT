@@ -40,7 +40,7 @@ export class OctroieCompteFormComponent implements OnInit {
   ngOnInit() {
     
     
-    this.entrepriseService.getUsers().then(//pour le select des users
+    this.entrepriseService.getUserAffectation().then(//pour le select des users
       users=>{
         this.users=users;
       },error=>{

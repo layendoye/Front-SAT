@@ -96,10 +96,10 @@ export class SecurityService {
       })
   }
   getUserConnecte(){
-    return new Promise<Utilisateur>(
+    return new Promise<any>(
       (resolve, reject)=>{
       this.httpClient
-        .get<Utilisateur>(this.urlBack+'/userConnecte',this.headers)
+        .get<any>(this.urlBack+'/userConnecte',this.headers)
         .subscribe(
           (rep)=>{
             resolve(rep);

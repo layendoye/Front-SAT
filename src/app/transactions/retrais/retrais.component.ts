@@ -61,11 +61,27 @@ export class RetraisComponent implements OnInit {
         if(rep[0] && rep[0].property_path){
              this.entrepriseService.errerForm(rep);
           }else{
-            Swal.fire(
-              'Valider',
-              rep.message,
-              'success'
-            )
+            Swal.fire({
+              title: '<strong>'+rep.Type+'</strong>',
+              type: 'success',
+              html:
+                   '<h2>Bénéficiaire</h2>'
+                  +'<p>Nom : '+rep.Bénéficiaire.Nom+'</p>'
+                  +'<p>Pays : '+rep.Bénéficiaire.Pays+'</p>'
+                  +'<p>Téléphone : '+rep.Bénéficiaire.Téléphone+'</p>'
+                  +'<h2>Envoyeur</h2>'
+                  +'<p>Nom : '+rep.Envoyeur.Nom+'</p>'
+                  +'<p>Pays : '+rep.Envoyeur.Pays+'</p>'
+                  +'<p>Téléphone : '+rep.Envoyeur.Téléphone+'</p>'
+                  +'<h2>Transaction</h2>'
+                  +'<p>Code : <strong>'+rep.Transaction.CodeTransaction+'</strong></p>'
+                  +'<p>Montant retiré : '+rep.Transaction.MontantRetiré+' </p>',
+              showCloseButton: true,
+              focusConfirm: false,
+              confirmButtonText:
+                '<i class="fa fa-thumbs-up"></i> Ok',
+              confirmButtonAriaLabel: 'Thumbs up, great!',
+            })
           }
       },
       error=>{

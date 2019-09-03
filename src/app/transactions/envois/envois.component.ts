@@ -69,12 +69,32 @@ export class EnvoisComponent implements OnInit {
         if(rep[0] && rep[0].property_path){
              this.entrepriseService.errerForm(rep);
           }else{
-            Swal.fire(
-              'Envoyer',
-              rep.message,
-              'success'
-            )
+            Swal.fire({
+              title: '<strong>'+rep.Type+'</strong>',
+              type: 'success',
+              html:
+                   '<h2>Bénéficiaire</h2>'
+                  +'<p>Nom : '+rep.Bénéficiaire.Nom+'</p>'
+                  +'<p>Pays : '+rep.Bénéficiaire.Pays+'</p>'
+                  +'<p>Téléphone : '+rep.Bénéficiaire.Téléphone+'</p>'
+                  +'<h2>Envoyeur</h2>'
+                  +'<p>Nom : '+rep.Envoyeur.Nom+'</p>'
+                  +'<p>NCI : '+rep.Envoyeur.NCI+'</p>'
+                  +'<p>Pays : '+rep.Envoyeur.Pays+'</p>'
+                  +'<p>Téléphone : '+rep.Envoyeur.Téléphone+'</p>'
+                  +'<h2>Transaction</h2>'
+                  +'<p>Code : <strong>'+rep.Transaction.CodeTransaction+'</strong></p>'
+                  +'<p>Commissions TTC : '+rep.Transaction.CommissionsTTC+' </p>'
+                  +'<p>Montant Envoyé : '+rep.Transaction.MontantEnvoyé+'</p>'
+                  +'<p>Total : '+rep.Transaction.Total+'</p>',
+              showCloseButton: true,
+              focusConfirm: false,
+              confirmButtonText:
+                '<i class="fa fa-thumbs-up"></i> Ok',
+              confirmButtonAriaLabel: 'Thumbs up, great!',
+            })
           }
+          console.log(rep);
       },
       error=>{
         console.log('Erreur : '+error.message);

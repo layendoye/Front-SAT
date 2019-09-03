@@ -1,3 +1,4 @@
+import { HistoriquesComponent } from './transactions/historiques/historiques.component';
 import { SingleEntrepriseComponent } from './entreprise/single-entreprise/single-entreprise.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -32,6 +33,7 @@ const routes: Routes = [
   { path: 'lister/users',canActivate:[AuthGuard,SuperEtPrincipService], component: UtilisateurListComponent },
   { path: 'envois',canActivate:[AuthGuard,IsGuichetierService], component: EnvoisComponent },
   { path: 'retraits',canActivate:[AuthGuard,IsGuichetierService], component: RetraisComponent },
+  { path: 'historiques/transactions',canActivate:[AuthGuard,IsAdminPrinService], component: HistoriquesComponent },
   { path: 'historiques/Envois',canActivate:[AuthGuard,IsAdminPrinService], component: HistoEnvoisComponent },
   { path: 'historiques/Retraits',canActivate:[AuthGuard,IsAdminPrinService], component: HistoRetraitsComponent},
   { path: '', redirectTo: 'entreprises/liste', pathMatch: 'full' },//pour eviter les erreurs pathMatch: 'full' pour dire que le path doit etre totalement vide
