@@ -9,7 +9,7 @@
                     <div class="input-group-addon">
                         <em class="fa fa-calendar"></em>
                     </div>
-                    <input type="date" class="form-control pull-right" id="datepicker" formControlName="dateDebut" (change)="onSubmit($event.target.value,1)" [ngClass]="{'error':errorDate=='début','error':lesDeux}">
+                    <input type="date" class="form-control pull-right" id="datepicker" formControlName="dateDebut" (change)="onSubmit(1)" [ngClass]="{'error':errorDate=='début','error':lesDeux}">
                 </div>
                 <!-- /.input group -->
             </div>
@@ -24,7 +24,7 @@
                     <div class="input-group-addon">
                         <em class="fa fa-calendar"></em>
                     </div>
-                    <input type="date" class="form-control pull-right" id="reservation" formControlName="dateFin" (change)="onSubmit($event.target.value,2)" [ngClass]="{'error':errorDate=='fin','error':lesDeux}">
+                    <input type="date" class="form-control pull-right" id="reservation" formControlName="dateFin" (change)="onSubmit(2)" [ngClass]="{'error':errorDate=='fin','error':lesDeux}">
                 </div>
                 <!-- /.input group -->
             </div>
@@ -39,7 +39,7 @@
                     <div class="input-group-addon">
                         <em class="far fa-money-bill-alt"></em>
                     </div>
-                    <select type="text" class="form-control pull-right" id="reservationtime" formControlName="action">
+                    <select type="text" class="form-control pull-right" id="reservationtime" formControlName="action" (change)="onSubmit(1)">
                   <option value="envois">Envois</option>
                   <option value="retraits">Retraits</option>
                 </select>
@@ -52,12 +52,12 @@
 </div>
 
 
-<div class="mat-elevation-z8" *ngIf="afficherEnvois">
+<div class="mat-elevation-z8" [hidden]="!afficherEnvois">
     <table mat-table [dataSource]="dataSource" matSort>
 
         <!-- nomClientEmetteur Column -->
-        <ng-container matColumnDef="dateEnvoi">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
+        <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Date envois</th>
             <td mat-cell *matCellDef="let row"> {{row.dateEnvoi | date:'dd-MM-yyyy'}} </td>
         </ng-container>
 
@@ -73,10 +73,59 @@
             <td mat-cell *matCellDef="let row"> {{row.telephoneEmetteur}} </td>
         </ng-container>
 
+        <!-- nomClientRecepteur Column -->
+        <ng-container matColumnDef="nomClientRecepteur">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Nom recepteur </th>
+            <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.nomClientRecepteur}} </td>
+        </ng-container>
+
+        <!-- telephoneRecepteur Column -->
+        <ng-container matColumnDef="telephoneRecepteur">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Téléphone recepteur </th>
+            <td mat-cell *matCellDef="let row"> {{row.telephoneRecepteur}} </td>
+        </ng-container>
+
         <!-- nciEmetteur Column -->
-        <ng-container matColumnDef="nciEmetteur">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> NCI emetteur </th>
-            <td mat-cell *matCellDef="let row"> {{row.nciEmetteur}} </td>
+        <ng-container matColumnDef="code">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Code transaction</th>
+            <td mat-cell *matCellDef="let row"> {{row.code}} </td>
+        </ng-container>
+
+        <!-- telephoneRecepteur Column -->
+        <ng-container matColumnDef="montant">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Montant </th>
+            <td mat-cell *matCellDef="let row"> {{row.montant | number}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+
+        </tr>
+
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[6,10, 15, 25, 100]"></mat-paginator>
+</div>
+
+<div class="mat-elevation-z8" [hidden]="!afficherRetraits">
+    <table mat-table [dataSource]="dataSource" matSort>
+
+        <!-- nomClientEmetteur Column -->
+        <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Date retraits</th>
+            <td mat-cell *matCellDef="let row"> {{row.dateReception | date:'dd-MM-yyyy'}} </td>
+        </ng-container>
+
+        <!-- nomClientEmetteur Column -->
+        <ng-container matColumnDef="nomClientEmetteur">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Nom emetteur </th>
+            <td mat-cell *matCellDef="let row"> {{row.nomClientEmetteur}} </td>
+        </ng-container>
+
+        <!-- telephoneEmetteur Column -->
+        <ng-container matColumnDef="telephoneEmetteur">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Telephone emetteur </th>
+            <td mat-cell *matCellDef="let row"> {{row.telephoneEmetteur}} </td>
         </ng-container>
 
         <!-- nomClientRecepteur Column -->
@@ -91,17 +140,24 @@
             <td mat-cell *matCellDef="let row"> {{row.telephoneRecepteur}} </td>
         </ng-container>
 
+        <!-- nciEmetteur Column -->
+        <ng-container matColumnDef="code">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Code transaction</th>
+            <td mat-cell *matCellDef="let row"> {{row.code}} </td>
+        </ng-container>
+
         <!-- telephoneRecepteur Column -->
         <ng-container matColumnDef="montant">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Montant </th>
             <td mat-cell *matCellDef="let row"> {{row.montant | number}} </td>
         </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+        <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns2;">
+
         </tr>
 
     </table>
 
-    <mat-paginator [pageSizeOptions]="[7, 15, 25, 100]"></mat-paginator>
+    <mat-paginator [pageSizeOptions]="[6,10, 15, 25, 100]"></mat-paginator>
 </div>
