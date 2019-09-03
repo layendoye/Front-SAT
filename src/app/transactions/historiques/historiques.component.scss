@@ -1,0 +1,45 @@
+table {
+    width: 100%;
+}
+
+.mat-form-field {
+    font-size: 14px;
+    width: 100%;
+}
+
+td,
+th {
+    width: 25%;
+}
+
+.mat-column-dateEnvoi {
+    width: 14% !important;
+}
+
+.mat-column-nomClientEmetteur {
+    width: 14% !important;
+}
+
+.mat-column-telephoneEmetteur {
+    width: 14% !important;
+}
+
+.mat-column-montant {
+    width: 14% !important;
+}
+
+.mat-column-nomClientRecepteur {
+    width: 14% !important;
+}
+
+.mat-column-nciEmetteur {
+    width: 14% !important;
+}
+
+.mat-column-telephoneRecepteur {
+    width: 16% !important;
+}
+
+.error {
+    background-color: red !important;
+}

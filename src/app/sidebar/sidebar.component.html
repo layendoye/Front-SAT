@@ -51,7 +51,7 @@
                 <ul class="treeview-menu">
                     <li routerLinkActive="active"><a routerLink="/envois"><i class="fas fa-donate"></i> Envois</a></li>
                     <li routerLinkActive="active"><a routerLink="/retraits"><i class="fas fa-hand-holding-usd"></i> Retraits</a></li>
-                    <li routerLinkActive="active" *ngIf="MonPoste!='Guichetier' && MonPoste!='Caissier'"><a routerLink="historiques/transactions"><i class="fas fa-history"></i> Historique</a></li>
+                    <li routerLinkActive="active" *ngIf="MonPoste!='Guichetier' && MonPoste!='Caissier'"><a routerLink="/historiques/transactions"><i class="fas fa-history"></i> Historique</a></li>
                 </ul>
             </li>
             <li class="active treeview" *ngIf="MonPoste=='admin-Principal' || MonPoste=='admin'">

@@ -1,3 +1,107 @@
-<p>
-  historiques works!
-</p>
+<div class="box box-primary">
+    <form class="box-body row" [formGroup]="histoForm">
+        <div class="col-sm-4">
+            <!-- debut -->
+            <div class="form-group">
+                <label>Date de début:</label>
+
+                <div class="input-group date">
+                    <div class="input-group-addon">
+                        <em class="fa fa-calendar"></em>
+                    </div>
+                    <input type="date" class="form-control pull-right" id="datepicker" formControlName="dateDebut" (change)="onSubmit($event.target.value,1)" [ngClass]="{'error':errorDate=='début','error':lesDeux}">
+                </div>
+                <!-- /.input group -->
+            </div>
+            <!-- /.form group -->
+        </div>
+        <div class="col-sm-4">
+            <!-- fin -->
+            <div class="form-group">
+                <label>Date de fin :</label>
+
+                <div class="input-group">
+                    <div class="input-group-addon">
+                        <em class="fa fa-calendar"></em>
+                    </div>
+                    <input type="date" class="form-control pull-right" id="reservation" formControlName="dateFin" (change)="onSubmit($event.target.value,2)" [ngClass]="{'error':errorDate=='fin','error':lesDeux}">
+                </div>
+                <!-- /.input group -->
+            </div>
+            <!-- /.form group -->
+        </div>
+        <div class="col-sm-4">
+            <!-- operation -->
+            <div class="form-group">
+                <label>Opération :</label>
+
+                <div class="input-group">
+                    <div class="input-group-addon">
+                        <em class="far fa-money-bill-alt"></em>
+                    </div>
+                    <select type="text" class="form-control pull-right" id="reservationtime" formControlName="action">
+                  <option value="envois">Envois</option>
+                  <option value="retraits">Retraits</option>
+                </select>
+                </div>
+                <!-- /.input group -->
+            </div>
+        </div>
+    </form>
+    <!-- /.box-body -->
+</div>
+
+
+<div class="mat-elevation-z8" *ngIf="afficherEnvois">
+    <table mat-table [dataSource]="dataSource" matSort>
+
+        <!-- nomClientEmetteur Column -->
+        <ng-container matColumnDef="dateEnvoi">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
+            <td mat-cell *matCellDef="let row"> {{row.dateEnvoi | date:'dd-MM-yyyy'}} </td>
+        </ng-container>
+
+        <!-- nomClientEmetteur Column -->
+        <ng-container matColumnDef="nomClientEmetteur">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Nom emetteur </th>
+            <td mat-cell *matCellDef="let row"> {{row.nomClientEmetteur}} </td>
+        </ng-container>
+
+        <!-- telephoneEmetteur Column -->
+        <ng-container matColumnDef="telephoneEmetteur">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Telephone emetteur </th>
+            <td mat-cell *matCellDef="let row"> {{row.telephoneEmetteur}} </td>
+        </ng-container>
+
+        <!-- nciEmetteur Column -->
+        <ng-container matColumnDef="nciEmetteur">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> NCI emetteur </th>
+            <td mat-cell *matCellDef="let row"> {{row.nciEmetteur}} </td>
+        </ng-container>
+
+        <!-- nomClientRecepteur Column -->
+        <ng-container matColumnDef="nomClientRecepteur">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Nom recepteur </th>
+            <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.nomClientRecepteur}} </td>
+        </ng-container>
+
+        <!-- telephoneRecepteur Column -->
+        <ng-container matColumnDef="telephoneRecepteur">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Téléphone recepteur </th>
+            <td mat-cell *matCellDef="let row"> {{row.telephoneRecepteur}} </td>
+        </ng-container>
+
+        <!-- telephoneRecepteur Column -->
+        <ng-container matColumnDef="montant">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Montant </th>
+            <td mat-cell *matCellDef="let row"> {{row.montant | number}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+        </tr>
+
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[7, 15, 25, 100]"></mat-paginator>
+</div>

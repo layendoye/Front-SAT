@@ -26,12 +26,15 @@ export class TransactionService {
     }
     return this.postElement(data,"/info/transaction");
   }
-  historiqueEnvois(data:any){
-    // const data={
-    //   dateDebut:'',
-    //   dateFin:''
-    // }
-    return this.postElement(data,"/transation/partenaire/envois/"+localStorage.getItem("idEntreprise"));
+  historiqueTransaction(data:any){
+    const action=data.action;
+    data={
+      dateDebut:data.dateDebut,
+      dateFin:data.dateFin
+    }
+    const idEntrep=localStorage.getItem("idEntreprise");
+    
+    return this.postElement(data,"/transation/partenaire/"+action+"/"+idEntrep);
   }
   historiqueRetraits(data:any){
     // const data={
