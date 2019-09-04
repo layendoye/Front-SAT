@@ -1,3 +1,4 @@
+import { EntrepriseService } from './../../services/entreprise.service';
 import { TransactionService } from './../../services/transaction.service';
 import { Component, OnInit,ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -6,6 +7,7 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import Swal from 'node_modules/sweetalert2/dist/sweetalert2.js';
+import { Utilisateur } from 'src/app/models/Utilisateur.model';
 export interface InfoTransaction {
   date:any,
   nomClientEmetteur:string,
@@ -40,13 +42,14 @@ export class HistoriquesComponent implements OnInit {
   afficherEnvois:boolean=false;
   afficherRetraits:boolean=false;
 
+  users:Utilisateur[];
   constructor(private formBuilder: FormBuilder,
               private transactionService: TransactionService,
-              private router: Router) { }
+              private router: Router,
+              private entrepriseService: EntrepriseService) { }
 
   ngOnInit() {
-    this.initForm();
-
+    this.getUser();//le formulaire est initialisé dans la fonction
   }
   initForm(){
     const now=new Date();
@@ -54,13 +57,13 @@ export class HistoriquesComponent implements OnInit {
     this.histoForm=this.formBuilder.group({   
       dateDebut:[now,[Validators.required]],
       dateFin:[now,[Validators.required]],
+      idUser:[0,[Validators.required]],
       action:['envois',[Validators.required]],
     });
   }
   getInfoTransaction(data:any){
     this.transactionService.historiqueTransaction(data).then(
       response=>{
-        
           this.transaction=response;
           this.dataSource = new MatTableDataSource(this.transaction);
           this.dataSource.paginator = this.paginator;
@@ -124,12 +127,19 @@ export class HistoriquesComponent implements OnInit {
       )
       this.lesDeux=true;
     }
-    else if(this.histoForm.get("action").value=="envois"){
+    else{
       this.getInfoTransaction(this.histoForm.value);
     }
-    else if(this.histoForm.get("action").value=="retraits"){
-      this.getInfoTransaction(this.histoForm.value);
-    }
+  }
+  getUser(){
+    this.entrepriseService.getUserAffectation().then(//pour le select des users
+      users=>{
+        this.users=users;
+        this.initForm();
+      },error=>{
+        console.log('Erreur : '+error)
+      }
+    );
   }
 }
 

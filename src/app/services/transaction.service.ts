@@ -28,21 +28,18 @@ export class TransactionService {
   }
   historiqueTransaction(data:any){
     const action=data.action;
+    const idUser=data.idUser;
     data={
       dateDebut:data.dateDebut,
       dateFin:data.dateFin
     }
     const idEntrep=localStorage.getItem("idEntreprise");
-    
-    return this.postElement(data,"/transation/partenaire/"+action+"/"+idEntrep);
+    if(idUser==0)//toutes les transactions
+      return this.postElement(data,"/transation/partenaire/"+action+"/"+idEntrep);
+    else
+      return this.postElement(data,"/transation/user/"+action+"/"+idUser);
   }
-  historiqueRetraits(data:any){
-    // const data={
-    //   dateDebut:'',
-    //   dateFin:''
-    // }
-    return this.postElement(data,"/transation/partenaire/retraits/"+localStorage.getItem("idEntreprise"));
-  }
+
   postElement(data:any,url:string){//return une promise
     return new Promise<any>(
       (resolve,reject)=>{

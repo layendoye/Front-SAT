@@ -1,10 +1,9 @@
 <div class="box box-primary">
     <form class="box-body row" [formGroup]="histoForm">
-        <div class="col-sm-4">
+        <div class="col-sm-3">
             <!-- debut -->
             <div class="form-group">
                 <label>Date de début:</label>
-
                 <div class="input-group date">
                     <div class="input-group-addon">
                         <em class="fa fa-calendar"></em>
@@ -15,11 +14,10 @@
             </div>
             <!-- /.form group -->
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-3">
             <!-- fin -->
             <div class="form-group">
                 <label>Date de fin :</label>
-
                 <div class="input-group">
                     <div class="input-group-addon">
                         <em class="fa fa-calendar"></em>
@@ -30,11 +28,27 @@
             </div>
             <!-- /.form group -->
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-3">
+            <!-- fin -->
+            <div class="form-group">
+                <label>Utilisateur :</label>
+                <div class="input-group">
+                    <div class="input-group-addon">
+                        <em class="fa fa-calendar"></em>
+                    </div>
+                    <select class="form-control pull-right" formControlName="idUser" (change)="onSubmit(1)">
+                        <option value="0">Tous les utilisateurs</option>
+                        <option *ngFor="let user of users" value="{{user.id}}">{{user.nom}}</option>
+                    </select>
+                </div>
+                <!-- /.input group -->
+            </div>
+            <!-- /.form group -->
+        </div>
+        <div class="col-sm-3">
             <!-- operation -->
             <div class="form-group">
                 <label>Opération :</label>
-
                 <div class="input-group">
                     <div class="input-group-addon">
                         <em class="far fa-money-bill-alt"></em>

@@ -38,8 +38,11 @@ export class OctroieCompteFormComponent implements OnInit {
               private entrepriseService: EntrepriseService,
               private router: Router,private route: ActivatedRoute) { }
   ngOnInit() {
-    
-    
+    this.getUser();
+    this.getCompte();
+    this.initForm1();
+  }
+  getUser(){
     this.entrepriseService.getUserAffectation().then(//pour le select des users
       users=>{
         this.users=users;
@@ -47,6 +50,8 @@ export class OctroieCompteFormComponent implements OnInit {
         console.log('Erreur : '+error)
       }
     );
+  }
+  getCompte(){
     this.entrepriseService.getCompte().then(//pour le select des comptes
       comptes=>{
         this.comptes=comptes;
@@ -54,7 +59,6 @@ export class OctroieCompteFormComponent implements OnInit {
         console.log('Erreur : '+error)
       }
     );
-    this.initForm1();
   }
   initForm1(){//celui de l affectation des compte
     this.affectationForm=this.formBuilder.group({   
