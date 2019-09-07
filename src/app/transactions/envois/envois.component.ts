@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { EntrepriseService } from 'src/app/services/entreprise.service';
 import Swal from 'node_modules/sweetalert2/dist/sweetalert2.js';
-
+import * as jsPDF from 'jspdf';
 @Component({
   selector: 'app-envois',
   templateUrl: './envois.component.html',
@@ -51,6 +51,7 @@ export class EnvoisComponent implements OnInit {
 
   ngOnInit() {
     this.initForm();
+    
   }
   initForm(){
      this.sendForm=this.formBuilder.group({   

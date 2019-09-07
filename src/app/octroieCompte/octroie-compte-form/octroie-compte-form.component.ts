@@ -123,9 +123,11 @@ export class OctroieCompteFormComponent implements OnInit {
       }
     );
     this.afficherTableau=true;
-    this.entrepriseService.getComptesUser(id).then(data=>{
-      this.anciensComptes=data;
-      this.dataSource = new MatTableDataSource(data);
+    this.entrepriseService.getComptesUser(id).then(
+      data=>{
+        this.anciensComptes=data;
+        console.log(data)
+        this.dataSource = new MatTableDataSource(data);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       },

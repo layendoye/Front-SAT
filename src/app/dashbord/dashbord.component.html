@@ -1,0 +1,133 @@
+<!-- Small boxes (Stat box) -->
+<div class="row">
+
+    <div class="col-lg-3 col-xs-6" *ngIf="lesDeux">
+        <!-- small box -->
+        <div class="small-box bg-yellow">
+            <div class="inner">
+                <h3>{{nbreUsers}}</h3>
+                <p>Collaborateurs</p>
+            </div>
+            <div class="icon">
+                <em class="fas fa-users"></em>
+            </div>
+            <a routerLink="/lister/users" class="small-box-footer">Liste <em class="fa fa-arrow-circle-right"></em></a>
+        </div>
+    </div>
+
+    <!-- ./col -->
+    <div class="col-lg-3 col-xs-6" *ngIf="SupAdmin">
+        <!-- small box -->
+        <div class="small-box bg-aqua">
+            <div class="inner">
+                <h3>{{nbrPart}}</h3>
+
+                <p>Partenaires</p>
+            </div>
+            <div class="icon">
+                <em class="far fa-building"></em>
+            </div>
+            <a routerLink="/entreprises/liste" class="small-box-footer">Liste <em class="fa fa-arrow-circle-right"></em></a>
+        </div>
+    </div>
+
+
+    <!-- ./col -->
+    <div class="col-lg-3 col-xs-6" *ngIf="lesDeux">
+        <!-- small box -->
+        <div class="small-box bg-orange">
+            <div class="inner">
+                <h3>{{nbreCompte}}</h3>
+                <p>Nombre total de compte</p>
+            </div>
+            <div class="icon">
+                <em class="fas fa-donate"></em>
+            </div>
+            <a routerLink="/entreprises/liste" class="small-box-footer">Liste <em class="fa fa-arrow-circle-right"></em></a>
+        </div>
+    </div>
+
+
+    <!-- ./col -->
+    <div class="col-lg-3 col-xs-6" *ngIf="lesDeux">
+        <!-- small box -->
+        <div class="small-box bg-purple">
+            <div class="inner">
+                <h3>{{soldePartenaire | number}}</h3>
+
+                <p>Solde total des comptes</p>
+            </div>
+            <div class="icon">
+                <em class="fas fa-dollar-sign"></em>
+            </div>
+            <a routerLink="/entreprises/liste" class="small-box-footer">Liste <em class="fa fa-arrow-circle-right"></em></a>
+        </div>
+    </div>
+
+
+
+    <!-- ./col -->
+    <div class="col-lg-3 col-xs-6" *ngIf="SupAdmin">
+        <!-- small box -->
+        <div class="small-box bg-maroon">
+            <div class="inner">
+                <h3>{{soleSAT | number}}</h3>
+                <p>Commissions SAT</p>
+            </div>
+            <div class="icon">
+                <em class="fas fa-dollar-sign"></em>
+            </div>
+            <a routerLink="/entreprises/liste" class="small-box-footer">Liste <em class="fa fa-arrow-circle-right"></em></a>
+        </div>
+    </div>
+
+
+    <!-- ./col -->
+    <div class="col-lg-3 col-xs-6" *ngIf="SupAdmin">
+        <!-- small box -->
+        <div class="small-box bg-blue">
+            <div class="inner">
+                <h3>{{soldeEtat | number}}</h3>
+                <p>Taxes Etat</p>
+            </div>
+            <div class="icon">
+                <em class="ion ion-bag"></em>
+            </div>
+            <a routerLink="/entreprises/liste" class="small-box-footer">Liste <em class="fa fa-arrow-circle-right"></em></a>
+        </div>
+    </div>
+
+
+    <!-- ./col 
+    <div class="col-lg-3 col-xs-6">
+        <div class="small-box bg-green">
+            <div class="inner">
+                <h3>53<sup style="font-size: 20px">%</sup></h3>
+
+                <p>Bounce Rate</p>
+            </div>
+            <div class="icon">
+                <em class="ion ion-stats-bars"></em>
+            </div>
+            <a href="#" class="small-box-footer">More info <em class="fa fa-arrow-circle-right"></em></a>
+        </div>
+    </div>-->
+
+
+    <!-- ./col 
+    <div class="col-lg-3 col-xs-6">
+        <div class="small-box bg-red">
+            <div class="inner">
+                <h3>65</h3>
+
+                <p>Unique Visitors</p>
+            </div>
+            <div class="icon">
+                <em class="ion ion-pie-graph"></em>
+            </div>
+            <a href="#" class="small-box-footer">More info <em class="fa fa-arrow-circle-right"></em></a>
+        </div>
+    </div>-->
+    <!-- ./col -->
+</div>
+<!-- /.row -->

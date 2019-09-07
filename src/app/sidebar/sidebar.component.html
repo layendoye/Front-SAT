@@ -56,14 +56,14 @@
             </li>
             <li class="active treeview" *ngIf="MonPoste=='admin-Principal' || MonPoste=='admin'">
                 <a href="#">
-                    <i class="fas fa-list-ol"></i> <span> Comptes</span>
+                    <i class="fas fa-donate"></i> <span> Comptes</span>
                     <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
                 </a>
                 <ul class="active treeview-menu">
                     <li routerLinkActive="active"><a routerLink="/changer/compte"><i class="fas fa-donate"></i> Affectation</a></li>
-                    <li routerLinkActive="active"><a routerLink="/entreprises/liste"><i class="fas fa-hand-holding-usd"></i> Historique</a></li>
+                    <li routerLinkActive="active"><a routerLink="/liste/comptes"><i class="fas fa-list-ol"></i> Liste comptes</a></li>
                     <li routerLinkActive="active"><a routerLink="/entreprises/liste"><i class="fas fa-history"></i> Transactions par comptes</a></li>
                 </ul>
             </li>
@@ -76,7 +76,7 @@
               </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a routerLink="/entreprises/liste" *ngIf="MonPoste=='Super-admin'"><i class="fa fa-circle-o"></i> SA Transfert</a></li>
+                    <li><a routerLink="/contrat" *ngIf="MonPoste=='Super-admin'"><i class="fa fa-circle-o"></i> SA Transfert</a></li>
                     <li><a routerLink="/entreprises/liste" *ngIf="MonPoste=='Super-admin'"><i class="fa fa-circle-o"></i> Partenaires</a></li>
                     <li><a routerLink="/entreprises/liste" *ngIf="MonPoste=='admin-Principal' || MonPoste=='admin'"><i class="fa fa-circle-o"></i> Utilisateurs</a></li>
                     <li><a routerLink="/entreprises/liste" *ngIf="MonPoste!='Super-admin' && MonPoste!='Caissier'"><i class="fa fa-circle-o"></i> Mes transactions</a></li>

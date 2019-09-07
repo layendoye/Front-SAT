@@ -7,7 +7,7 @@
                     <span class="input-group-addon fontAw"><i class="far fa-building"></i></span>
                     <input matInput type="text" id="raisonSociale" class="form-control backg" formControlName="raisonSociale" placeholder="Raison Sociale">
                 </div>
-                 <mat-error *ngFor="let validation of ValidationMsg.raisonSociale">
+                <mat-error *ngFor="let validation of ValidationMsg.raisonSociale">
                     <mat-error class="error-message" *ngIf="entrepriseForm.get('raisonSociale').hasError(validation.type) && (entrepriseForm.get('raisonSociale').touched)">{{validation.message}}</mat-error>
                 </mat-error>
             </div>
@@ -17,7 +17,7 @@
                     <span class="input-group-addon fontAw"><i class="fas fa-check"></i></span>
                     <input matInput type="text" id="ninea" class="form-control backg" formControlName="ninea" placeholder="ninea">
                 </div>
-                 <mat-error *ngFor="let validation of ValidationMsg.ninea">
+                <mat-error *ngFor="let validation of ValidationMsg.ninea">
                     <mat-error class="error-message" *ngIf="entrepriseForm.get('ninea').hasError(validation.type) && (entrepriseForm.get('ninea').touched)">{{validation.message}}</mat-error>
                 </mat-error>
             </div>
@@ -27,7 +27,7 @@
                     <span class="input-group-addon fontAw"><i class="fas fa-map-marker-alt"></i></span>
                     <input matInput type="text" id="adresse" class="form-control backg" formControlName="adresse" placeholder="Adresse">
                 </div>
-                 <mat-error *ngFor="let validation of ValidationMsg.adresse">
+                <mat-error *ngFor="let validation of ValidationMsg.adresse">
                     <mat-error class="error-message" *ngIf="entrepriseForm.get('adresse').hasError(validation.type) && (entrepriseForm.get('adresse').touched)">{{validation.message}}</mat-error>
                 </mat-error>
             </div>
@@ -47,7 +47,7 @@
                     <span class="input-group-addon fontAw"><i class="fas fa-phone-square"></i></span>
                     <input matInput type="text" id="telephoneEntreprise" class="form-control backg" formControlName="telephoneEntreprise" placeholder="Téléphone de l'entreprise">
                 </div>
-                 <mat-error *ngFor="let validation of ValidationMsg.telephoneEntreprise">
+                <mat-error *ngFor="let validation of ValidationMsg.telephoneEntreprise">
                     <mat-error class="error-message" *ngIf="entrepriseForm.get('telephoneEntreprise').hasError(validation.type) && (entrepriseForm.get('telephoneEntreprise').touched)">{{validation.message}}</mat-error>
                 </mat-error>
             </div>
@@ -59,7 +59,7 @@
                     <span class="input-group-addon fontAw"><i class="fas fa-user-plus"></i></span>
                     <input matInput type="text" id="nom" class="form-control backg" formControlName="nom" placeholder="Nom du responsable">
                 </div>
-                 <mat-error *ngFor="let validation of ValidationMsg.nom">
+                <mat-error *ngFor="let validation of ValidationMsg.nom">
                     <mat-error class="error-message" *ngIf="entrepriseForm.get('nom').hasError(validation.type) && (entrepriseForm.get('nom').touched)">{{validation.message}}</mat-error>
                 </mat-error>
             </div>

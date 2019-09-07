@@ -26,8 +26,6 @@ import { UtilisateurListComponent } from './utilisateur/utilisateur-list/utilisa
 import { EnvoisComponent } from './transactions/envois/envois.component';
 import { RetraisComponent } from './transactions/retrais/retrais.component';
 import { SingleEntrepriseComponent } from './entreprise/single-entreprise/single-entreprise.component';
-import { HistoEnvoisComponent } from './transactions/histo-envois/histo-envois.component';
-import { HistoRetraitsComponent } from './transactions/histo-retraits/histo-retraits.component';
 import { IsSuperAdminService } from './services/is-super-admin.service';
 import { IsCaissierService } from './services/is-caissier.service';
 import { IsAdminPrinService } from './services/is-admin-prin.service';
@@ -35,6 +33,11 @@ import { IsGuichetierService } from './services/is-guichetier.service';
 import { SuperEtPrincipService } from './services/super-et-princip.service';
 import { RightSidebarComponent } from './right-sidebar/right-sidebar.component';
 import { HistoriquesComponent } from './transactions/historiques/historiques.component';
+import { ContratComponent } from './entreprise/contrat/contrat.component';
+import { RecuComponent } from './transactions/recu/recu.component';
+import { DashbordComponent } from './dashbord/dashbord.component';
+import { ListesComptesComponent } from './comptes/listes-comptes/listes-comptes.component';
+import { HistoriquesComptesComponent } from './comptes/historiques-comptes/historiques-comptes.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -51,10 +54,13 @@ import { HistoriquesComponent } from './transactions/historiques/historiques.com
     EnvoisComponent,
     RetraisComponent,
     SingleEntrepriseComponent,
-    HistoEnvoisComponent,
-    HistoRetraitsComponent,
     RightSidebarComponent,
     HistoriquesComponent,
+    ContratComponent,
+    RecuComponent,
+    DashbordComponent,
+    ListesComptesComponent,
+    HistoriquesComptesComponent,
   ],
   imports: [
     BrowserModule,

@@ -26,17 +26,23 @@ export class EntrepriseService {
     this.userSubject.next(this.users);//la methode next force le subject à emmetre ce qu on lui passe en argument (ici la liste des entreprises)
   }
   getEntreprise(){
-    this.httpClient
-      .get<any[]>(this.urlBack+'/entreprises/liste',this.headers)
-      .subscribe(
-        (response)=>{
-          this.entreprises=response;
-          this.emitEntreprise();
-        },
-        (error)=>{
-          console.log('Erreur de chargement ! '+error.message);
-        }
-      );
+    return new Promise<any[]>(
+      (resolve,reject)=>{
+        this.httpClient
+          .get<any[]>(this.urlBack+'/entreprises/liste',this.headers)
+          .subscribe(
+            (response)=>{
+              this.entreprises=response;
+              this.emitEntreprise();
+              resolve(response);
+            },
+            (error)=>{
+              console.log('Erreur de chargement ! '+error.message);
+              reject(error)
+            }
+          );
+      }
+    )
   }
   getUsers(){//ne pas factoriser à cause de emitUser()
     return new Promise<any[]>(
@@ -123,6 +129,7 @@ export class EntrepriseService {
       .post<any>(this.urlBack+'/partenaires/update/'+id,data,this.headers)
   }
   updateUser(formData:FormData,id:number){
+    
     return this.httpClient
       .post<any>(this.urlBack+'/user/update/'+id,formData,this.headers)
   }
@@ -296,5 +303,11 @@ export class EntrepriseService {
   getMonCompteActu(){
     const monId=localStorage.getItem("idUser");
     return this.getElement("/compte/user/"+monId);
+  }
+  getAllCompte(){
+    return this.getElement("/comptes/all");
+  }
+  getUsersDuCompte(id:number){
+    return this.getElement("/utilisateur/affecterCompte/"+id);
   }
 }

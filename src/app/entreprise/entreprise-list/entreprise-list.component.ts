@@ -44,7 +44,6 @@ export class EntrepriseListComponent implements OnInit{
         this.dataSource.sort = this.sort;
       }
     );
-    
     this.entrepriseServ.emitEntreprise();
     this.entrepriseServ.getEntreprise();
   }

@@ -6,6 +6,7 @@ import { SecurityService } from 'src/app/services/security.service';
 import { Utilisateur } from 'src/app/models/Utilisateur.model';
 import { Profil } from 'src/app/models/Profil.model';
 import { EntrepriseService } from 'src/app/services/entreprise.service';
+
 @Component({
   selector: 'app-utilisateur-form',
   templateUrl: './utilisateur-form.component.html',
@@ -81,11 +82,20 @@ export class UtilisateurFormComponent implements OnInit {
     private entrepriseService: EntrepriseService) { }
 
   ngOnInit() {
-    
     this.id = this.route.snapshot.params['id'];
     if (this.id) {
-      this.update=true;
+      this.updateFunction();
+    } 
+    else {
+      this.charger=true;
+      this.initForm(this.userUpd);
       
+    }
+
+    this.getProfil();
+  }
+  updateFunction(){
+    this.update=true;
       this.entrepriseService.recupUser(+this.id).then(
         rep => {
           this.userUpd = rep;
@@ -97,12 +107,8 @@ export class UtilisateurFormComponent implements OnInit {
           console.log(error);
         }
       );
-    } else {
-      this.charger=true;
-      this.initForm(this.userUpd);
-      
-    }
-
+  }
+  getProfil(){
     this.securityService.getProfil().then(
       profil => {//tableau des profils
         if (this.role.search('ROLE_Super-admin') != -1) {
@@ -144,21 +150,23 @@ export class UtilisateurFormComponent implements OnInit {
     const telephone = this.userForm.get('telephone').value;
     const nci = this.userForm.get('nci').value;
     const profil = this.userForm.get('profil').value;
-    const image = this.fileToUpload.name;
+    var image='';//s il n y a pas d image
+    if(this.fileToUpload)
+      image = this.fileToUpload.name;
     const imageFile = this.fileToUpload;
  
     const formData:FormData=new FormData();
     formData.append('image',imageFile,image)
     formData.append('nom',nom)
     formData.append('username',username)
-    formData.append('password',password)
     formData.append('email',email)
     formData.append('telephone',telephone)
     formData.append('nci',nci)
-    formData.append('confirmPassword',confirmPassword)
     formData.append('profil',profil)
-    
+   
     if(!this.update){
+      formData.append('password',password)//car dans le update on ne modifie pas le mot de passe
+      formData.append('confirmPassword',confirmPassword)
       this.securityService.addUser(formData).then(
         (rep) => {
           if (rep[0] && rep[0].property_path) {
@@ -170,7 +178,7 @@ export class UtilisateurFormComponent implements OnInit {
               rep.message,
               'success'
             )
-            this.router.navigate(['entreprises/liste']);
+            this.router.navigate(['/lister/users']);
           }
         },
         (error) => {

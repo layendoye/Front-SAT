@@ -1,3 +1,4 @@
+import { DashbordComponent } from './dashbord/dashbord.component';
 import { HistoriquesComponent } from './transactions/historiques/historiques.component';
 import { SingleEntrepriseComponent } from './entreprise/single-entreprise/single-entreprise.component';
 import { NgModule } from '@angular/core';
@@ -13,13 +14,13 @@ import { UpdateEntrepriseComponent } from './entreprise/update-entreprise/update
 import { UtilisateurListComponent } from './utilisateur/utilisateur-list/utilisateur-list.component';
 import { EnvoisComponent } from './transactions/envois/envois.component';
 import { RetraisComponent } from './transactions/retrais/retrais.component';
-import { HistoEnvoisComponent } from './transactions/histo-envois/histo-envois.component';
-import { HistoRetraitsComponent } from './transactions/histo-retraits/histo-retraits.component';
 import { IsSuperAdminService } from './services/is-super-admin.service';
 import { IsCaissierService } from './services/is-caissier.service';
 import { IsAdminPrinService } from './services/is-admin-prin.service';
 import { IsGuichetierService } from './services/is-guichetier.service';
 import { SuperEtPrincipService } from './services/super-et-princip.service';
+import { ContratComponent } from './entreprise/contrat/contrat.component';
+import { ListesComptesComponent } from './comptes/listes-comptes/listes-comptes.component';
 const routes: Routes = [
   { path: 'connexion', component: LoginComponent },
   { path: 'entreprises/liste',canActivate:[AuthGuard,IsSuperAdminService], component: EntrepriseListComponent },
@@ -34,10 +35,11 @@ const routes: Routes = [
   { path: 'envois',canActivate:[AuthGuard,IsGuichetierService], component: EnvoisComponent },
   { path: 'retraits',canActivate:[AuthGuard,IsGuichetierService], component: RetraisComponent },
   { path: 'historiques/transactions',canActivate:[AuthGuard,IsAdminPrinService], component: HistoriquesComponent },
-  { path: 'historiques/Envois',canActivate:[AuthGuard,IsAdminPrinService], component: HistoEnvoisComponent },
-  { path: 'historiques/Retraits',canActivate:[AuthGuard,IsAdminPrinService], component: HistoRetraitsComponent},
-  { path: '', redirectTo: 'entreprises/liste', pathMatch: 'full' },//pour eviter les erreurs pathMatch: 'full' pour dire que le path doit etre totalement vide
-  { path: '**', redirectTo: 'entreprises/liste' }
+  { path: 'liste/comptes',canActivate:[AuthGuard,IsAdminPrinService], component: ListesComptesComponent },
+  { path: 'contrat',canActivate:[AuthGuard], component: ContratComponent},
+  { path: 'accueil',canActivate:[AuthGuard], component: DashbordComponent},
+  { path: '', redirectTo: 'accueil', pathMatch: 'full' },//pour eviter les erreurs pathMatch: 'full' pour dire que le path doit etre totalement vide
+  { path: '**', redirectTo: 'accueil' }
 ];
 
 @NgModule({

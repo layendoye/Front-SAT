@@ -29,7 +29,7 @@
                 <label for="password">Mot de passe</label>
                 <div class="input-group col-12">
                     <span class="input-group-addon fontAw"><i class="fas fa-lock"></i></span>
-                    <input matInput type="text" id="password" class="form-control backg" formControlName="password" placeholder="Mot de passe">
+                    <input matInput type="password" id="password" class="form-control backg" formControlName="password" placeholder="Mot de passe">
                 </div>
                 <mat-error *ngFor="let validation of ValidationMsg.password">
                     <mat-error class="error-message" *ngIf="userForm.get('password').hasError(validation.type) && (userForm.get('password').touched)">{{validation.message}}</mat-error>
@@ -40,7 +40,7 @@
                 <label for="confirmPassword">Confirmer mot de passe</label>
                 <div class="input-group col-12">
                     <span class="input-group-addon fontAw"><i class="fas fa-lock"></i></span>
-                    <input matInput type="text" id="confirmPassword" class="form-control backg" formControlName="confirmPassword" placeholder="Confirmer le mot de passe">
+                    <input matInput type="password" id="confirmPassword" class="form-control backg" formControlName="confirmPassword" placeholder="Confirmer le mot de passe">
                 </div>
                 <mat-error *ngFor="let validation of ValidationMsg.confirmPassword">
                     <mat-error class="error-message" *ngIf="userForm.get('confirmPassword').hasError(validation.type) && (userForm.get('confirmPassword').touched)">{{validation.message}}</mat-error>
