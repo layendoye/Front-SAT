@@ -137,7 +137,7 @@
 </div>
 <!-- /.row -->
 <div class="row carteGraph">
-    <div class="col-sm-6 noPadd">
+    <div [ngClass]="{'col-sm-6 noPadd': SupAdmin,'col-sm-12': SupAdmin }">
         <!-- solid sales graph -->
         <div class="box box-solid bg-teal-gradient blockG">
             <div class="box-header blockG">
@@ -146,10 +146,11 @@
                 <h3 class="box-title">Transaction</h3>
 
                 <div class="box-tools pull-right">
-                    <button type="button" class="btn bg-teal btn-sm" data-widget="collapse" title="Réduire"><i class="fa fa-minus"></i>
+                    <button type="button" class="btn bg-teal btn-sm pull-right" data-widget="remove" title="Fermer"><i class="fa fa-times"></i>
                     </button>
-                    <button type="button" class="btn bg-teal btn-sm" data-widget="remove" title="Fermer"><i class="fa fa-times"></i>
+                    <button type="button" class="btn bg-teal btn-sm pull-right" data-widget="collapse" title="Réduire"><i class="fa fa-minus"></i>
                     </button>
+                    
                 </div>
             </div>
             <div class="box-body border-radius-none">
@@ -159,7 +160,7 @@
         </div>
         <!-- /.box -->
     </div>
-    <div class="col-sm-6 noPadd">
+    <div class="col-sm-6 noPadd" *ngIf="SupAdmin">
         <!-- Map box -->
         <div class="box box-solid bg-light-blue-gradient blockD">
             <div class="box-header">

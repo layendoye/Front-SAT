@@ -300,9 +300,8 @@ export class EntrepriseService {
   getUnCompte(data:any){//data est un objet avec le numero de compte
     return this.postElement(data,"/compte/numeroCompte")
   }
-  getMonCompteActu(){
-    const monId=localStorage.getItem("idUser");
-    return this.getElement("/compte/user/"+monId);
+  getMonCompteActu(id:number){
+    return this.getElement("/compte/user/"+id);
   }
   getAllCompte(){
     return this.getElement("/comptes/all");

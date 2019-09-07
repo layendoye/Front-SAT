@@ -80,7 +80,9 @@ import { HistoriquesComptesComponent } from './comptes/historiques-comptes/histo
     IsCaissierService,
     IsAdminPrinService,
     IsGuichetierService,
-    SuperEtPrincipService
+    SuperEtPrincipService,
+    AppComponent,
+    HeaderComponent
   ],
   bootstrap: [AppComponent]
 })

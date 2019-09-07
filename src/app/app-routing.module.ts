@@ -25,7 +25,7 @@ const routes: Routes = [
   { path: 'connexion', component: LoginComponent },
   { path: 'entreprises/liste',canActivate:[AuthGuard,IsSuperAdminService], component: EntrepriseListComponent },
   { path: 'inscription',canActivate:[AuthGuard,SuperEtPrincipService], component: UtilisateurFormComponent },
-  { path: 'update/:id',canActivate:[AuthGuard,SuperEtPrincipService], component: UtilisateurFormComponent },
+  { path: 'update/:id',canActivate:[AuthGuard], component: UtilisateurFormComponent },
   { path: 'partenaires/add',canActivate:[AuthGuard,IsSuperAdminService], component: EntrepriseFormComponent },
   { path: 'partenaires/:id',canActivate:[AuthGuard,IsSuperAdminService], component: UpdateEntrepriseComponent },
   { path: 'partenaires/show/:id',canActivate:[AuthGuard,IsSuperAdminService], component: SingleEntrepriseComponent },

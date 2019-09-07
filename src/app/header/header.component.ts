@@ -1,6 +1,7 @@
 import { SecurityService } from './../services/security.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-header',
@@ -9,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
   image:string;
-  constructor(private router:Router,private securityService:SecurityService) { }
+  constructor(private router:Router,private securityService:SecurityService,private appComponent:AppComponent) { }
   connecter:boolean=false;
   nom:string;
   MonPoste:string;
@@ -21,10 +22,11 @@ export class HeaderComponent implements OnInit {
       rep=>{
         localStorage.setItem("idEntreprise",rep.entreprise.id);
         localStorage.setItem("idUser",rep.id);
+        this.appComponent.getUserCompte(rep.id);
         this.nom=rep.nom;
         this.MonPoste=this.poste(localStorage.getItem("roles"));
-        this.image="assets/img/"+rep.image
-        console.log(rep)
+        this.image="assets/img/"+rep.image;
+        console.log(rep);
       }
     )
   }

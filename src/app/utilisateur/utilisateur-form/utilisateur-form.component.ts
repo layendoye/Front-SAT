@@ -6,6 +6,7 @@ import { SecurityService } from 'src/app/services/security.service';
 import { Utilisateur } from 'src/app/models/Utilisateur.model';
 import { Profil } from 'src/app/models/Profil.model';
 import { EntrepriseService } from 'src/app/services/entreprise.service';
+import { HeaderComponent } from 'src/app/header/header.component';
 
 @Component({
   selector: 'app-utilisateur-form',
@@ -81,7 +82,7 @@ export class UtilisateurFormComponent implements OnInit {
   }
   constructor(private formBuilder: FormBuilder, private router: Router,
     private securityService: SecurityService, private route: ActivatedRoute,
-    private entrepriseService: EntrepriseService) { }
+    private entrepriseService: EntrepriseService, private header:HeaderComponent) { }
 
   ngOnInit() {
     this.id = this.route.snapshot.params['id'];
@@ -95,7 +96,6 @@ export class UtilisateurFormComponent implements OnInit {
     else {
       this.charger=true;
       this.initForm(this.userUpd);
-      
     }
 
     this.getProfil();
@@ -117,11 +117,11 @@ export class UtilisateurFormComponent implements OnInit {
   getProfil(){
     this.securityService.getProfil().then(
       profil => {//tableau des profils
-        if (this.role.search('ROLE_Super-admin') != -1) {
+        if (this.role.search('ROLE_Super-admin') != -1 || this.role.search('ROLE_Caissier') != -1) {
           this.profils = [profil[0], profil[1]];
         }
         else {
-          this.profils = [profil[3], profil[4]];
+          this.profils = [profil[2],profil[3], profil[4]];
         }
         //console.log(profil);
       }
@@ -132,9 +132,9 @@ export class UtilisateurFormComponent implements OnInit {
     var idProfil=0;
     if(user.roles){
       idProfil=this.getidProfil(user.roles)
-       user.password=user.confirmPassword="azerty";//juste pour l'afficher sur l input car le mot de passe ne sera pas modifié ici
+      user.password=user.confirmPassword="azerty";//juste pour l'afficher sur l input car le mot de passe ne sera pas modifié ici
     }
-      
+      console.log(idProfil);
     this.userForm=this.formBuilder.group({   
       nom:[user.nom,[Validators.required,Validators.minLength(2),Validators.pattern(/[a-z-A-Z]/)]],
       username:[user.username,[Validators.required,Validators.minLength(2)]],
@@ -169,7 +169,7 @@ export class UtilisateurFormComponent implements OnInit {
     formData.append('telephone',telephone)
     formData.append('nci',nci)
     formData.append('profil',profil)
-    if(this.SesParametres && password!="azerty" || !this.update){
+    if(this.SesParametres && password != "azerty" || !this.update){
       formData.append('password',password)//car dans le update on ne modifie pas le mot de passe
       formData.append('confirmPassword',confirmPassword)
     }
@@ -199,13 +199,14 @@ export class UtilisateurFormComponent implements OnInit {
       this.entrepriseService.updateUser(formData,this.id).subscribe(
         (rep)=>{
           if(rep[0] && rep[0].property_path){
-             this.entrepriseService.errerForm(rep);
+            this.entrepriseService.errerForm(rep);
           }else{
             Swal.fire(
               'Modification',
               rep.message,
               'success'
             )
+            this.header.ngOnInit();
            this.router.navigate(['/lister/users']);
           }
           console.log(rep);

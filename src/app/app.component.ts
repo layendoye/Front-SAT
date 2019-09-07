@@ -16,10 +16,8 @@ export class AppComponent implements OnInit{
   solde:number;
   constructor(private router: Router, private entrepriseService:EntrepriseService){}
   ngOnInit(){
-      
     this.auth();
     this.tokenExpire();
-    
   }
 
   auth(){
@@ -27,8 +25,8 @@ export class AppComponent implements OnInit{
     if(!this.isAuth && localStorage.getItem('token')){     
       this.isAuth=true;
       this.router.navigate(['accueil']);
-      this.getUserCompte();
     }
+    
   }
   tokenExpire(){
     const token=localStorage.getItem('token')
@@ -38,12 +36,13 @@ export class AppComponent implements OnInit{
       window.location.reload();
     }
   }
-  getUserCompte(){//deplacer la fonction u header ici recuperer id du user
-    this.entrepriseService.getMonCompteActu().then(
+  getUserCompte(id:number){//deplacer la fonction u header ici recuperer id du user
+    this.entrepriseService.getMonCompteActu(id).then(
       resp=>{
         console.log(resp);
         this.numeroCompte=resp.compte.numeroCompte;
         this.solde=resp.compte.solde;
+        this.ngOnInit();
       }
     )
   }
