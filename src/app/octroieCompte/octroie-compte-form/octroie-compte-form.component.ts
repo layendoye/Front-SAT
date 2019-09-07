@@ -31,7 +31,7 @@ export class OctroieCompteFormComponent implements OnInit {
   userChoisi= new Utilisateur('','','','','','','','','',0);
   afficherFormUser:boolean=false;
   afficherTableau:boolean=false;
-  compteUserChoisi:string='';
+  compteUserChoisi:string='Aucun compte n\'est associé à cet utilisateur';
   anciensComptes:any[];
 
   constructor(private formBuilder: FormBuilder,
@@ -107,6 +107,7 @@ export class OctroieCompteFormComponent implements OnInit {
   }
   
   getUserChoisi(id:number){//quand on choisi un user
+    this.afficherFormUser=false;
     for(var i=0;i<this.users.length;i++){
       if(this.users[i].id==id){
         this.userChoisi=this.users[i];//on recupere le userChoisi
@@ -117,9 +118,10 @@ export class OctroieCompteFormComponent implements OnInit {
         this.compteUserChoisi=rep.compte.numeroCompte;
         this.afficherFormUser=true;
         this.initForm2();
-        
       },error=>{
         console.log('Erreur : '+ error)
+        this.afficherFormUser=true;
+        this.initForm2();
       }
     );
     this.afficherTableau=true;

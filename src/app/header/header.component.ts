@@ -23,7 +23,7 @@ export class HeaderComponent implements OnInit {
         localStorage.setItem("idUser",rep.id);
         this.nom=rep.nom;
         this.MonPoste=this.poste(localStorage.getItem("roles"));
-        this.image="/../../../../Back-SATransfert/public/images/"+rep.image
+        this.image="assets/img/"+rep.image
         console.log(rep)
       }
     )
@@ -45,5 +45,8 @@ export class HeaderComponent implements OnInit {
       poste='Guichetier';
     }
     return poste;
+  }
+  parametre(){
+    this.router.navigate(["/update",localStorage.getItem("idUser")])
   }
 }

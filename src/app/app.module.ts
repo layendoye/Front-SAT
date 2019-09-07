@@ -60,7 +60,7 @@ import { HistoriquesComptesComponent } from './comptes/historiques-comptes/histo
     RecuComponent,
     DashbordComponent,
     ListesComptesComponent,
-    HistoriquesComptesComponent,
+    HistoriquesComptesComponent
   ],
   imports: [
     BrowserModule,

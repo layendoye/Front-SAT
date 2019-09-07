@@ -14,8 +14,7 @@ export interface ListeCompte {
 
 export interface UserCompte {
   numeroCompte:string, 
-  solde:number,
-  nmbUser:number
+  solde:number
 }
 
 @Component({
@@ -28,7 +27,7 @@ export class ListesComptesComponent implements OnInit {
   listeComptes:ListeCompte[] = [];
   usersCompte:UserCompte[] = [];
 
-  displayedColumns: string[] = ['numeroCompte', 'solde','nmbUser','info'];
+  displayedColumns: string[] = ['numeroCompte', 'solde','info'];
   dataSource: MatTableDataSource<ListeCompte>;
 
   displayedColumns1: string[] = ['dateAffectation', 'nom'];
@@ -58,11 +57,12 @@ export class ListesComptesComponent implements OnInit {
   getUserEncour(id:number){
     this.entrepriseService.getUsersDuCompte(id).then(
       rep=>{
+        this.afficherInfo=true;
         this.usersCompte=rep;
         this.dataSource1 = new MatTableDataSource(this.usersCompte);
         this.dataSource1.paginator = this.paginator;
         this.dataSource1.sort = this.sort;
-        this.afficherInfo=true;
+        
         console.log(rep);
       },
       error=>console.log(error)
@@ -70,14 +70,15 @@ export class ListesComptesComponent implements OnInit {
     
   }
   nmbrUser(id){
+    var nombre=0;
     this.entrepriseService.getUsersDuCompte(id).then(
       rep=>{
-        console.log(rep.length);
-        return rep.length
+        nombre=rep.length
         
       },
       error=>console.log(error)
     );
+    return nombre;
   }
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();

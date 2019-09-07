@@ -23,6 +23,8 @@ export class UtilisateurFormComponent implements OnInit {
   id: number
   update: boolean = false;
   charger: boolean = false;
+
+  SesParametres=false;
   // ValidationMsg = {
   //   'nom': [
   //     { type: 'required', message: 'Le nom est obligatoire' },
@@ -83,6 +85,10 @@ export class UtilisateurFormComponent implements OnInit {
 
   ngOnInit() {
     this.id = this.route.snapshot.params['id'];
+    if(this.id== +localStorage.getItem("idUser")){
+      this.SesParametres=true;
+    }
+
     if (this.id) {
       this.updateFunction();
     } 
@@ -126,7 +132,7 @@ export class UtilisateurFormComponent implements OnInit {
     var idProfil=0;
     if(user.roles){
       idProfil=this.getidProfil(user.roles)
-       user.password=user.confirmPassword="azerty";//juste pour l'affichier sur l input car le mot de passe ne sera pas modifié ici
+       user.password=user.confirmPassword="azerty";//juste pour l'afficher sur l input car le mot de passe ne sera pas modifié ici
     }
       
     this.userForm=this.formBuilder.group({   
@@ -163,10 +169,12 @@ export class UtilisateurFormComponent implements OnInit {
     formData.append('telephone',telephone)
     formData.append('nci',nci)
     formData.append('profil',profil)
-   
-    if(!this.update){
+    if(this.SesParametres && password!="azerty" || !this.update){
       formData.append('password',password)//car dans le update on ne modifie pas le mot de passe
       formData.append('confirmPassword',confirmPassword)
+    }
+   
+    if(!this.update){
       this.securityService.addUser(formData).then(
         (rep) => {
           if (rep[0] && rep[0].property_path) {
