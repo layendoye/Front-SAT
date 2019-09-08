@@ -14,7 +14,7 @@ import { HeaderComponent } from 'src/app/header/header.component';
   styleUrls: ['./utilisateur-form.component.scss']
 })
 export class UtilisateurFormComponent implements OnInit {
-  imageUrl:string="assets/img/exemple.png";//pour l image par defaut au chargement du formulaire
+  imageUrl:string="assets/img/exemple.jpg";//pour l image par defaut au chargement du formulaire
   fileToUpload:File=null;
   userForm: FormGroup;
   errorMessage: string;
@@ -132,9 +132,9 @@ export class UtilisateurFormComponent implements OnInit {
     var idProfil=0;
     if(user.roles){
       idProfil=this.getidProfil(user.roles)
-      user.password=user.confirmPassword="azerty";//juste pour l'afficher sur l input car le mot de passe ne sera pas modifié ici
     }
-      console.log(idProfil);
+    console.log(idProfil);
+    user.password=user.confirmPassword="azerty";//juste pour l'afficher sur l input car le mot de passe ne sera pas modifié ici
     this.userForm=this.formBuilder.group({   
       nom:[user.nom,[Validators.required,Validators.minLength(2),Validators.pattern(/[a-z-A-Z]/)]],
       username:[user.username,[Validators.required,Validators.minLength(2)]],
@@ -247,14 +247,6 @@ export class UtilisateurFormComponent implements OnInit {
     var reader=new FileReader();
     reader.onload=(event:any)=>{
       this.imageUrl=event.target.result;
-      Swal.fire({
-        title: 'Image!',
-        imageUrl: this.imageUrl,
-        imageWidth: 400,
-        imageHeight: 200,
-        imageAlt: 'Votre image',
-        animation: false
-      })
     }
     reader.readAsDataURL(this.fileToUpload);
     

@@ -16,7 +16,7 @@ export class EntrepriseFormComponent implements OnInit {
   entrepriseForm: FormGroup;
   errorMessage: string;
   next:boolean=false;
-  imageUrl:string="assets/img/exemple.png";
+  imageUrl:string="assets/img/exemple.jpg";
    ValidationMsg = {
     'raisonSociale': [
       { type: 'required', message: 'La raison sociale est obligatoire' },
@@ -36,6 +36,7 @@ export class EntrepriseFormComponent implements OnInit {
     'emailEntreprise': [
       { type: 'required', message: 'L\' email est obligatoire' },
       { type: 'minlength', message: 'Vous devez remplir au moins 2 caracteres' },
+      { type: 'email', message: 'Vous devez remplir un email valide' },
       { type: 'pattern', message: 'Rentrer un email valide' }
     ],
     'telephoneEntreprise': [
@@ -66,6 +67,7 @@ export class EntrepriseFormComponent implements OnInit {
     'email': [
       { type: 'required', message: 'L\' email est obligatoire' },
       { type: 'minlength', message: 'Vous devez remplir au moins 2 caracteres' },
+      { type: 'email', message: 'Vous devez remplir un email valide' },
       { type: 'pattern', message: 'Rentrer un email valide' }
     ],
     'telephone': [
@@ -103,8 +105,8 @@ export class EntrepriseFormComponent implements OnInit {
       telephoneEntreprise:['',[Validators.required,Validators.minLength(2),Validators.pattern(/[0-9]/)]],
       nom:['',[Validators.required,Validators.minLength(2),,Validators.pattern(/[a-z-A-Z]/)]],
       username:['',[Validators.required,Validators.minLength(2)]],
-      password: ['',[Validators.required,Validators.minLength(2),,Validators.pattern(/[0-9a-z-A-Z]/)]],//comme ca le password va contenir au moins 2 caracteres
-      confirmPassword:['',[Validators.required,Validators.minLength(2),]],
+      password: ['azerty',[Validators.required,Validators.minLength(2),,Validators.pattern(/[0-9a-z-A-Z]/)]],//comme ca le password va contenir au moins 2 caracteres
+      confirmPassword:['azerty',[Validators.required,Validators.minLength(2),]],
       email:['',[Validators.required,Validators.email,Validators.minLength(2)]],
       telephone:['',[Validators.required,Validators.minLength(2),Validators.pattern(/[0-9]/)]],
       nci:['',[Validators.required,Validators.minLength(2),Validators.pattern(/[0-9]/)]],
@@ -163,14 +165,6 @@ export class EntrepriseFormComponent implements OnInit {
     var reader=new FileReader();
     reader.onload=(event:any)=>{
       this.imageUrl=event.target.result;
-      Swal.fire({
-        title: 'Image!',
-        imageUrl: this.imageUrl,
-        imageWidth: 400,
-        imageHeight: 200,
-        imageAlt: 'Votre image',
-        animation: false
-      })
     }
     reader.readAsDataURL(this.fileToUpload);
     console.log(this.imageUrl)
