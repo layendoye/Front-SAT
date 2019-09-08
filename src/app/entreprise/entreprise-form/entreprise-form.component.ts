@@ -117,12 +117,31 @@ export class EntrepriseFormComponent implements OnInit {
           if(rep[0] && rep[0].property_path){
             this.entrepriseService.errerForm(rep);
           }else{
-            Swal.fire(
-              'Partenaire enregistré',
-              rep.message+"\n"+rep.compte,
-              'success'
-            )
-            this.router.navigate(['entreprises/liste']);
+            Swal.fire({
+              title: '<strong>Partenaire enregistré</strong>',
+              type: 'success',
+              html:
+                   '<p>Raison Sosiale : '+this.entrepriseForm.value.raisonSociale+'</p>'
+                  +'<p>Pays : Sénégal </p>'
+                  +'<p>Adresse : '+this.entrepriseForm.value.adresse+'</p>'
+                  +'<p>'+rep.compte+'</p>'
+                  +'<h2>Responsable</h2>'
+                  +'<p>Nom : '+this.entrepriseForm.value.nom+'</p>'
+                  +'<p>Login : '+this.entrepriseForm.value.username+'</p>'
+                  +'<p>NCI : '+this.entrepriseForm.value.nci+'</p>'
+                  +'<p>Téléphone : '+this.entrepriseForm.value.telephone+'</p>'
+                  +'<p>Email : <strong>'+this.entrepriseForm.value.email+'</strong></p>',
+              showCloseButton: false,
+              focusConfirm: false,
+              confirmButtonText:
+                '<i class="fa fa-thumbs-up"></i> Ok',
+              confirmButtonAriaLabel: 'Thumbs up, great!',
+            }).then((result) => {
+              if (result.value) {
+                this.router.navigate(['/contrat',this.entrepriseForm.value.raisonSociale]);
+              }
+            })
+            
           }
           console.log(rep);
         },

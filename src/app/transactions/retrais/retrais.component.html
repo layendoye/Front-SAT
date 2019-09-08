@@ -1,4 +1,4 @@
-<form [formGroup]="codeForm" *ngIf="!isTransaction">
+<form [formGroup]="codeForm" *ngIf="!isTransaction && !afficherRecu">
     <div class="form-group">
         <label for="code">Code de transaction</label>
         <div class="input-group col-12">
@@ -24,7 +24,7 @@
     </div>
 </form>
 
-<form [formGroup]="receptionForm" class="receptionForm" (ngSubmit)="onSubmit()" *ngIf="isTransaction">
+<form [formGroup]="receptionForm" class="receptionForm" (ngSubmit)="onSubmit()" *ngIf="isTransaction && !afficherRecu">
     <div class="row">
         <div class="col-sm-12">
             <div class="form-group">
@@ -88,3 +88,31 @@
         <button type="submit" class="btn btn-primary col-sm-4 boutonSend col-sm-offset-4" [disabled]="receptionForm.invalid">Valider</button>
     </div>
 </form>
+<fieldset *ngIf="afficherRecu">
+        <legend>SA TRANSFERT</legend>
+        <h3 class="text-center titre">Reçu de retrait</h3>
+        <div class="row">
+            <p class="col-sm-3"><strong>Entreprise :</strong> {{rep.Entreprise.RaisonSociale}}</p>
+            <p class="col-sm-3"><strong>Guichetier :</strong> {{rep.Entreprise.Guichetier}}</p>
+            <p class="col-sm-3"><strong>Adresse :</strong> {{rep.Entreprise.Adresse}}</p>
+            <p class="col-sm-3"><strong>Date :</strong> {{rep.Entreprise.Date}}</p>
+        </div>
+        <fieldset>
+            <legend>Bénéficiaire</legend>
+            <p>Nom : {{rep.Beneficiaire.Nom}}</p>
+            <p>Pays : {{rep.Beneficiaire.Pays}}</p>
+            <p>Téléphone : {{rep.Beneficiaire.Telephone}}</p>
+            <p>NCI : {{rep.Beneficiaire.NCI}}</p>
+        </fieldset>
+        <fieldset>
+            <legend>Envoyeur</legend>
+            <p>Nom : {{rep.Envoyeur.Nom}}</p>
+            <p>Pays : {{rep.Envoyeur.Pays}}</p>
+            <p>Téléphone : {{rep.Envoyeur.Telephone}}</p>
+        </fieldset>
+        <fieldset>
+            <legend>Transaction</legend>
+            <p>Code : {{rep.Transaction.CodeTransaction}}</p>
+            <p>Montant retiré : {{rep.Transaction.MontantRetire}}</p>
+        </fieldset>
+    </fieldset>

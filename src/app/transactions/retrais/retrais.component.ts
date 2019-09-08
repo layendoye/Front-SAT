@@ -18,6 +18,8 @@ export class RetraisComponent implements OnInit {
   code:string='';
   info:any;
   isTransaction:boolean=false;
+  afficherRecu=false;
+  rep:any;
   ValidationMsg = {
     'code': [
       { type: 'required', message: 'Le code est obligatoire' },
@@ -61,26 +63,32 @@ export class RetraisComponent implements OnInit {
         if(rep[0] && rep[0].property_path){
              this.entrepriseService.errerForm(rep);
           }else{
+            this.rep=rep;
+            console.log(rep)
             Swal.fire({
-              title: '<strong>'+rep.Type+'</strong>',
+              title: '<strong>Info</strong>',
               type: 'success',
               html:
                    '<h2>Bénéficiaire</h2>'
-                  +'<p>Nom : '+rep.Bénéficiaire.Nom+'</p>'
-                  +'<p>Pays : '+rep.Bénéficiaire.Pays+'</p>'
-                  +'<p>Téléphone : '+rep.Bénéficiaire.Téléphone+'</p>'
+                  +'<p>Nom : '+rep.Beneficiaire.Nom+'</p>'
+                  +'<p>Pays : '+rep.Beneficiaire.Pays+'</p>'
+                  +'<p>Téléphone : '+rep.Beneficiaire.Telephone+'</p>'
                   +'<h2>Envoyeur</h2>'
                   +'<p>Nom : '+rep.Envoyeur.Nom+'</p>'
                   +'<p>Pays : '+rep.Envoyeur.Pays+'</p>'
-                  +'<p>Téléphone : '+rep.Envoyeur.Téléphone+'</p>'
+                  +'<p>Téléphone : '+rep.Envoyeur.Telephone+'</p>'
                   +'<h2>Transaction</h2>'
                   +'<p>Code : <strong>'+rep.Transaction.CodeTransaction+'</strong></p>'
-                  +'<p>Montant retiré : '+rep.Transaction.MontantRetiré+' </p>',
+                  +'<p>Montant retiré : '+rep.Transaction.MontantRetire+' </p>',
               showCloseButton: true,
               focusConfirm: false,
               confirmButtonText:
                 '<i class="fa fa-thumbs-up"></i> Ok',
               confirmButtonAriaLabel: 'Thumbs up, great!',
+            }).then((result) => {
+              if (result.value) {
+                this.recu();
+              }
             })
           }
       },
@@ -124,5 +132,11 @@ export class RetraisComponent implements OnInit {
     this.info=null;
     this.initForm();
     this.entrerCode(code);
+  }
+  recu(){
+    this.afficherRecu=true;
+    setTimeout(()=>{
+      window.print();
+    },3000)
   }
 }

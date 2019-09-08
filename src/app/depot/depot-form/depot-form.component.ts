@@ -37,7 +37,7 @@ export class DepotFormComponent implements OnInit {
     ],
     'montant': [
       { type: 'required', message: 'Le montant est obligatoire' },
-      { type: 'minlength', message: 'Dêpot minimal 75.000' },
+      { type: 'min', message: 'Montant minimum 75 000 fr' },
       { type: 'pattern', message: 'Rentrer un montant valide' }
     ]
   }
@@ -53,7 +53,7 @@ export class DepotFormComponent implements OnInit {
   initForm(){
      this.depotForm=this.formBuilder.group({   
       numeroCompte:['',[Validators.required,Validators.minLength(14)]],
-      montant:['',[Validators.required,Validators.pattern(/[0-9]/),Validators.minLength(5)]],//surperieur à 75000
+      montant:['',[Validators.required,Validators.pattern(/[0-9]/),Validators.min(75000)]],//surperieur à 75000
     });
   }
   onSubmit(){

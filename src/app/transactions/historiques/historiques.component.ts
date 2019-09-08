@@ -2,7 +2,7 @@ import { EntrepriseService } from './../../services/entreprise.service';
 import { TransactionService } from './../../services/transaction.service';
 import { Component, OnInit,ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
@@ -43,21 +43,30 @@ export class HistoriquesComponent implements OnInit {
   afficherRetraits:boolean=false;
 
   users:Utilisateur[];
+
+  histoGuichetier=false;
   constructor(private formBuilder: FormBuilder,
               private transactionService: TransactionService,
               private router: Router,
-              private entrepriseService: EntrepriseService) { }
+              private entrepriseService: EntrepriseService,
+              private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.getUser();//le formulaire est initialisé dans la fonction
   }
   initForm(){
+    var id=0;
+    if(this.route.snapshot.params['type']){
+      id=(+localStorage.getItem("idUser"));
+      this.histoGuichetier=true
+    }
+
     const now=new Date();
     console.log(now)
     this.histoForm=this.formBuilder.group({   
       dateDebut:[now,[Validators.required]],
       dateFin:[now,[Validators.required]],
-      idUser:[0,[Validators.required]],
+      idUser:[id,[Validators.required]],
       action:['envois',[Validators.required]],
     });
   }

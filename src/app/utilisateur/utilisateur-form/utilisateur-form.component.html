@@ -109,16 +109,16 @@
             <div class="form-group">
                 <label for="profil">Profil</label>
 
-                <div class="input-group col-12" *ngIf="update && !SesParametres">
+                <div class="input-group col-12" *ngIf="update && !SesParametres || !update && !SesParametres">
                     <span class="input-group-addon fontAw"><i class="fas fa-male"></i></span>
                     <select matInput formControlName="profil" id="profil" class="form-control">
                         <option *ngFor="let profil of profils" value="{{profil.id}}">{{profil.libelle}}</option>
                     </select>
                 </div>
 
-                <div class="input-group col-12" *ngIf="!update || SesParametres">
+                <div class="input-group col-12" *ngIf="SesParametres">
                     <span class="input-group-addon fontAw"><i class="fas fa-male"></i></span>
-                    <select matInput formControlName="profil" id="profil" class="form-control" disabled>
+                    <select matInput formControlName="profil" id="profil" class="form-control" readOnly>
                         <option *ngFor="let profil of profils" value="{{profil.id}}">{{profil.libelle}}</option>
                     </select>
                 </div>

@@ -28,6 +28,7 @@ export class DashbordComponent implements OnInit {
       this.getNbrPartenaires();
       this. getNbrCompte();
     }
+    
   }
   permission(){
     const roles=localStorage.getItem("roles");

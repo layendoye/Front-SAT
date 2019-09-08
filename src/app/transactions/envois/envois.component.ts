@@ -13,6 +13,8 @@ import * as jsPDF from 'jspdf';
 export class EnvoisComponent implements OnInit {
   sendForm: FormGroup;
   errorMessage: string;
+  afficherRecu=false;
+  rep:any;
   ValidationMsg = {
     'nomClientEmetteur': [
       { type: 'required', message: 'Le nom du client emetteur est obligatoire' },
@@ -41,7 +43,8 @@ export class EnvoisComponent implements OnInit {
     ],
     'montant': [
       { type: 'required', message: 'Le montant est obligatoire' },
-      { type: 'minlength', message: 'Vous devez remplir au moins 2 caracteres' },
+      { type: 'min', message: 'Montant minimum 500 fr' },
+      { type: 'max', message: 'Montant maximum 3 000 000 fr' },
       { type: 'pattern', message: 'Rentrer un montant valide' }
     ]
   }
@@ -60,7 +63,7 @@ export class EnvoisComponent implements OnInit {
       nciEmetteur:['',[Validators.required,Validators.minLength(2),Validators.pattern(/[0-9]/)]],
       nomClientRecepteur:['',[Validators.required,Validators.minLength(2),Validators.pattern(/[a-z-A-Z]/)]],
       telephoneRecepteur:['',[Validators.required,Validators.pattern(/[0-9]/),Validators.minLength(2)]],
-      montant:['',[Validators.required,Validators.pattern(/[0-9]/),Validators.minLength(2)]]
+      montant:['',[Validators.required,Validators.pattern(/[0-9]/),Validators.min(500),Validators.max(3000000)]]
     });
   
   }
@@ -70,37 +73,54 @@ export class EnvoisComponent implements OnInit {
         if(rep[0] && rep[0].property_path){
              this.entrepriseService.errerForm(rep);
           }else{
+            this.rep=rep;
             Swal.fire({
-              title: '<strong>'+rep.Type+'</strong>',
+              title: '<strong>Info</strong>',
               type: 'success',
               html:
                    '<h2>Bénéficiaire</h2>'
-                  +'<p>Nom : '+rep.Bénéficiaire.Nom+'</p>'
-                  +'<p>Pays : '+rep.Bénéficiaire.Pays+'</p>'
-                  +'<p>Téléphone : '+rep.Bénéficiaire.Téléphone+'</p>'
+                  +'<p>Nom : '+rep.Beneficiaire.Nom+'</p>'
+                  +'<p>Pays : '+rep.Beneficiaire.Pays+'</p>'
+                  +'<p>Téléphone : '+rep.Beneficiaire.Telephone+'</p>'
                   +'<h2>Envoyeur</h2>'
                   +'<p>Nom : '+rep.Envoyeur.Nom+'</p>'
                   +'<p>NCI : '+rep.Envoyeur.NCI+'</p>'
                   +'<p>Pays : '+rep.Envoyeur.Pays+'</p>'
-                  +'<p>Téléphone : '+rep.Envoyeur.Téléphone+'</p>'
+                  +'<p>Téléphone : '+rep.Envoyeur.Telephone+'</p>'
                   +'<h2>Transaction</h2>'
                   +'<p>Code : <strong>'+rep.Transaction.CodeTransaction+'</strong></p>'
                   +'<p>Commissions TTC : '+rep.Transaction.CommissionsTTC+' </p>'
-                  +'<p>Montant Envoyé : '+rep.Transaction.MontantEnvoyé+'</p>'
+                  +'<p>Montant Envoyé : '+rep.Transaction.MontantEnvoye+'</p>'
                   +'<p>Total : '+rep.Transaction.Total+'</p>',
               showCloseButton: true,
               focusConfirm: false,
               confirmButtonText:
                 '<i class="fa fa-thumbs-up"></i> Ok',
               confirmButtonAriaLabel: 'Thumbs up, great!',
+            }).then((result) => {
+              if (result.value) {
+                this.recu();
+              }
             })
           }
           console.log(rep);
       },
       error=>{
         console.log('Erreur : '+error.message);
-       
+        if(error.message.search("403")>=0){
+          Swal.fire(
+            'Erreur',
+            'Le solde de votre compte ne vous permet pas de traiter cette transaction !',
+            'error'
+          )
+        }
       }
     )
+  }
+  recu(){
+    this.afficherRecu=true;
+    setTimeout(()=>{
+      window.print();
+    },3000)
   }
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as jsPDF from 'jspdf';
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-contrat',
   templateUrl: './contrat.component.html',
@@ -8,14 +9,14 @@ import * as jsPDF from 'jspdf';
 export class ContratComponent implements OnInit {
   laDate:Date=new Date();
   nomEntreprise:string;
-  constructor() { }
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.nomEntreprise="Orange SA";
-    var doc = new jsPDF();
-    doc.fromHTML($('#contrat').get(0),5,5,{'width':120});
-    doc.save('recu.pdf')
-    window.print();
+    this.nomEntreprise=this.route.snapshot.params['entreprise'];
+    setTimeout(()=>{
+      window.print();
+    },3000)
+    
   }
 
 }

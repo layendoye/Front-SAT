@@ -35,8 +35,9 @@ const routes: Routes = [
   { path: 'envois',canActivate:[AuthGuard,IsGuichetierService], component: EnvoisComponent },
   { path: 'retraits',canActivate:[AuthGuard,IsGuichetierService], component: RetraisComponent },
   { path: 'historiques/transactions',canActivate:[AuthGuard,IsAdminPrinService], component: HistoriquesComponent },
+  { path: 'historiques/transactions/:type',canActivate:[AuthGuard,IsGuichetierService], component: HistoriquesComponent },
   { path: 'liste/comptes',canActivate:[AuthGuard,IsAdminPrinService], component: ListesComptesComponent },
-  { path: 'contrat',canActivate:[AuthGuard], component: ContratComponent},
+  { path: 'contrat/:entreprise',canActivate:[AuthGuard,IsSuperAdminService], component: ContratComponent},
   { path: 'accueil',canActivate:[AuthGuard], component: DashbordComponent},
   { path: '', redirectTo: 'accueil', pathMatch: 'full' },//pour eviter les erreurs pathMatch: 'full' pour dire que le path doit etre totalement vide
   { path: '**', redirectTo: 'accueil' }

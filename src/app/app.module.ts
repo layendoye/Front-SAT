@@ -31,10 +31,8 @@ import { IsCaissierService } from './services/is-caissier.service';
 import { IsAdminPrinService } from './services/is-admin-prin.service';
 import { IsGuichetierService } from './services/is-guichetier.service';
 import { SuperEtPrincipService } from './services/super-et-princip.service';
-import { RightSidebarComponent } from './right-sidebar/right-sidebar.component';
 import { HistoriquesComponent } from './transactions/historiques/historiques.component';
 import { ContratComponent } from './entreprise/contrat/contrat.component';
-import { RecuComponent } from './transactions/recu/recu.component';
 import { DashbordComponent } from './dashbord/dashbord.component';
 import { ListesComptesComponent } from './comptes/listes-comptes/listes-comptes.component';
 import { HistoriquesComptesComponent } from './comptes/historiques-comptes/historiques-comptes.component';
@@ -54,10 +52,8 @@ import { HistoriquesComptesComponent } from './comptes/historiques-comptes/histo
     EnvoisComponent,
     RetraisComponent,
     SingleEntrepriseComponent,
-    RightSidebarComponent,
     HistoriquesComponent,
     ContratComponent,
-    RecuComponent,
     DashbordComponent,
     ListesComptesComponent,
     HistoriquesComptesComponent
