@@ -36,6 +36,7 @@ import { ContratComponent } from './entreprise/contrat/contrat.component';
 import { DashbordComponent } from './dashbord/dashbord.component';
 import { ListesComptesComponent } from './comptes/listes-comptes/listes-comptes.component';
 import { HistoriquesComptesComponent } from './comptes/historiques-comptes/historiques-comptes.component';
+import { TransactionGraphComponent } from './dashbord/transaction-graph/transaction-graph.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -56,7 +57,8 @@ import { HistoriquesComptesComponent } from './comptes/historiques-comptes/histo
     ContratComponent,
     DashbordComponent,
     ListesComptesComponent,
-    HistoriquesComptesComponent
+    HistoriquesComptesComponent,
+    TransactionGraphComponent
   ],
   imports: [
     BrowserModule,

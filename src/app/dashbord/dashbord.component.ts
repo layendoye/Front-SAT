@@ -1,7 +1,5 @@
-import { Entreprise } from './../models/Entreprise.model';
 import { EntrepriseService } from './../services/entreprise.service';
 import { Component, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-dashbord',

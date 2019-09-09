@@ -71,6 +71,7 @@ export class HistoriquesComponent implements OnInit {
     });
   }
   getInfoTransaction(data:any){
+    console.log(data);
     this.transactionService.historiqueTransaction(data).then(
       response=>{
           this.transaction=response;
