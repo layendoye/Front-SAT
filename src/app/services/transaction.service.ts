@@ -36,8 +36,10 @@ export class TransactionService {
     const idEntrep=localStorage.getItem("idEntreprise");
     if(idUser==0)//toutes les transactions
       return this.postElement(data,"/transation/partenaire/"+action+"/"+idEntrep);
-    else
+    else if(idUser>0)
       return this.postElement(data,"/transation/user/"+action+"/"+idUser);
+    else
+    return this.postElement(data,"/transations/partenaires/"+action);
   }
 
   postElement(data:any,url:string){//return une promise

@@ -31,6 +31,9 @@ export class TransactionGraphComponent implements OnInit {
       dateFin:new Date(),
       idUser:0
     };
+    if(localStorage.getItem("roles").search("ROLE_Super-admin")>=0){
+      data.idUser=-1;//pour avoir tous les transactions
+    }
     this.transactionService.historiqueTransaction(data).then(
       response=>{
           this.envois=response;
@@ -118,13 +121,12 @@ export class TransactionGraphComponent implements OnInit {
       }
       tabEnvois.push(montant);
     }
-    
-
-
-    // for(var i=0;i<data.length;i++){
-    //   tabDate.push(data[i].dateEnvoi.slice(0, 10));//il va peut etre manquer la dernier
-    //   tabEnvois.push(data[i].montant);      
-    // }
     return [tabDate,tabEnvois];
+  }
+    afficheDate(laDate:any){
+    var lAnne = laDate.slice(0, 4);
+    var leMois = laDate.slice(5, 7) - 1;
+    var leJour = laDate.slice(8, 10);
+    return leJour+'-'+leMois+'-'+lAnne;
   }
 }

@@ -30,11 +30,12 @@ export class RetraitGaphComponent implements OnInit {
       dateFin:new Date(),
       idUser:0
     };
+    if(localStorage.getItem("roles").search("ROLE_Super-admin")>=0){
+      data.idUser=-1;//pour avoir tous les transactions
+    }
     this.transactionService.historiqueTransaction(data).then(
       response=>{
           this.retrais=response;
-          console.log(response);
-          console.log(this.getHistoRetraits(response));
           const tab=this.getHistoRetraits(response);
           this.grath(tab[0],tab[1])
       },
@@ -109,9 +110,9 @@ export class RetraitGaphComponent implements OnInit {
     }
     tabDate.push(data[data.length-1].dateReception.slice(0, 10));//le dernier
 
-    for (i = 1; i < tabDate.length; i++) {//trier la date 
+    for (var i = 1; i < tabDate.length; i++) {//trier la date 
 			var cle = tabDate[i];
-			j = i;
+			var j = i;
 			while ((j >= 1) && (new Date(tabDate[j - 1]) > new Date(cle))) {
 				tabDate[j]  = tabDate[j - 1] ;
 				j = j - 1;
@@ -129,13 +130,12 @@ export class RetraitGaphComponent implements OnInit {
       }
       tabRetraits.push(montant);
     }
-    
-
-
-    // for(var i=0;i<data.length;i++){
-    //   tabDate.push(data[i].dateEnvoi.slice(0, 10));//il va peut etre manquer la dernier
-    //   tabEnvois.push(data[i].montant);      
-    // }
     return [tabDate,tabRetraits];
+  }
+  afficheDate(laDate:any){
+    var lAnne = laDate.slice(0, 4);
+    var leMois = laDate.slice(5, 7) - 1;
+    var leJour = laDate.slice(8, 10);
+    return leJour+'-'+leMois+'-'+lAnne;
   }
 }
