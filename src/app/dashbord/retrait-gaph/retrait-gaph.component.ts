@@ -10,33 +10,32 @@ Boost(Highcharts);
 noData(Highcharts);
 More(Highcharts);
 noData(Highcharts);
-
-
 @Component({
-  selector: 'app-transaction-graph',
-  templateUrl: './transaction-graph.component.html',
-  styleUrls: ['./transaction-graph.component.scss']
+  selector: 'app-retrait-gaph',
+  templateUrl: './retrait-gaph.component.html',
+  styleUrls: ['./retrait-gaph.component.scss']
 })
-export class TransactionGraphComponent implements OnInit {
+export class RetraitGaphComponent implements OnInit {
+  retrais:any;
   envois:any;
   constructor(private transactionService: TransactionService) { }
 
   ngOnInit() {
-    this.getEnvois();
+    this.getRetraits();
   }
-  getEnvois(){
+  getRetraits(){
     const data={
-      action:"envois",
+      action:"retraits",
       dateDebut:"2019-01-01",
       dateFin:new Date(),
       idUser:0
     };
     this.transactionService.historiqueTransaction(data).then(
       response=>{
-          this.envois=response;
+          this.retrais=response;
           console.log(response);
-          console.log(this.getHistoEnvois(response));
-          const tab=this.getHistoEnvois(response);
+          console.log(this.getHistoRetraits(response));
+          const tab=this.getHistoRetraits(response);
           this.grath(tab[0],tab[1])
       },
       error=>{
@@ -44,13 +43,13 @@ export class TransactionGraphComponent implements OnInit {
       }
     );
   }
-  grath(date:any,envois:any){
+  grath(date:any,retrais:any){
     const options: any = {
       chart: {
         type: 'areaspline'
       },
       title: {
-        text: 'Envois'
+        text: 'Retraits'
       },
       legend: {
         layout: 'vertical',
@@ -89,34 +88,46 @@ export class TransactionGraphComponent implements OnInit {
         }
       },
       series: [{
-        name: 'Envois',
-        data: envois
+        name: 'Retraits',
+        data: retrais
       }
       //, {name: 'Retraits',data: retrait}
     ]
     }
-    Highcharts.chart('envois', options);
+    Highcharts.chart('retrait', options);
   }
-  getHistoEnvois(data:any){
+  getHistoRetraits(data:any){
     var tabDate=[];
-    var tabEnvois=[];
+    var tabRetraits=[];
     var montant=0;
     for(var i=0;i<data.length-1;i++){
-      var date1=data[i].dateEnvoi.slice(0, 10);
-      var date2=data[i+1].dateEnvoi.slice(0, 10);
+      var date1=data[i].dateReception.slice(0, 10);
+      var date2=data[i+1].dateReception.slice(0, 10);
       if(date1!=date2){
-        tabDate.push(data[i].dateEnvoi.slice(0, 10));//il va peut etre manquer la dernier
+        tabDate.push(data[i].dateReception.slice(0, 10));//il va peut etre manquer la dernier
       }
     }
-    tabDate.push(data[data.length-1].dateEnvoi.slice(0, 10));//le dernier
+    tabDate.push(data[data.length-1].dateReception.slice(0, 10));//le dernier
+
+    for (i = 1; i < tabDate.length; i++) {//trier la date 
+			var cle = tabDate[i];
+			j = i;
+			while ((j >= 1) && (new Date(tabDate[j - 1]) > new Date(cle))) {
+				tabDate[j]  = tabDate[j - 1] ;
+				j = j - 1;
+			}
+			tabDate[j] = cle;
+		}
+
+
     for(var j=0;j<tabDate.length;j++){//pour chaque bonne date
       montant=0;
       for(var i=0;i<data.length;i++){//additionner les montants
-        if(tabDate[j]==data[i].dateEnvoi.slice(0, 10)){
+        if(tabDate[j]==data[i].dateReception.slice(0, 10)){
           montant=montant+data[i].montant;
         }
       }
-      tabEnvois.push(montant);
+      tabRetraits.push(montant);
     }
     
 
@@ -125,6 +136,6 @@ export class TransactionGraphComponent implements OnInit {
     //   tabDate.push(data[i].dateEnvoi.slice(0, 10));//il va peut etre manquer la dernier
     //   tabEnvois.push(data[i].montant);      
     // }
-    return [tabDate,tabEnvois];
+    return [tabDate,tabRetraits];
   }
 }

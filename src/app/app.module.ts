@@ -37,6 +37,7 @@ import { DashbordComponent } from './dashbord/dashbord.component';
 import { ListesComptesComponent } from './comptes/listes-comptes/listes-comptes.component';
 import { HistoriquesComptesComponent } from './comptes/historiques-comptes/historiques-comptes.component';
 import { TransactionGraphComponent } from './dashbord/transaction-graph/transaction-graph.component';
+import { RetraitGaphComponent } from './dashbord/retrait-gaph/retrait-gaph.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -58,7 +59,8 @@ import { TransactionGraphComponent } from './dashbord/transaction-graph/transact
     DashbordComponent,
     ListesComptesComponent,
     HistoriquesComptesComponent,
-    TransactionGraphComponent
+    TransactionGraphComponent,
+    RetraitGaphComponent
   ],
   imports: [
     BrowserModule,

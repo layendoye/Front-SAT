@@ -44,8 +44,7 @@
             <div class="icon">
                 <em class="fas fa-donate"></em>
             </div>
-            <a routerLink="/liste/comptes" class="small-box-footer">Liste <em
-                    class="fa fa-arrow-circle-right"></em></a>
+            <a routerLink="/liste/comptes" class="small-box-footer">Liste <em class="fa fa-arrow-circle-right"></em></a>
         </div>
     </div>
 
@@ -62,8 +61,7 @@
             <div class="icon">
                 <em class="fas fa-dollar-sign"></em>
             </div>
-            <a routerLink="/liste/comptes" class="small-box-footer">Liste <em
-                    class="fa fa-arrow-circle-right"></em></a>
+            <a routerLink="/liste/comptes" class="small-box-footer">Liste <em class="fa fa-arrow-circle-right"></em></a>
         </div>
     </div>
 
@@ -143,14 +141,16 @@
             <div class="box-header blockG">
                 <i class="fa fa-th"></i>
 
-                <h3 class="box-title">Transaction</h3>
+                <h3 class="box-title">Envois</h3>
 
                 <div class="box-tools pull-right">
-                    <button type="button" class="btn bg-teal btn-sm pull-right" data-widget="remove" title="Fermer"><i class="fa fa-times"></i>
+                    <button type="button" class="btn bg-teal btn-sm pull-right" data-widget="remove" title="Fermer"><i
+                            class="fa fa-times"></i>
                     </button>
-                    <button type="button" class="btn bg-teal btn-sm pull-right" data-widget="collapse" title="Réduire"><i class="fa fa-minus"></i>
+                    <button type="button" class="btn bg-teal btn-sm pull-right" data-widget="collapse"
+                        title="Réduire"><i class="fa fa-minus"></i>
                     </button>
-                    
+
                 </div>
             </div>
             <div class="box-body border-radius-none">
@@ -160,9 +160,34 @@
         </div>
         <!-- /.box -->
     </div>
-    <div class="col-sm-6 noPadd" *ngIf="SupAdmin">
+    <div [ngClass]="{'col-sm-6 noPadd': SupAdmin,'col-sm-12': SupAdmin }">
+        <!-- solid sales graph -->
+        <div [ngClass]="{'box box-solid bg-aqua':true,'blockD': SupAdmin}">
+            <div class="box-header blockG">
+                <i class="fa fa-th"></i>
+
+                <h3 class="box-title">Retraits</h3>
+
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn bg-sarcelle btn-sm pull-right" data-widget="remove" title="Fermer"><i
+                            class="fa fa-times"></i>
+                    </button>
+                    <button type="button" class="btn bg-sarcelle btn-sm pull-right" data-widget="collapse"
+                        title="Réduire"><i class="fa fa-minus"></i>
+                    </button>
+
+                </div>
+            </div>
+            <div class="box-body border-radius-none">
+                <app-retrait-gaph></app-retrait-gaph>
+            </div>
+
+        </div>
+        <!-- /.box -->
+    </div>
+    <div class="col-sm-12 noPadd plus" *ngIf="SupAdmin">
         <!-- Map box -->
-        <div class="box box-solid bg-light-blue-gradient blockD">
+        <div class="box box-solid bg-light-blue-gradient">
             <div class="box-header">
                 <!-- tools box -->
                 <div class="pull-right box-tools">
@@ -180,8 +205,9 @@
                 <h3 class="box-title">Partenaires</h3>
             </div>
             <div class="box-body ">
-                
-                <iframe id="world-map" src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d7718.456052463744!2d-17.47238197552375!3d14.699692958957725!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sfr!2ssn!4v1567853017255!5m2!1sfr!2ssn"
+
+                <iframe id="world-map"
+                    src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d7718.456052463744!2d-17.47238197552375!3d14.699692958957725!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sfr!2ssn!4v1567853017255!5m2!1sfr!2ssn"
                     width="100%" height="220" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
 
             </div>
@@ -189,6 +215,3 @@
         <!-- /.box -->
     </div>
 </div>
-
-
-
