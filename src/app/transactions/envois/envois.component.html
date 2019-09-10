@@ -1,91 +1,93 @@
-<form [formGroup]="sendForm" class="sendForm" (ngSubmit)="onSubmit()" id="testdiv" *ngIf="!afficherRecu">
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="form-group">
-                <label for="nomClientEmetteur">Nom de l'émetteur</label>
-                <div class="input-group col-12">
-                    <span class="input-group-addon fontAw"><i class="far fa-building"></i></span>
-                    <input matInput type="text" id="nomClientEmetteur" class="form-control backg"
-                        formControlName="nomClientEmetteur" placeholder="Nom et prénom du client">
+<div class="backForm">
+    <form [formGroup]="sendForm" class="sendForm" (ngSubmit)="onSubmit()" id="testdiv" *ngIf="!afficherRecu">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <label for="nomClientEmetteur">Nom de l'émetteur</label>
+                    <div class="input-group col-12">
+                        <span class="input-group-addon fontAw"><i class="far fa-building"></i></span>
+                        <input matInput type="text" id="nomClientEmetteur" class="form-control backg"
+                            formControlName="nomClientEmetteur" placeholder="Nom et prénom du client">
+                    </div>
+                    <mat-error *ngFor="let validation of ValidationMsg.nomClientEmetteur">
+                        <mat-error class="error-message"
+                            *ngIf="sendForm.get('nomClientEmetteur').hasError(validation.type) && (sendForm.get('nomClientEmetteur').touched)">
+                            {{validation.message}}</mat-error>
+                    </mat-error>
                 </div>
-                <mat-error *ngFor="let validation of ValidationMsg.nomClientEmetteur">
-                    <mat-error class="error-message"
-                        *ngIf="sendForm.get('nomClientEmetteur').hasError(validation.type) && (sendForm.get('nomClientEmetteur').touched)">
-                        {{validation.message}}</mat-error>
-                </mat-error>
-            </div>
-            <div class="form-group">
-                <label for="telephoneEmetteur">Téléphone de l'émetteur</label>
-                <div class="input-group col-12">
-                    <span class="input-group-addon fontAw"><i class="fas fa-check"></i></span>
-                    <input matInput type="text" id="telephoneEmetteur" class="form-control backg"
-                        formControlName="telephoneEmetteur" placeholder="Téléphone de l'emetteur">
+                <div class="form-group">
+                    <label for="telephoneEmetteur">Téléphone de l'émetteur</label>
+                    <div class="input-group col-12">
+                        <span class="input-group-addon fontAw"><i class="fas fa-check"></i></span>
+                        <input matInput type="text" id="telephoneEmetteur" class="form-control backg"
+                            formControlName="telephoneEmetteur" placeholder="Téléphone de l'emetteur">
+                    </div>
+                    <mat-error *ngFor="let validation of ValidationMsg.telephoneEmetteur">
+                        <mat-error class="error-message"
+                            *ngIf="sendForm.get('telephoneEmetteur').hasError(validation.type) && (sendForm.get('telephoneEmetteur').touched)">
+                            {{validation.message}}</mat-error>
+                    </mat-error>
                 </div>
-                <mat-error *ngFor="let validation of ValidationMsg.telephoneEmetteur">
-                    <mat-error class="error-message"
-                        *ngIf="sendForm.get('telephoneEmetteur').hasError(validation.type) && (sendForm.get('telephoneEmetteur').touched)">
-                        {{validation.message}}</mat-error>
-                </mat-error>
-            </div>
-            <div class="form-group">
-                <label for="nciEmetteur">Numéro carte d'identité</label>
-                <div class="input-group col-12">
-                    <span class="input-group-addon fontAw"><i class="fas fa-map-marker-alt"></i></span>
-                    <input matInput type="text" id="nciEmetteur" class="form-control backg"
-                        formControlName="nciEmetteur" placeholder="Numéro carte d'identité de l'emetteur">
+                <div class="form-group">
+                    <label for="nciEmetteur">Numéro carte d'identité</label>
+                    <div class="input-group col-12">
+                        <span class="input-group-addon fontAw"><i class="fas fa-map-marker-alt"></i></span>
+                        <input matInput type="text" id="nciEmetteur" class="form-control backg"
+                            formControlName="nciEmetteur" placeholder="Numéro carte d'identité de l'emetteur">
+                    </div>
+                    <mat-error *ngFor="let validation of ValidationMsg.nciEmetteur">
+                        <mat-error class="error-message"
+                            *ngIf="sendForm.get('nciEmetteur').hasError(validation.type) && (sendForm.get('nciEmetteur').touched)">
+                            {{validation.message}}</mat-error>
+                    </mat-error>
                 </div>
-                <mat-error *ngFor="let validation of ValidationMsg.nciEmetteur">
-                    <mat-error class="error-message"
-                        *ngIf="sendForm.get('nciEmetteur').hasError(validation.type) && (sendForm.get('nciEmetteur').touched)">
-                        {{validation.message}}</mat-error>
-                </mat-error>
-            </div>
-            <div class="form-group">
-                <label for="nomClientRecepteur">Nom du recepteur</label>
-                <div class="input-group col-12">
-                    <span class="input-group-addon fontAw"><i class="fa fa-envelope"></i></span>
-                    <input matInput type="text" id="nomClientRecepteur" class="form-control backg"
-                        formControlName="nomClientRecepteur" placeholder="Nom du recepteur">
+                <div class="form-group">
+                    <label for="nomClientRecepteur">Nom du recepteur</label>
+                    <div class="input-group col-12">
+                        <span class="input-group-addon fontAw"><i class="fa fa-envelope"></i></span>
+                        <input matInput type="text" id="nomClientRecepteur" class="form-control backg"
+                            formControlName="nomClientRecepteur" placeholder="Nom du recepteur">
+                    </div>
+                    <mat-error *ngFor="let validation of ValidationMsg.nomClientRecepteur">
+                        <mat-error class="error-message"
+                            *ngIf="sendForm.get('nomClientRecepteur').hasError(validation.type) && (sendForm.get('nomClientRecepteur').touched)">
+                            {{validation.message}}</mat-error>
+                    </mat-error>
                 </div>
-                <mat-error *ngFor="let validation of ValidationMsg.nomClientRecepteur">
-                    <mat-error class="error-message"
-                        *ngIf="sendForm.get('nomClientRecepteur').hasError(validation.type) && (sendForm.get('nomClientRecepteur').touched)">
-                        {{validation.message}}</mat-error>
-                </mat-error>
-            </div>
-            <div class="form-group">
-                <label for="telephoneRecepteur">Téléphone du recepteur</label>
-                <div class="input-group col-12">
-                    <span class="input-group-addon fontAw"><i class="fas fa-phone-square"></i></span>
-                    <input matInput type="text" id="telephoneRecepteur" class="form-control backg"
-                        formControlName="telephoneRecepteur" placeholder="Téléphone du recepteur">
+                <div class="form-group">
+                    <label for="telephoneRecepteur">Téléphone du recepteur</label>
+                    <div class="input-group col-12">
+                        <span class="input-group-addon fontAw"><i class="fas fa-phone-square"></i></span>
+                        <input matInput type="text" id="telephoneRecepteur" class="form-control backg"
+                            formControlName="telephoneRecepteur" placeholder="Téléphone du recepteur">
+                    </div>
+                    <mat-error *ngFor="let validation of ValidationMsg.telephoneRecepteur">
+                        <mat-error class="error-message"
+                            *ngIf="sendForm.get('telephoneRecepteur').hasError(validation.type) && (sendForm.get('telephoneRecepteur').touched)">
+                            {{validation.message}}</mat-error>
+                    </mat-error>
                 </div>
-                <mat-error *ngFor="let validation of ValidationMsg.telephoneRecepteur">
-                    <mat-error class="error-message"
-                        *ngIf="sendForm.get('telephoneRecepteur').hasError(validation.type) && (sendForm.get('telephoneRecepteur').touched)">
-                        {{validation.message}}</mat-error>
-                </mat-error>
-            </div>
-            <div class="form-group">
-                <label for="montant">Montant</label>
-                <div class="input-group col-12">
-                    <span class="input-group-addon fontAw"><i class="fas fa-phone-square"></i></span>
-                    <input matInput type="text" id="montant" class="form-control backg" formControlName="montant"
-                        placeholder="Montant">
+                <div class="form-group">
+                    <label for="montant">Montant</label>
+                    <div class="input-group col-12">
+                        <span class="input-group-addon fontAw"><i class="fas fa-phone-square"></i></span>
+                        <input matInput type="text" id="montant" class="form-control backg" formControlName="montant"
+                            placeholder="Montant">
+                    </div>
+                    <mat-error *ngFor="let validation of ValidationMsg.montant">
+                        <mat-error class="error-message"
+                            *ngIf="sendForm.get('montant').hasError(validation.type) && (sendForm.get('montant').touched)">
+                            {{validation.message}}</mat-error>
+                    </mat-error>
                 </div>
-                <mat-error *ngFor="let validation of ValidationMsg.montant">
-                    <mat-error class="error-message"
-                        *ngIf="sendForm.get('montant').hasError(validation.type) && (sendForm.get('montant').touched)">
-                        {{validation.message}}</mat-error>
-                </mat-error>
             </div>
         </div>
-    </div>
-    <div class="row send">
-        <button type="submit" class="btn btn-primary col-sm-4 boutonSend col-sm-offset-4"
-            [disabled]="sendForm.invalid">Envoyer</button>
-    </div>
-</form>
+        <div class="row send">
+            <button type="submit" class="btn btn-primary col-sm-4 boutonSend col-sm-offset-4"
+                [disabled]="sendForm.invalid">Envoyer</button>
+        </div>
+    </form>
+</div>
 <fieldset *ngIf="afficherRecu">
     <legend>SA TRANSFERT</legend>
     <h3 class="text-center titre">Reçu d'envoi</h3>

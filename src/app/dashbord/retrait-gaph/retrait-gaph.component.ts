@@ -21,7 +21,9 @@ export class RetraitGaphComponent implements OnInit {
   constructor(private transactionService: TransactionService) { }
 
   ngOnInit() {
-    this.getRetraits();
+    setTimeout(()=>{
+      this.getRetraits();
+    },1000)
   }
   getRetraits(){
     const data={
@@ -32,6 +34,9 @@ export class RetraitGaphComponent implements OnInit {
     };
     if(localStorage.getItem("roles").search("ROLE_Super-admin")>=0){
       data.idUser=-1;//pour avoir tous les transactions
+    }
+    else if(localStorage.getItem("roles").search("ROLE_utilisateur")>=0){
+      data.idUser=(+localStorage.getItem("idUser"));//pour avoir tous les transactions
     }
     this.transactionService.historiqueTransaction(data).then(
       response=>{

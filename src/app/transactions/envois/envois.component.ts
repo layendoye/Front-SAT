@@ -54,7 +54,6 @@ export class EnvoisComponent implements OnInit {
 
   ngOnInit() {
     this.initForm();
-    
   }
   initForm(){
      this.sendForm=this.formBuilder.group({   
@@ -107,13 +106,15 @@ export class EnvoisComponent implements OnInit {
       },
       error=>{
         console.log('Erreur : '+error.message);
-        if(error.message.search("403")>=0){
+        if(error.error.message){
           Swal.fire(
             'Erreur',
-            'Le solde de votre compte ne vous permet pas de traiter cette transaction !',
+            error.error.message,
             'error'
           )
         }
+
+
       }
     )
   }

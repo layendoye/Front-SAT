@@ -22,7 +22,10 @@ export class TransactionGraphComponent implements OnInit {
   constructor(private transactionService: TransactionService) { }
 
   ngOnInit() {
-    this.getEnvois();
+    setTimeout(()=>{
+      this.getEnvois();
+    },1000)
+    
   }
   getEnvois(){
     const data={
@@ -34,11 +37,17 @@ export class TransactionGraphComponent implements OnInit {
     if(localStorage.getItem("roles").search("ROLE_Super-admin")>=0){
       data.idUser=-1;//pour avoir tous les transactions
     }
+    else if(localStorage.getItem("roles").search("ROLE_utilisateur")>=0){
+      data.idUser=(+localStorage.getItem("idUser"));//pour avoir tous les transactions
+    }
+    // if(localStorage.getItem("roles").search("ROLE_admin-Principal")>=0 || 
+    //    localStorage.getItem("roles").search("ROLE_admin")>=0 || 
+    //    localStorage.getItem("roles").search("ROLE_utilisateur")>=0){
+    //     window.location.reload();
+    // }
     this.transactionService.historiqueTransaction(data).then(
       response=>{
           this.envois=response;
-          console.log(response);
-          console.log(this.getHistoEnvois(response));
           const tab=this.getHistoEnvois(response);
           this.grath(tab[0],tab[1])
       },

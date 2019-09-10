@@ -21,7 +21,6 @@ export class AppComponent implements OnInit{
   }
 
   auth(){
-    console.log(localStorage);
     if(!this.isAuth && localStorage.getItem('token')){     
       this.isAuth=true;
       this.router.navigate(['accueil']);
@@ -36,10 +35,9 @@ export class AppComponent implements OnInit{
       window.location.reload();
     }
   }
-  getUserCompte(id:number){//deplacer la fonction u header ici recuperer id du user
+  getUserCompte(id:number){//appeler dans le header
     this.entrepriseService.getMonCompteActu(id).then(
       resp=>{
-        console.log(resp);
         this.numeroCompte=resp.compte.numeroCompte;
         this.solde=resp.compte.solde;
         this.ngOnInit();

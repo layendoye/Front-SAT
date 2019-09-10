@@ -22,11 +22,13 @@ export class HeaderComponent implements OnInit {
       rep=>{
         localStorage.setItem("idEntreprise",rep.entreprise.id);
         localStorage.setItem("idUser",rep.id);
-        this.appComponent.getUserCompte(rep.id);
+        const roles=localStorage.getItem("roles");
+        if(roles.search("ROLE_utilisateur")>=0 || roles.search("ROLE_admin-Principal")>=0 || roles.search("ROLE_admin")>=0)
+          this.appComponent.getUserCompte(rep.id);
         this.nom=rep.nom;
         this.MonPoste=this.poste(localStorage.getItem("roles"));
+        localStorage.setItem("image",rep.image);
         this.image="assets/img/"+rep.image;
-        console.log(rep);
       }
     )
   }

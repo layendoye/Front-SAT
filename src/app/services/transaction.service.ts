@@ -52,6 +52,7 @@ export class TransactionService {
           },
           error=>{
             console.log('Erreur : '+error.message);
+            console.log(error.error.Erreur)
             reject(error);
           }
         );

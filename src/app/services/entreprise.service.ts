@@ -38,6 +38,7 @@ export class EntrepriseService {
             },
             (error)=>{
               console.log('Erreur de chargement ! '+error.message);
+              
               reject(error)
             }
           );
@@ -75,7 +76,14 @@ export class EntrepriseService {
           },
           (error)=>{
             console.log('Erreur : '+error.message);
-            alert('Impossible de bloquer ce partenaire !');
+            //alert('Impossible de bloquer ce partenaire !');
+            if(error.error.message){
+              Swal.fire(
+                'Erreur',
+                error.error.message,
+                'error'
+              )
+            }
             reject(error);
           }
         );

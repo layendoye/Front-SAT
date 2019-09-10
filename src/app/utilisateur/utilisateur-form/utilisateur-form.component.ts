@@ -88,6 +88,10 @@ export class UtilisateurFormComponent implements OnInit {
     this.id = this.route.snapshot.params['id'];
     if(this.id== +localStorage.getItem("idUser")){
       this.SesParametres=true;
+      setTimeout(()=>{
+        this.imageUrl="assets/img/"+localStorage.getItem("image");
+      },1000)
+      
     }
 
     if (this.id) {
@@ -117,24 +121,27 @@ export class UtilisateurFormComponent implements OnInit {
   getProfil(){
     this.securityService.getProfil().then(
       profil => {//tableau des profils
-        if (this.role.search('ROLE_Super-admin') != -1 || this.role.search('ROLE_Caissier') != -1) {
-          this.profils = [profil[0], profil[1]];
+        if(!this.SesParametres){
+          if (this.role.search('ROLE_Super-admin') != -1 || this.role.search('ROLE_Caissier') != -1) 
+            this.profils = [profil[0], profil[1]];
+          else 
+            this.profils = [profil[2],profil[3], profil[4]];
         }
-        else {
-          this.profils = [profil[2],profil[3], profil[4]];
+        else{
+          const id=this.getidProfil2(this.role);
+          this.profils=[profil[id]];//pour avoir uniquement son role
         }
-        //console.log(profil);
       }
     )
   }
   initForm(user: Utilisateur) {
-    console.log(user);
     var idProfil=0;
     if(user.roles){
       idProfil=this.getidProfil(user.roles)
     }
-    console.log(idProfil);
-    user.password=user.confirmPassword="azerty";//juste pour l'afficher sur l input car le mot de passe ne sera pas modifié ici
+    if(this.update || this.SesParametres)
+      user.password=user.confirmPassword="azerty";//juste pour l'afficher sur l input car le mot de passe ne sera pas modifié ici
+    
     this.userForm=this.formBuilder.group({   
       nom:[user.nom,[Validators.required,Validators.minLength(2),Validators.pattern(/[a-z-A-Z]/)]],
       username:[user.username,[Validators.required,Validators.minLength(2)]],
@@ -190,8 +197,15 @@ export class UtilisateurFormComponent implements OnInit {
           }
         },
         (error) => {
-           this.remplirChamp()
+           //this.remplirChamp()
           console.log('Erreur : ' + error.message);
+          if(error.error.message){
+            Swal.fire(
+              'Erreur',
+              error.error.message,
+              'error'
+            )
+          }
         }
       );
     }
@@ -212,8 +226,15 @@ export class UtilisateurFormComponent implements OnInit {
           console.log(rep);
         },
         (error)=>{
-          this.remplirChamp()
+          //this.remplirChamp()
           console.log('Erreur : '+error.message);
+          if(error.error.message){
+            Swal.fire(
+              'Erreur',
+              error.error.message,
+              'error'
+            )
+          }
         }
       );
     }
@@ -231,6 +252,21 @@ export class UtilisateurFormComponent implements OnInit {
       id=4;
     }else if(role[0]=='ROLE_utilisateur'){
       id=5
+    }
+    return id;
+  }
+  getidProfil2(role:any){
+    var id;
+    if(role.search('ROLE_Super-admin')>=0){
+      id=0;
+    }else if(role.search('ROLE_Caissier')>=0){
+      id=1;
+    }else if(role.search('ROLE_admin-Principal')>=0){
+      id=2;
+    }else if(role.search('ROLE_admin')>=0){
+      id=3;
+    }else if(role.search('ROLE_utilisateur')>=0){
+      id=4
     }
     return id;
   }

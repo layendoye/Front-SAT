@@ -3,13 +3,13 @@
 </div>
 <div *ngIf="isAuth">
     <div class="wrapper">
-        <app-header></app-header>
-        <app-sidebar></app-sidebar>
+        <app-header class="fixed"></app-header>
+        <app-sidebar class="fixed"></app-sidebar>
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <!-- Main content -->
-            <section class="content">
+            <section class="content margTop">
                 <router-outlet></router-outlet>
             </section>
             <!-- /.content -->

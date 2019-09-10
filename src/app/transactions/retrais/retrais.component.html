@@ -1,93 +1,95 @@
-<form [formGroup]="codeForm" *ngIf="!isTransaction && !afficherRecu">
-    <div class="form-group">
-        <label for="code">Code de transaction</label>
-        <div class="input-group col-12">
-            <span class="input-group-addon fontAw"><i class="fas fa-map-marker-alt"></i></span>
-            <input matInput type="text" (change)="entrerCode($event.target.value)" id="code" class="form-control backg" formControlName="code" placeholder="Ex: xxxx xxxx xxxxx">
+<div class="backForm">
+    <form [formGroup]="codeForm" *ngIf="!isTransaction && !afficherRecu">
+        <div class="form-group">
+            <label for="code">Code de transaction</label>
+            <div class="input-group col-12">
+                <span class="input-group-addon fontAw"><i class="fas fa-map-marker-alt"></i></span>
+                <input matInput type="text" (change)="entrerCode($event.target.value)" id="code" class="form-control backg" formControlName="code" placeholder="Ex: xxxx xxxx xxxxx">
+            </div>
+            <mat-error *ngFor="let validation of ValidationMsg.code">
+                <mat-error class="error-message" *ngIf="codeForm.get('code').hasError(validation.type) && (codeForm.get('code').touched)">{{validation.message}}</mat-error>
+            </mat-error>
         </div>
-        <mat-error *ngFor="let validation of ValidationMsg.code">
-            <mat-error class="error-message" *ngIf="codeForm.get('code').hasError(validation.type) && (codeForm.get('code').touched)">{{validation.message}}</mat-error>
-        </mat-error>
-    </div>
-    <div class="form-group">
-        <label for="nciRecepteur">Numéro carte d'identité recepteur</label>
-        <div class="input-group col-12">
-            <span class="input-group-addon fontAw"><i class="fas fa-map-marker-alt"></i></span>
-            <input matInput type="text" id="nciRecepteur" class="form-control backg" formControlName="nciRecepteur" placeholder="Numéro carte d'identité de l'emetteur">
+        <div class="form-group">
+            <label for="nciRecepteur">Numéro carte d'identité recepteur</label>
+            <div class="input-group col-12">
+                <span class="input-group-addon fontAw"><i class="fas fa-map-marker-alt"></i></span>
+                <input matInput type="text" id="nciRecepteur" class="form-control backg" formControlName="nciRecepteur" placeholder="Numéro carte d'identité de l'emetteur">
+            </div>
+            <mat-error *ngFor="let validation of ValidationMsg.nciRecepteur">
+                <mat-error class="error-message" *ngIf="codeForm.get('nciRecepteur').hasError(validation.type) && (codeForm.get('nciRecepteur').touched)">{{validation.message}}</mat-error>
+            </mat-error>
         </div>
-        <mat-error *ngFor="let validation of ValidationMsg.nciRecepteur">
-            <mat-error class="error-message" *ngIf="codeForm.get('nciRecepteur').hasError(validation.type) && (codeForm.get('nciRecepteur').touched)">{{validation.message}}</mat-error>
-        </mat-error>
-    </div>
-    <div class="row send">
-        <button type="submit" class="btn btn-primary col-sm-4 boutonSend col-sm-offset-4" disabled>Valider</button>
-    </div>
-</form>
-
-<form [formGroup]="receptionForm" class="receptionForm" (ngSubmit)="onSubmit()" *ngIf="isTransaction && !afficherRecu">
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="form-group">
-                <label for="code">Code de transaction</label>
-                <div class="input-group col-12">
-                    <span class="input-group-addon fontAw"><i class="fas fa-map-marker-alt"></i></span>
-                    <input matInput type="text" (change)="modifCode($event.target.value)" id="code" class="form-control backg" formControlName="code" placeholder="Code de transaction">
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="nciRecepteur">Numéro carte d'identité recepteur</label>
-                <div class="input-group col-12">
-                    <span class="input-group-addon fontAw"><i class="fas fa-map-marker-alt"></i></span>
-                    <input matInput type="text" id="nciRecepteur" class="form-control backg" formControlName="nciRecepteur" placeholder="Numéro carte d'identité de l'emetteur">
-                </div>
-                <mat-error *ngFor="let validation of ValidationMsg.nciRecepteur">
-                    <mat-error class="error-message" *ngIf="receptionForm.get('nciRecepteur').hasError(validation.type) && (receptionForm.get('nciRecepteur').touched)">{{validation.message}}</mat-error>
-                </mat-error>
-            </div>
-            <div class="form-group">
-                <label for="nomClientRecepteur">Nom du recepteur</label>
-                <div class="input-group col-12">
-                    <span class="input-group-addon "><i class="fa fa-envelope"></i></span>
-                    <input type="text" id="nomClientRecepteur" class="form-control " formControlName="nomClientRecepteur" placeholder="Nom du recepteur" readOnly>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="nomClientEmetteur">Nom de l'émetteur</label>
-                <div class="input-group col-12">
-                    <span class="input-group-addon "><i class="far fa-building"></i></span>
-                    <input type="text" id="nomClientEmetteur" class="form-control " formControlName="nomClientEmetteur" placeholder="Nom et prénom du client" readOnly>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="telephoneEmetteur">Téléphone de l'émetteur</label>
-                <div class="input-group col-12">
-                    <span class="input-group-addon "><i class="fas fa-check"></i></span>
-                    <input type="text" id="telephoneEmetteur" class="form-control " formControlName="telephoneEmetteur" placeholder="Téléphone de l'emetteur" readOnly>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="telephoneRecepteur">Téléphone du recepteur</label>
-                <div class="input-group col-12">
-                    <span class="input-group-addon "><i class="fas fa-phone-square"></i></span>
-                    <input type="text" id="telephoneRecepteur" class="form-control " formControlName="telephoneRecepteur" placeholder="Téléphone du recepteur" readOnly>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="montant">Montant</label>
-                <div class="input-group col-12">
-                    <span class="input-group-addon "><i class="fas fa-phone-square"></i></span>
-                    <input type="text" id="montant" class="form-control " formControlName="montant" placeholder="Montant" readOnly>
-                </div>
-            </div>
-
-
+        <div class="row send">
+            <button type="submit" class="btn btn-primary col-sm-4 boutonSend col-sm-offset-4" disabled>Valider</button>
         </div>
-    </div>
-    <div class="row send">
-        <button type="submit" class="btn btn-primary col-sm-4 boutonSend col-sm-offset-4" [disabled]="receptionForm.invalid">Valider</button>
-    </div>
-</form>
+    </form>
+
+    <form [formGroup]="receptionForm" class="receptionForm" (ngSubmit)="onSubmit()" *ngIf="isTransaction && !afficherRecu">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <label for="code">Code de transaction</label>
+                    <div class="input-group col-12">
+                        <span class="input-group-addon fontAw"><i class="fas fa-map-marker-alt"></i></span>
+                        <input matInput type="text" (change)="modifCode($event.target.value)" id="code" class="form-control backg" formControlName="code" placeholder="Code de transaction">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="nciRecepteur">Numéro carte d'identité recepteur</label>
+                    <div class="input-group col-12">
+                        <span class="input-group-addon fontAw"><i class="fas fa-map-marker-alt"></i></span>
+                        <input matInput type="text" id="nciRecepteur" class="form-control backg" formControlName="nciRecepteur" placeholder="Numéro carte d'identité de l'emetteur">
+                    </div>
+                    <mat-error *ngFor="let validation of ValidationMsg.nciRecepteur">
+                        <mat-error class="error-message" *ngIf="receptionForm.get('nciRecepteur').hasError(validation.type) && (receptionForm.get('nciRecepteur').touched)">{{validation.message}}</mat-error>
+                    </mat-error>
+                </div>
+                <div class="form-group">
+                    <label for="nomClientRecepteur">Nom du recepteur</label>
+                    <div class="input-group col-12">
+                        <span class="input-group-addon "><i class="fa fa-envelope"></i></span>
+                        <input type="text" id="nomClientRecepteur" class="form-control " formControlName="nomClientRecepteur" placeholder="Nom du recepteur" readOnly>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="nomClientEmetteur">Nom de l'émetteur</label>
+                    <div class="input-group col-12">
+                        <span class="input-group-addon "><i class="far fa-building"></i></span>
+                        <input type="text" id="nomClientEmetteur" class="form-control " formControlName="nomClientEmetteur" placeholder="Nom et prénom du client" readOnly>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="telephoneEmetteur">Téléphone de l'émetteur</label>
+                    <div class="input-group col-12">
+                        <span class="input-group-addon "><i class="fas fa-check"></i></span>
+                        <input type="text" id="telephoneEmetteur" class="form-control " formControlName="telephoneEmetteur" placeholder="Téléphone de l'emetteur" readOnly>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="telephoneRecepteur">Téléphone du recepteur</label>
+                    <div class="input-group col-12">
+                        <span class="input-group-addon "><i class="fas fa-phone-square"></i></span>
+                        <input type="text" id="telephoneRecepteur" class="form-control " formControlName="telephoneRecepteur" placeholder="Téléphone du recepteur" readOnly>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="montant">Montant</label>
+                    <div class="input-group col-12">
+                        <span class="input-group-addon "><i class="fas fa-phone-square"></i></span>
+                        <input type="text" id="montant" class="form-control " formControlName="montant" placeholder="Montant" readOnly>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+        <div class="row send">
+            <button type="submit" class="btn btn-primary col-sm-4 boutonSend col-sm-offset-4" [disabled]="receptionForm.invalid">Valider</button>
+        </div>
+    </form>
+</div>
 <fieldset *ngIf="afficherRecu">
         <legend>SA TRANSFERT</legend>
         <h3 class="text-center titre">Reçu de retrait</h3>

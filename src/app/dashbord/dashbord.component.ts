@@ -1,5 +1,6 @@
 import { EntrepriseService } from './../services/entreprise.service';
 import { Component, OnInit } from '@angular/core';
+import { HeaderComponent } from '../header/header.component';
 
 @Component({
   selector: 'app-dashbord',
@@ -17,10 +18,11 @@ export class DashbordComponent implements OnInit {
   SupAdmin:boolean=false;
   Responsable:boolean=false;
   lesDeux:boolean=false;
-  constructor(private entrepriseService:EntrepriseService) { }
+  constructor(private entrepriseService:EntrepriseService,private header:HeaderComponent) { }
 
   ngOnInit() {
     this.permission();
+    this.header.ngOnInit();
     if(this.lesDeux){
       this.getNbrUsers();
       this.getNbrPartenaires();
@@ -54,7 +56,6 @@ export class DashbordComponent implements OnInit {
         rep=>{
           this.nbrPart=rep.length;
           this.afficherPart=true;
-          console.log(rep);
         },
         error=>console.log(error)
       );
@@ -64,7 +65,6 @@ export class DashbordComponent implements OnInit {
       this.entrepriseService.getAllCompte().then(
         rep=>{
           this.nbreCompte=rep.length-2;//-2 pour le compte etat et SAT
-          console.log(rep);
           for(var i=0;i<rep.length;i++){
             this.soldePartenaire+=rep[i].solde;
           }
@@ -80,7 +80,6 @@ export class DashbordComponent implements OnInit {
       this.entrepriseService.getComptesEntreprise(+idPart).then(
         rep=>{
           this.nbreCompte=rep.length;//-2 pour le compte etat et SAT
-          console.log(rep);
           for(var i=0;i<rep.length;i++){
             this.soldePartenaire+=rep[i].solde;
           }
