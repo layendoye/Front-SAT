@@ -16,7 +16,7 @@ export class SecurityService {
   private urlBack='http://127.0.0.1:8000';
   constructor(private httpClient: HttpClient) {
   }
-  login(username:string,password:string){
+  login(username:string,password:string){//ne pas factoriser
     
     const data={
       username: username,

@@ -114,7 +114,7 @@ export class EntrepriseFormComponent implements OnInit {
     });
   }
   onSubmit(){
-    this.entrepriseService.addEntreprise(this.entrepriseForm.value,this.fileToUpload).subscribe(
+    this.entrepriseService.addEntreprise(this.entrepriseForm.value,this.fileToUpload).then(
         (rep)=>{
           if(rep[0] && rep[0].property_path){
             this.entrepriseService.errerForm(rep);

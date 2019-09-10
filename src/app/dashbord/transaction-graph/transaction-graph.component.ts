@@ -40,11 +40,6 @@ export class TransactionGraphComponent implements OnInit {
     else if(localStorage.getItem("roles").search("ROLE_utilisateur")>=0){
       data.idUser=(+localStorage.getItem("idUser"));//pour avoir tous les transactions
     }
-    // if(localStorage.getItem("roles").search("ROLE_admin-Principal")>=0 || 
-    //    localStorage.getItem("roles").search("ROLE_admin")>=0 || 
-    //    localStorage.getItem("roles").search("ROLE_utilisateur")>=0){
-    //     window.location.reload();
-    // }
     this.transactionService.historiqueTransaction(data).then(
       response=>{
           this.envois=response;
@@ -76,7 +71,7 @@ export class TransactionGraphComponent implements OnInit {
           Highcharts.defaultOptions.legend.backgroundColor || '#FFFFFF'
       },
       xAxis: {
-        categories: date,
+        categories: this.afficheDate(date),
         plotBands: [{ // visualize the weekend
           from: 4.5,
           to: 6.5,
@@ -132,10 +127,13 @@ export class TransactionGraphComponent implements OnInit {
     }
     return [tabDate,tabEnvois];
   }
-    afficheDate(laDate:any){
-    var lAnne = laDate.slice(0, 4);
-    var leMois = laDate.slice(5, 7) - 1;
-    var leJour = laDate.slice(8, 10);
-    return leJour+'-'+leMois+'-'+lAnne;
+  afficheDate(tabDate:any){
+    for(var i=0;i<tabDate.length;i++){
+      var lAnne = tabDate[i].slice(0, 4);
+      var leMois = tabDate[i].slice(5, 7);
+      var leJour = tabDate[i].slice(8, 10);
+      tabDate[i]=leJour+'-'+leMois+'-'+lAnne;
+    }
+    return tabDate;
   }
 }

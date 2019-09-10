@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as Highcharts from 'highcharts';
 import { TransactionService } from './../../services/transaction.service';
+import { EntrepriseService } from 'src/app/services/entreprise.service';
 declare var require: any;
 let Boost = require('highcharts/modules/boost');
 let noData = require('highcharts/modules/no-data-to-display');
@@ -10,38 +11,29 @@ Boost(Highcharts);
 noData(Highcharts);
 More(Highcharts);
 noData(Highcharts);
+
 @Component({
-  selector: 'app-retrait-gaph',
-  templateUrl: './retrait-gaph.component.html',
-  styleUrls: ['./retrait-gaph.component.scss']
+  selector: 'app-depot-graph',
+  templateUrl: './depot-graph.component.html',
+  styleUrls: ['./depot-graph.component.scss']
 })
-export class RetraitGaphComponent implements OnInit {
-  retrais:any;
-  envois:any;
-  constructor(private transactionService: TransactionService) { }
+export class DepotGraphComponent implements OnInit {
+  depot:any;
+  moyenneDepot:number;
+  constructor(private transactionService: TransactionService,private entrepriseService:EntrepriseService) { }
 
   ngOnInit() {
     setTimeout(()=>{
-      this.getRetraits();
+      this.getDepot();
     },1000)
   }
-  getRetraits(){
-    const data={
-      action:"retraits",
-      dateDebut:"2019-01-01",
-      dateFin:new Date(),
-      idUser:0
-    };
-    if(localStorage.getItem("roles").search("ROLE_Super-admin")>=0){
-      data.idUser=-1;//pour avoir tous les transactions
-    }
-    else if(localStorage.getItem("roles").search("ROLE_utilisateur")>=0){
-      data.idUser=(+localStorage.getItem("idUser"));//pour avoir tous les transactions
-    }
-    this.transactionService.historiqueTransaction(data).then(
+  getDepot(){
+    const id=localStorage.getItem("idUser");
+    this.entrepriseService.getAllDepot(+id).then(
       response=>{
-          this.retrais=response;
-          const tab=this.getHistoRetraits(response);
+          this.depot=response[0];//1 moyenne depots
+          this.moyenneDepot=response[1];
+          const tab=this.getHistoDepot(response[0]);
           this.grath(tab[0],tab[1])
       },
       error=>{
@@ -49,13 +41,13 @@ export class RetraitGaphComponent implements OnInit {
       }
     );
   }
-  grath(date:any,retrais:any){
+  grath(date:any,depots:any){
     const options: any = {
       chart: {
         type: 'areaspline'
       },
       title: {
-        text: 'Retraits'
+        text: 'Dêpots'
       },
       legend: {
         layout: 'vertical',
@@ -94,48 +86,36 @@ export class RetraitGaphComponent implements OnInit {
         }
       },
       series: [{
-        name: 'Retraits',
-        data: retrais
+        name: 'Dêpots',
+        data: depots
       }
       //, {name: 'Retraits',data: retrait}
     ]
     }
-    Highcharts.chart('retrait', options);
+    Highcharts.chart('depot', options);
   }
-  getHistoRetraits(data:any){
+  getHistoDepot(data:any){
     var tabDate=[];
-    var tabRetraits=[];
+    var tabDepot=[];
     var montant=0;
     for(var i=0;i<data.length-1;i++){
-      var date1=data[i].dateReception.slice(0, 10);
-      var date2=data[i+1].dateReception.slice(0, 10);
+      var date1=data[i].date.slice(0, 10);
+      var date2=data[i+1].date.slice(0, 10);
       if(date1!=date2){
-        tabDate.push(data[i].dateReception.slice(0, 10));//il va peut etre manquer la dernier
+        tabDate.push(data[i].date.slice(0, 10));//il va peut etre manquer la dernier
       }
     }
-    tabDate.push(data[data.length-1].dateReception.slice(0, 10));//le dernier
-
-    for (i = 1; i < tabDate.length; i++) {//trier la date 
-			var cle = tabDate[i];
-			var j = i;
-			while ((j >= 1) && (new Date(tabDate[j - 1]) > new Date(cle))) {
-				tabDate[j]  = tabDate[j - 1] ;
-				j = j - 1;
-			}
-			tabDate[j] = cle;
-		}
-
-
-    for(j=0;j<tabDate.length;j++){//pour chaque bonne date
+    tabDate.push(data[data.length-1].date.slice(0, 10));//le dernier
+    for(var j=0;j<tabDate.length;j++){//pour chaque bonne date
       montant=0;
-      for(i=0;i<data.length;i++){//additionner les montants
-        if(tabDate[j]==data[i].dateReception.slice(0, 10)){
+      for(var i=0;i<data.length;i++){//additionner les montants
+        if(tabDate[j]==data[i].date.slice(0, 10)){
           montant=montant+data[i].montant;
         }
       }
-      tabRetraits.push(montant);
+      tabDepot.push(montant);
     }
-    return [tabDate,tabRetraits];
+    return [tabDate,tabDepot];
   }
   afficheDate(tabDate:any){
     for(var i=0;i<tabDate.length;i++){
@@ -146,4 +126,5 @@ export class RetraitGaphComponent implements OnInit {
     }
     return tabDate;
   }
+
 }

@@ -210,7 +210,7 @@ export class UtilisateurFormComponent implements OnInit {
       );
     }
     else{
-      this.entrepriseService.updateUser(formData,this.id).subscribe(
+      this.entrepriseService.updateUser(formData,this.id).then(
         (rep)=>{
           if(rep[0] && rep[0].property_path){
             this.entrepriseService.errerForm(rep);

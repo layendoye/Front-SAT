@@ -78,7 +78,7 @@ export class UpdateEntrepriseComponent implements OnInit {
     const emailEntreprise=this.entrepriseUpdForm.get('emailEntreprise').value;
     const telephoneEntreprise=this.entrepriseUpdForm.get('telephoneEntreprise').value;
     const entreprise=new Entreprise(raisonSociale, ninea, adresse,telephoneEntreprise, emailEntreprise,+this.id);//le + c est pour le caster en number
-    this.entrepriseService.updateEntreprise(entreprise).subscribe(
+    this.entrepriseService.updateEntreprise(entreprise).then(
         (rep)=>{
           if(rep[0] && rep[0].property_path){
              this.entrepriseService.errerForm(rep);

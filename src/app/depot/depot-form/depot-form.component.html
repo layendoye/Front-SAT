@@ -2,13 +2,13 @@
     <div class="col-sm-6 ">
         <form [formGroup]="depotForm" (ngSubmit)="onSubmit()" class="depot depotForm">
             <div class="form-group">
-                <label for="numeroCompte">Numéro de compte</label>
+                <label for="compte">Numéro de compte</label>
                 <div class="input-group col-sm-12">
                     <span class="input-group-addon fontAw"><i class="fas fa-sort-numeric-up"></i></span>
-                    <input type="text" (change)="getDepotCaissierCompte($event.target.value)" matInput id="numeroCompte" class="form-control backg" formControlName="numeroCompte" placeholder="Ex: xxxx xxxx xxxx">
+                    <input type="text" (change)="getDepotCaissierCompte($event.target.value)" matInput id="compte" class="form-control backg" formControlName="compte" placeholder="Ex: xxxx xxxx xxxx">
                 </div>
-                <mat-error *ngFor="let validation of ValidationMsg.numeroCompte">
-                    <mat-error class="error-message" *ngIf="depotForm.get('numeroCompte').hasError(validation.type) && (depotForm.get('numeroCompte').touched)">{{validation.message}}</mat-error>
+                <mat-error *ngFor="let validation of ValidationMsg.compte">
+                    <mat-error class="error-message" *ngIf="depotForm.get('compte').hasError(validation.type) && (depotForm.get('compte').touched)">{{validation.message}}</mat-error>
                 </mat-error>
             </div>
             <div class="form-group">

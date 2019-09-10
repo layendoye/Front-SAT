@@ -38,6 +38,7 @@ import { ListesComptesComponent } from './comptes/listes-comptes/listes-comptes.
 import { HistoriquesComptesComponent } from './comptes/historiques-comptes/historiques-comptes.component';
 import { TransactionGraphComponent } from './dashbord/transaction-graph/transaction-graph.component';
 import { RetraitGaphComponent } from './dashbord/retrait-gaph/retrait-gaph.component';
+import { DepotGraphComponent } from './dashbord/depot-graph/depot-graph.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -60,7 +61,8 @@ import { RetraitGaphComponent } from './dashbord/retrait-gaph/retrait-gaph.compo
     ListesComptesComponent,
     HistoriquesComptesComponent,
     TransactionGraphComponent,
-    RetraitGaphComponent
+    RetraitGaphComponent,
+    DepotGraphComponent
   ],
   imports: [
     BrowserModule,
@@ -82,7 +84,8 @@ import { RetraitGaphComponent } from './dashbord/retrait-gaph/retrait-gaph.compo
     IsGuichetierService,
     SuperEtPrincipService,
     AppComponent,
-    HeaderComponent
+    HeaderComponent,
+    DepotGraphComponent
   ],
   bootstrap: [AppComponent]
 })

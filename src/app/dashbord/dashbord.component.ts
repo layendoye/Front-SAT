@@ -1,6 +1,7 @@
 import { EntrepriseService } from './../services/entreprise.service';
 import { Component, OnInit } from '@angular/core';
 import { HeaderComponent } from '../header/header.component';
+import { DepotGraphComponent } from './depot-graph/depot-graph.component';
 
 @Component({
   selector: 'app-dashbord',
@@ -18,7 +19,12 @@ export class DashbordComponent implements OnInit {
   SupAdmin:boolean=false;
   Responsable:boolean=false;
   lesDeux:boolean=false;
-  constructor(private entrepriseService:EntrepriseService,private header:HeaderComponent) { }
+  caissier=false;
+  moyenneDepot:number=0;
+  nbrDepots:number=0;
+  nbrComptes:any=0;
+  depots:any;
+  constructor(private entrepriseService:EntrepriseService,private header:HeaderComponent,private depoGraph:DepotGraphComponent) { }
 
   ngOnInit() {
     this.permission();
@@ -28,7 +34,23 @@ export class DashbordComponent implements OnInit {
       this.getNbrPartenaires();
       this. getNbrCompte();
     }
-    
+    if(this.caissier){
+      this. getMoyenneDepot();
+    }   
+  }
+  getMoyenneDepot(){
+    const id=localStorage.getItem("idUser");
+    this.entrepriseService.getAllDepot(+id).then(
+      response=>{
+          this.moyenneDepot=response[1];
+          this.nbrDepots=response[0].length;
+          this.depots=response[0];
+          this.nbrComptes=this.getNbrCompteDepot(response[0]);
+      },
+      error=>{
+        console.log(error);
+      }
+    );
   }
   permission(){
     const roles=localStorage.getItem("roles");
@@ -40,6 +62,9 @@ export class DashbordComponent implements OnInit {
     }
     else if(roles.search("ROLE_admin-Principal")>=0 || roles.search("ROLE_admin")>=0){
       this.Responsable=true;
+    }
+    else if(roles.search("ROLE_Caissier")>=0){
+      this.caissier=true;
     }
   }
   getNbrUsers(){
@@ -87,5 +112,28 @@ export class DashbordComponent implements OnInit {
         error=>console.log(error)
       );
     }
+  }
+  getNbrCompteDepot(depots:any){
+    var tabCompte=[];
+    for(var i=0;i<depots.length;i++){//tab de compte
+      tabCompte.push(depots[i].compte.id)
+    }
+    for (i = 1; i < tabCompte.length; i++) {//trier les comptes 
+			var cle = tabCompte[i];
+			var j = i;
+			while ((j >= 1) && (tabCompte[j - 1] > cle)) {
+				tabCompte[j]  = tabCompte[j - 1] ;
+				j = j - 1;
+			}
+			tabCompte[j] = cle;
+    }
+    var nbr=0;
+    for(i=0;i<tabCompte.length-1;i++){
+      if(tabCompte[i]!=tabCompte[i+1]){
+        nbr++;
+      }
+    }
+    nbr++;//pour le dernier
+    return nbr;
   }
 }

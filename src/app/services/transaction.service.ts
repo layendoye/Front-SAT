@@ -73,19 +73,4 @@ export class TransactionService {
         );
       })
   }
-  getElements(url:string){
-    return new Promise<any[]>(
-      (resolve,reject)=>{
-      this.httpClient
-        .get<any[]>(this.urlBack+url,this.headers).subscribe(
-          rep=>{
-            resolve(rep);
-          },
-          error=>{
-            console.log('Erreur : '+error.message);
-            reject(error);
-          }
-        );
-      })
-  }
 }

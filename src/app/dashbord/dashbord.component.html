@@ -50,16 +50,19 @@
 
 
     <!-- ./col -->
-    <div class="col-lg-4 col-xs-6" *ngIf="lesDeux">
+    <div class="col-lg-4 col-xs-6" *ngIf="lesDeux || caissier">
         <!-- small box -->
         <div class="small-box bg-teal-gradient">
             <div class="inner">
-                <h3>{{soldePartenaire | number}}</h3>
+                <h3 *ngIf="lesDeux">{{soldePartenaire | number}}</h3>
+                <p *ngIf="lesDeux">Solde total des comptes</p>
 
-                <p>Solde total des comptes</p>
+                <h3 *ngIf="caissier">{{nbrDepots | number}}</h3>
+                <p *ngIf="caissier">Dêpots effectués</p>
             </div>
             <div class="icon">
-                <em class="fas fa-dollar-sign"></em>
+                <em class="fas fa-dollar-sign" *ngIf="lesDeux"></em>
+                <em class="fas fa-dollar-sign" *ngIf="caissier"></em>
             </div>
             <a routerLink="/liste/comptes" class="small-box-footer">Liste <em class="fa fa-arrow-circle-right"></em></a>
         </div>
@@ -68,15 +71,19 @@
 
 
     <!-- ./col -->
-    <div class="col-lg-4 col-xs-6" *ngIf="SupAdmin">
+    <div class="col-lg-4 col-xs-6" *ngIf="SupAdmin || caissier">
         <!-- small box -->
         <div class="small-box bg-aqua">
             <div class="inner">
-                <h3>{{soleSAT | number}}</h3>
-                <p>Commissions SAT</p>
+                <h3 *ngIf="SupAdmin">{{soleSAT | number}}</h3>
+                <p *ngIf="SupAdmin">Commissions SAT</p>
+
+                <h3 *ngIf="caissier">{{moyenneDepot | number}}</h3>
+                <p *ngIf="caissier">Moyenne des dêpots</p>
             </div>
             <div class="icon">
-                <em class="fas fa-dollar-sign"></em>
+                <em class="fas fa-dollar-sign" *ngIf="SupAdmin"></em>
+                <em class="fas fa-dollar-sign" *ngIf="caissier"></em>
             </div>
             <a routerLink="/entreprises/liste" class="small-box-footer">Liste <em
                     class="fa fa-arrow-circle-right"></em></a>
@@ -85,63 +92,35 @@
 
 
     <!-- ./col -->
-    <div class="col-lg-4 col-xs-6" *ngIf="SupAdmin">
+    <div class="col-lg-4 col-xs-6" *ngIf="SupAdmin || caissier">
         <!-- small box -->
         <div class="small-box bg-blue">
             <div class="inner">
-                <h3>{{soldeEtat | number}}</h3>
-                <p>Taxes Etat</p>
+                <h3 *ngIf="SupAdmin">{{soldeEtat | number}}</h3>
+                <p *ngIf="SupAdmin">Taxes Etat</p>
+
+                <h3 *ngIf="caissier">{{nbrComptes | number}}</h3>
+                <p *ngIf="caissier">Comptes crédités</p>
             </div>
             <div class="icon">
-                <em class="fas fa-landmark"></em>
+                <em class="fas fa-landmark" *ngIf="SupAdmin"></em>
+                <em class="fas fa-landmark" *ngIf="caissier"></em>
             </div>
             <a routerLink="/entreprises/liste" class="small-box-footer">Liste <em
                     class="fa fa-arrow-circle-right"></em></a>
         </div>
     </div>
-
-
-    <!-- ./col 
-    <div class="col-lg-3 col-xs-6">
-        <div class="small-box bg-green">
-            <div class="inner">
-                <h3>53<sup style="font-size: 20px">%</sup></h3>
-
-                <p>Bounce Rate</p>
-            </div>
-            <div class="icon">
-                <em class="ion ion-stats-bars"></em>
-            </div>
-            <a href="#" class="small-box-footer">More info <em class="fa fa-arrow-circle-right"></em></a>
-        </div>
-    </div>-->
-
-
-    <!-- ./col 
-    <div class="col-lg-3 col-xs-6">
-        <div class="small-box bg-red">
-            <div class="inner">
-                <h3>65</h3>
-
-                <p>Unique Visitors</p>
-            </div>
-            <div class="icon">
-                <em class="ion ion-pie-graph"></em>
-            </div>
-            <a href="#" class="small-box-footer">More info <em class="fa fa-arrow-circle-right"></em></a>
-        </div>
-    </div>-->
-    <!-- ./col -->
 </div>
 <!-- /.row -->
 <div class="row carteGraph">
-    <div [ngClass]="{'col-sm-6 noPadd': SupAdmin,'col-sm-12': SupAdmin }">
+    <div [ngClass]="{'col-sm-6 noPadd': SupAdmin }">
         <!-- solid sales graph -->
-        <div class="box box-solid bg-teal-gradient blockG">
+        <div [ngClass]="{'box box-solid bg-teal-gradient blockG':true,'graphDepot': caissier }">
             <div class="box-header blockG">
                 <i class="fa fa-th"></i>
 
-                <h3 class="box-title">Envois</h3>
+                <h3 class="box-title" *ngIf="!caissier">Envois</h3>
+                <h3 class="box-title" *ngIf="caissier">Dêpots</h3>
 
                 <div class="box-tools pull-right">
                     <button type="button" class="btn bg-teal btn-sm pull-right" data-widget="remove" title="Fermer"><i
@@ -154,13 +133,14 @@
                 </div>
             </div>
             <div class="box-body border-radius-none">
-                <app-transaction-graph></app-transaction-graph>
+                <app-transaction-graph *ngIf="!caissier"></app-transaction-graph>
+                <app-depot-graph *ngIf="caissier"></app-depot-graph>
             </div>
 
         </div>
         <!-- /.box -->
     </div>
-    <div [ngClass]="{'col-sm-6 noPadd': SupAdmin,'col-sm-12': SupAdmin }">
+    <div [ngClass]="{'col-sm-6 noPadd': SupAdmin,'col-sm-12': SupAdmin }" *ngIf="!caissier">
         <!-- solid sales graph -->
         <div [ngClass]="{'box box-solid bg-aqua':true,'blockD': SupAdmin}">
             <div class="box-header blockG">

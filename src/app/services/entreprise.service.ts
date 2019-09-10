@@ -22,10 +22,10 @@ export class EntrepriseService {
   emitEntreprise(){
     this.entrepriseSubject.next(this.entreprises);//la methode next force le subject à emmetre ce qu on lui passe en argument (ici la liste des entreprises)
   }
-  emitUser(){
+  emitUser(){//on peut utiliser le this.ngOnInt() dans les components aussi pour regler le probleme de l affichage apres la modification du statut par exemple
     this.userSubject.next(this.users);//la methode next force le subject à emmetre ce qu on lui passe en argument (ici la liste des entreprises)
   }
-  getEntreprise(){
+  getEntreprise(){//ne pas factoriser
     return new Promise<any[]>(
       (resolve,reject)=>{
         this.httpClient
@@ -62,9 +62,9 @@ export class EntrepriseService {
     )
   }
   getUserAffectation(){
-    return this.getElements('/lister/users/all');
+    return this.getElement('/lister/users/all');
   }
-  bloquer(id: number){
+  bloquer(id: number){//ne pas factoriser
     return new Promise<any>(
       (resolve, reject)=>{
       this.httpClient
@@ -89,7 +89,7 @@ export class EntrepriseService {
         );
       })
   }
-  bloquerUser(id: number){
+  bloquerUser(id: number){//ne pas factoriser
     return new Promise<any>(
       (resolve, reject)=>{
       this.httpClient
@@ -121,8 +121,7 @@ export class EntrepriseService {
     formData.append('telephone',data.telephone)
     formData.append('nci',data.nci)
     formData.append('image',imageFile,data.image)
-    return this.httpClient
-      .post<any>(this.urlBack+'/partenaires/add',formData,this.headers)
+      return this.postElement(formData,'/partenaires/add');
   }
   updateEntreprise(entreprise: Entreprise){
     const id=entreprise.id;
@@ -133,156 +132,37 @@ export class EntrepriseService {
       emailEntreprise:entreprise.emailEntreprise,
       telephoneEntreprise:entreprise.telephoneEntreprise
     }
-    return this.httpClient
-      .post<any>(this.urlBack+'/partenaires/update/'+id,data,this.headers)
+    return this.postElement(data,'/partenaires/update/'+id);
   }
   updateUser(formData:FormData,id:number){
-    
-    return this.httpClient
-      .post<any>(this.urlBack+'/user/update/'+id,formData,this.headers)
+    return this.getElement('/user/update/'+id)
   }
   recupEntreprise(id:number){
-    return new Promise<any>(
-      (resolve,reject)=>{
-      this.httpClient
-        .get<Entreprise>(this.urlBack+'/entreprise/'+id,this.headers).subscribe(
-          rep=>{
-          resolve(rep);
-          },
-          error=>{
-            console.log('Erreur : '+error.message);
-            reject(error);
-          }
-        );
-      })
+    return this.getElement('/entreprise/'+id)
   }
   recupUser(id:number){
-    return new Promise<Utilisateur>(
-      (resolve,reject)=>{
-      this.httpClient
-        .get<Utilisateur>(this.urlBack+'/user/'+id,this.headers).subscribe(
-          rep=>{
-          resolve(rep);
-          },
-          error=>{
-            console.log('Erreur : '+error.message);
-            reject(error);
-          }
-        );
-      })
-      
+      return this.getElement('/user/'+id)
   }
-  depot(numeroCompte:string,montant:number){
+  depot(data:any){
+    return this.postElement(data,'/nouveau/depot');
+  }
+  getDepotCaissierCompte(numeroCompte:string){
     const data={
-      compte:numeroCompte,
-      montant:montant
+      numeroCompte:numeroCompte
     }
-    return new Promise<any>(
-      (resolve,reject)=>{
-      this.httpClient
-        .post<any>(this.urlBack+'/nouveau/depot',data,this.headers).subscribe(
-          rep=>{
-          resolve(rep);
-          },
-          error=>{
-            console.log('Erreur : '+error.message);
-            reject(error);
-          }
-        );
-      })
-    //return this.postElement(data,'/nouveau/depot');
+    return this.postElement(data,"/compte/Mesdepots")
   }
-  errerForm(rep:any){
-    var err='';
-    for(var i=0;i<rep.length;i++){
-      var vrg='';
-      if(i>0) vrg=', ';
-      err+=vrg+rep[i].message;
-    }
-    Swal.fire(
-      'Erreur',
-      err,
-      'error'
-    )
+  getAllDepot(id:number){
+    return this.getElement('/depot/all/'+id);
   }
   getCompte(){
-    return new Promise<Compte[]>(
-      (resolve,reject)=>{
-      this.httpClient
-        .get<Compte[]>(this.urlBack+'/MesComptes',this.headers).subscribe(
-          rep=>{
-            resolve(rep);
-          },
-          error=>{
-            console.log('Erreur : '+error.message);
-            reject(error);
-          }
-        );
-      })
-    //this.getElement('/MesComptes');
+    return this.getElement('/MesComptes');
   }
   getComptesEntreprise(id:number){
-    return this.getElements('/compte/entreprise/'+id);
-  }
-  postElement(data:any,url:string){//return une promise
-    return new Promise<any>(
-      (resolve,reject)=>{
-      this.httpClient
-        .post<any>(this.urlBack+url,data,this.headers).subscribe(
-          rep=>{
-          resolve(rep);
-          },
-          error=>{
-            console.log('Erreur : '+error.message);
-            reject(error);
-          }
-        );
-      })
-  }
-  getElement(url:string){
-    return new Promise<any>(
-      (resolve,reject)=>{
-      this.httpClient
-        .get<any>(this.urlBack+url,this.headers).subscribe(
-          rep=>{
-            resolve(rep);
-          },
-          error=>{
-            console.log('Erreur : '+error.message);
-            reject(error);
-          }
-        );
-      })
-  }
-  getElements(url:string){
-    return new Promise<any[]>(
-      (resolve,reject)=>{
-      this.httpClient
-        .get<any[]>(this.urlBack+url,this.headers).subscribe(
-          rep=>{
-            resolve(rep);
-          },
-          error=>{
-            console.log('Erreur : '+error.message);
-            reject(error);
-          }
-        );
-      })
+    return this.getElement('/compte/entreprise/'+id);
   }
   affecterCompt(data:any){
-    return new Promise<any>(
-      (resolve,reject)=>{
-      this.httpClient
-        .post<any>(this.urlBack+'/changer/compte',data,this.headers).subscribe(
-          rep=>{
-          resolve(rep);
-          },
-          error=>{
-            console.log('Erreur : '+error.message);
-            reject(error);
-          }
-        );
-      })
+      return this.postElement(data,'/changer/compte');
   }
   getCompteActuel(id:number){
     return this.getElement('/compte/user/'+id);
@@ -293,12 +173,7 @@ export class EntrepriseService {
   addCompte(id:number){
     return this.getElement('/nouveau/compte/'+id);
   }
-  getDepotCaissierCompte(numeroCompte:string){
-    const data={
-      numeroCompte:numeroCompte
-    }
-    return this.postElement(data,"/compte/Mesdepots")
-  }
+ 
   getUneEntreprise(id:number){
     return this.getElement('/entreprise/'+id);
   }
@@ -316,5 +191,48 @@ export class EntrepriseService {
   }
   getUsersDuCompte(id:number){
     return this.getElement("/utilisateur/affecterCompte/"+id);
+  }
+  postElement(data:any,url:string){//return une promise
+    return new Promise<any>(
+      (resolve,reject)=>{
+      this.httpClient
+        .post<any>(this.urlBack+url,data,this.headers).subscribe(
+          rep=>{
+          resolve(rep);
+          },
+          error=>{
+            console.log('Erreur : '+error.message);
+            reject(error);
+          }
+        );
+    })
+  }
+  getElement(url:string){
+    return new Promise<any>(
+      (resolve,reject)=>{
+      this.httpClient
+        .get<any>(this.urlBack+url,this.headers).subscribe(
+          rep=>{
+            resolve(rep);
+          },
+          error=>{
+            console.log('Erreur : '+error.message);
+            reject(error);
+          }
+        );
+      })
+  }
+  errerForm(rep:any){//ne pas supprimer, cette fonction est utilisée dans d autres components
+    var err='';
+    for(var i=0;i<rep.length;i++){
+      var vrg='';
+      if(i>0) vrg=', ';
+      err+=vrg+rep[i].message;
+    }
+    Swal.fire(
+      'Erreur',
+      err,
+      'error'
+    )
   }
 }

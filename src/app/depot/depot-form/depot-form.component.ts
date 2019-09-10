@@ -52,14 +52,12 @@ export class DepotFormComponent implements OnInit {
         
   initForm(){
      this.depotForm=this.formBuilder.group({   
-      numeroCompte:['',[Validators.required,Validators.minLength(14)]],
+      compte:['',[Validators.required,Validators.minLength(14)]],
       montant:['',[Validators.required,Validators.pattern(/[0-9]/),Validators.min(75000)]],//surperieur à 75000
     });
   }
   onSubmit(){
-    const numeroCompte=this.depotForm.get('numeroCompte').value;
-    const montant=this.depotForm.get('montant').value;
-    this.entrepriseService.depot(numeroCompte,montant).then(
+    this.entrepriseService.depot(this.depotForm.value).then(
       rep=>{
         if(rep[0] && rep[0].property_path){
            this.entrepriseService.errerForm(rep);
@@ -70,15 +68,17 @@ export class DepotFormComponent implements OnInit {
               type: 'success'},
 
           )
-         this.router.navigate(['entreprises/liste']);
+         this.router.navigate(['/accueil']);
         }
       },
       error=>{
-        Swal.fire(
-          'Erreur',
-          error.message,
-          'success'
-        )
+        if(error.error.message){
+          Swal.fire(
+            'Erreur',
+            error.error.message,
+            'error'
+          )
+        }
       }
     );
   }
@@ -97,14 +97,11 @@ export class DepotFormComponent implements OnInit {
       },
       error=>{
         console.log(error);
-        if(numeroCompte.length>=14 && !this.isCompte){//14 à cause des espaces
-          Swal.fire({
-              width: 400,
-              title:'Erreur',
-              text:'Ce compte n\'existe pas !',
-              type: 'error'
-            },
-
+        if(error.error.message){
+          Swal.fire(
+            'Erreur',
+            error.error.message,
+            'error'
           )
         }
       }
